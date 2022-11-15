@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/svgs/hochschule-flensburg.svg" sizes="any" type="image/svg+xml" />
+  <link href="\styles.css" rel="stylesheet" />
+  <title>Ticketshop</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="\index.html"><img src="\svgs/logo-weiß.svg" alt="Das Logo des Planetarium Flensburgs."
+          title="Planetarium Flensburg" /></a>
+    </div>
+    <div class="title">
+      <h1>Planetarium Flensburg</h1>
+    </div>
+    <nav class="navbar">
+      <div class="icon" onclick="responsiveMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+    <ul class="navbar-links" id="topNavbar">
+      <li><a href="\index.html" title="hier zur Startseite">Home</a></li>
+      <li>
+        <a href="veranstaltungsreihe.html" title="hier zur Übersicht der Veranstaltungen">Veranstaltungsreihe</a>
+      </li>
+      <li>
+        <a href="bestellformular.html" title="hier Tickets kaufen">Tickets</a>
+      </li>
+      <li>
+        <a href="about.html" title="weitere Informationen über das Planetarium">Über uns</a>
+      </li>
+    </ul>
+  </header>
+  <main>
+    <div class="wrapper">
+      <h1>Ticketshop</h1>
+      <div class="bestellformular">
+        <form action="https://www.inf.hs-flensburg.de/echo/" method="post" accept-charset="utf-8">
+          <fieldset>
+            <legend>Persönliche Daten</legend>
+            <div><label>Vorname<input name="vorname" type="text" required></label></div>
+            <div><label>Name<input name="name" type="text" required></label></div>
+            <div><label>Straße<input name="street" type="text" required></label></div>
+            <div><label>Postleitzahl<input name="postcode" type="text" required></label></div>
+            <div><label>Stadt<input name="city" type="text" list="cities" required></label></div>
+            <div><label>E-Mail<input name="mail" type="email" placeholder="foo@bar.de" required></label></div>
+          </fieldset>
+          <fieldset>
+            <legend>Veranstaltung</legend>
+            <select name="Veranstaltungen" size="1" required>
+              <option value="empty">--------bitte wählen--------</option>
+              <option value="Das Weltall entdecken">Das Weltall entdecken</option>
+              <option value="Vom Big Bang zum Big Crunch">Vom Big Bang zum Big Crunch</option>
+              <option value="Pink Floyd Universe">Pink Floyd Universe</option>
+              <option value="Weltall: Wer kennts?">Weltall: Wer kennts?</option>
+              <option value="UFOs">UFOs</option>
+              <option value="Hörten Aliens unsere Music?">Hörten Aliens unsere Music?</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Veranstaltungsdatum</legend>
+            <input name="date" type="datetime-local">
+          </fieldset>
+        </form><button type="submit" value="Bestellen">Vorbestellen</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <ul>
+      <li>
+        <a href="\kolophon.html">Kolophon</a>
+      </li>
+      <li>
+        <a href="\dokumentation/index.html">Dokumentation</a>
+      </li>
+      <li class="impressum">
+        <a href="impressum.html" title="Impressum">Impressum</a>
+      </li>
+      <li>
+        <a href="dsgvo.html" title="Datenschutzerklärung">DSGVO</a>
+      </li>
+    </ul>
+    <p>&#169 Fiona Nissen & Marc Freitag</p>
+  </footer>
+</body>
+
+</html>

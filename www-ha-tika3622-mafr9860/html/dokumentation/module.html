@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="icon"
+      href="/svgs/hochschule-flensburg.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
+    <title>Module</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <a href="\index.html"
+          ><img
+            src="\svgs/logo-weiß.svg"
+            alt="Das Logo des Planetarium Flensburgs."
+            title="Planetarium Flensburg"
+        /></a>
+      </div>
+      <div class="title">
+        <h1>Planetarium Flensburg</h1>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="\index.html" title="hier zur Startseite">Home</a></li>
+        <li>
+          <a
+            href="/html-pur/veranstaltungsreihe.html"
+            title="hier zur Übersicht der Veranstaltungen"
+            >Veranstaltungsreihe</a
+          >
+        </li>
+        <li>
+          <a href="/html-pur/bestellformular.html" title="hier Tickets kaufen"
+            >Tickets</a
+          >
+        </li>
+        <li>
+          <a
+            href="/html-pur/about.html"
+            title="weitere Informationen über das Planetarium"
+            >Über uns</a
+          >
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div class="wrapper">
+        <h1>Überschrift H1</h1>
+        <h2>Überschrift H2</h2>
+        <!-- Artikel mit Text -->
+        <article>
+          <h3>Überschrift H3</h3>
+          <p>
+            Hier stehen wichtige Informationen zu unserem Projekt. Lest sie euch
+            durch, dann seid ihr schlauer und erkennt, was wir alles so
+            getrieben haben. Letztlich ist dies auch nur wieder ein Text, der
+            Platz füllen soll. Dieser Text zeigt nur, wie ein längerer Text auf
+            der Website aussehen könnte, darum macht dieser Text keinerlei Sinn
+            und dient nur der optischen Gestaltung.
+          </p>
+        </article>
+        <!-- Links -->
+        <a
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          target="_blank"
+          class="external-link"
+          >Externer-Link: Klick mich und du wirst an einen magischen Ort
+          geleitet</a
+        >
+        <a href="/html-pur/meteorschauer.html" class="external-link"
+          >Link: Klick mich und du siehst noch mehr Content</a
+        >
+        <!--Listen-->
+        <dl>
+          <dt>Description List</dt>
+          <dd>List-Element</dd>
+          <dt>Ober-Element</dt>
+          <dd>Unter-Element</dd>
+        </dl>
+        <ul class="liste">
+          <li>Listen-Element</li>
+          <li>Listen-Element</li>
+          <li>Listen-Element</li>
+        </ul>
+        <!-- Button -->
+        <button type="submit" value="Bestellen">Ein normaler Button</button>
+        <div class="bestellFormular">
+          <button type="submit" value="Bestellen">
+            Ein stilisierter Button
+          </button>
+        </div>
+       <h2>Beispiel-Kachel</h2>
+        <ul class="fun-facts-container">
+          <li>
+            <div>
+              <h2><b>Die Perseiden</b></h2>
+              <img
+                class="schild"
+                src="/Bilder/teleskop-schild.jpg"
+                alt="Schild beim Griffith-Observatorium"
+              />
+              <ul class="liste-blau">
+                <li>Benannt nach ihrem Radiant, dem Sternbild Perseus.</li>
+                <li><b>17. Juli - 24. August</b></li>
+                <li>
+                  Nächster Höhepunkt in Flensburg: In 2022 in der Nacht vom 12.
+                  auf den 13. August
+                </li>
+                <li></li>
+                <li><b>Herkunft</b>: Komet 109P/Swift-Tuttle</li>
+                <li><b>ZHR</b>:110</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+       
+      <h2>Ticketshop</h2>
+    <div class="bestellformular">
+    <form action="https://www.inf.hs-flensburg.de/echo/" method="post" accept-charset="utf-8">
+      <fieldset>
+        <legend>Persönliche Daten</legend>
+        <div><label>Vorname<input name="vorname" type="text" required></label></div>
+        <div><label>Name<input name="name" type="text" required></label></div>
+        <div><label>Straße<input name="street" type="text" required></label></div>
+        <div><label>Postleitzahl<input name="postcode" type="text" required></label></div>
+        <div><label>Stadt<input name="city" type="text" list="cities" required></label></div>
+        <div><label>E-Mail<input name="mail" type="email" placeholder="foo@bar.de" required></label></div>
+      </fieldset>
+      <fieldset>
+        <legend>Veranstaltung</legend>
+        <select name="Veranstaltungen" size="1" required>
+          <option value="empty">--------bitte wählen--------</option>
+          <option value="Das Weltall entdecken">Das Weltall entdecken</option>
+          <option value="Vom Big Bang zum Big Crunch">Vom Big Bang zum Big Crunch</option>
+          <option value="Pink Floyd Universe">Pink Floyd Universe</option>
+          <option value="Weltall: Wer kennts?">Weltall: Wer kennts?</option>
+          <option value="UFOs">UFOs</option>
+          <option value="Hörten Aliens unsere Music?">Hörten Aliens unsere Music?</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Veranstaltungsdatum</legend>
+        <input name="date" type="datetime-local">
+      </fieldset> 
+    </form><button type="submit" value="Bestellen">Vorbestellen</button>
+</div>
+</div>
+    </main>
+    <footer>
+      <ul>
+        <li>
+          <a href="/kolophon.html">Kolophon</a>
+        </li>
+        <li>
+          <a href="index.html">Dokumentation</a>
+        </li>
+        <li class="impressum">
+          <a href="/html-pur/impressum.html" title="Impressum">Impressum</a>
+        </li>
+        <li>
+          <a href="/html-pur/dsgvo.html" title="Datenschutzerklärung">DSGVO</a>
+        </li>
+      </ul>
+      <p>&#169; Fiona Nissen & Marc Freitag</p>
+    </footer>
+  </body>
+</html>

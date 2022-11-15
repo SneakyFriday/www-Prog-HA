@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="/svgs/hochschule-flensburg.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <title>Planetarium Flensburg</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <a href="index.html"
+          ><img
+            src="svgs/logo-weiß.svg"
+            alt="Das Logo des Planetarium Flensburgs."
+            title="Planetarium Flensburg"
+        /></a>
+      </div>
+      <div class="title">
+        <h1>Planetarium Flensburg</h1>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="index.html" title="hier zur Startseite">Home</a></li>
+        <li>
+          <a
+            href="html-pur/veranstaltungsreihe.html"
+            title="hier zur Übersicht der Veranstaltungen"
+            >Veranstaltungsreihe</a
+          >
+        </li>
+        <li>
+          <a href="html-pur/bestellformular.html" title="hier Tickets kaufen"
+            >Tickets</a
+          >
+        </li>
+        <li>
+          <a
+            href="html-pur/about.html"
+            title="weitere Informationen über das Planetarium"
+            >Über uns</a
+          >
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div class="mainWrapper">
+        <div class="cssSlider">
+          <!----Angepasse Slide-Show auf Basis der Quelle: https://ebene11.com/imageslider-ohne-javascript !-->
+          <input type="radio" name="slider" id="slide01" checked="checked" />
+          <input type="radio" name="slider" id="slide02" />
+          <input type="radio" name="slider" id="slide03" />
+          <input type="radio" name="slider" id="slide04" />
+          <ul class="sliderElements">
+            <li>
+              <figure>
+                <img
+                  src="Bilder/astronaut.jpg"
+                  alt="Astronaut während Spacewalk"
+                />
+                <figcaption>Die Gemini 4 Mission, 1965</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img
+                  src="Bilder/nasa.jpg"
+                  alt="NASA Schild vor dem Kennedy Space Center"
+                />
+                <figcaption>Das Kennedy Space Center</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img
+                  src="Bilder/planetarium-hawaii.jpg"
+                  alt="Außenansicht des Planetariums in Hawaii"
+                />
+                <figcaption>Das Planetarium in Flensburg</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure>
+                <img
+                  src="Bilder/radioteleskop.jpg"
+                  alt="Radioteleskop in New Mexiko"
+                />
+                <figcaption>Radioteleskop in New Mexiko</figcaption>
+              </figure>
+            </li>
+          </ul>
+          <ul class="sliderControls">
+            <li><label for="slide01"></label></li>
+            <li><label for="slide02"></label></li>
+            <li><label for="slide03"></label></li>
+            <li><label for="slide04"></label></li>
+          </ul>
+        </div>
+        <section>
+          <h3>Neuigkeiten</h3>
+          <p>Das ist in letzter Zeit spannendes passiert:</p>
+        </section>
+        <ul class="contentCardContainer">
+          <li>
+            <a href="html-pur/veranstaltungsreihe.html"
+              ><img
+                src="Bilder/rakete.jpg"
+                alt="Veranstaltungsreihe: Das Weltall entdecken"
+            /></a>
+            <div>
+              <h4>
+                <b>Veranstaltungsreihe: Das Weltall entdecken</b>
+              </h4>
+              <p>
+                Unsere neueste Veranstaltungsreihe läuft von Juni bis Oktober
+                2022. Schau sie dir jetzt an!
+              </p>
+            </div>
+          </li>
+          <li>
+            <img
+              src="Bilder/footprint.jpg"
+              alt="Neuigkeiten aus der Raumfahrt. 53 Jahre Mondlandung"
+            />
+            <div>
+              <h4><b>53 Jahre Mondlandung</b></h4>
+              <p>
+                Feier mit uns das Jubiläum einen der größten
+                Weltraummissions-Erfolge.
+              </p>
+            </div>
+          </li>
+          <li>
+            <img
+              src="Bilder/kennedy-space-center.jpg"
+              alt="Neuigkeiten aus der Raumfahrt. Kennedy Space-Center"
+            />
+            <div>
+              <h4><b>Das Kennedy Space Center</b></h4>
+              <p>Erfahre mehr über den Weltraumbahnhof der NASA</p>
+            </div>
+          </li>
+          <li>
+            <a href="fun-facts.html"
+              ><img
+                src="Bilder/mond.jpg"
+                alt="Fun-Facts aus der Raumfahrt. Wunder des Mondes"
+            /></a>
+            <div>
+              <h4><b>Das Wunder des Mondes</b></h4>
+              <p>
+                Wusstest du schon, dass der Mond deinen Schlaf beeinflussen
+                kann?
+              </p>
+            </div>
+          </li>
+        </ul>
+        <section>
+          <!-- Öffnungszeiten -->
+          <h3>Unsere Öffnungszeiten</h3>
+          <dl>
+            <dt>Montag</dt>
+            <dd>9:00 Uhr bis 18:00 Uhr</dd>
+            <dt>Dienstag</dt>
+            <dd>geschlossen</dd>
+            <dt>Mittwoch & Donnerstag</dt>
+            <dd>9:00 Uhr bis 18:00 Uhr</dd>
+            <dt>Freitag & Samstag</dt>
+            <dd>9:00 Uhr bis 21:00 Uhr</dd>
+            <dt>Sonntag</dt>
+            <dd>9:00 Uhr bis 19:00 Uhr</dd>
+          </dl>
+          <p>
+            Planetarium Flensburg<br />
+            Kanzleisstraße 91&ndash;93<br />
+            24943 Flensburg
+          </p>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <ul>
+        <li>
+          <a href="kolophon.html">Kolophon</a>
+        </li>
+        <li>
+          <a href="dokumentation/index.html">Dokumentation</a>
+        </li>
+        <li class="impressum">
+          <a href="html-pur/impressum.html" title="Impressum">Impressum</a>
+        </li>
+        <li>
+          <a href="html-pur/impressum.html" title="Datenschutzerklärung"
+            >DSGVO</a
+          >
+        </li>
+      </ul>
+      <p>&#169; Fiona Nissen & Marc Freitag</p>
+    </footer>
+  </body>
+</html>
