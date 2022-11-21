@@ -24,7 +24,11 @@ nunjucks.configure("templates", { autoescape: true, noCache: true });
  * Wie viele "weitere Funktionen" sind nötig für den Punkt "Backend Erweiterungen"?
  */
 
-// // Open database
+/**
+ * Open database
+ * Anlegen des ticketInfos Table, wo die Daten der KäuferInnen gespeichert werden.
+ * Anlegen des Veranstaltung-Tables, wo die Daten zur Veranstaltung gespeichert werden.
+ */
 const db = new DB("data/ticketData.sqlite", {mode: "create"});
 db.execute(`
   CREATE TABLE IF NOT EXISTS ticketInfos (
