@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{%block content%}
+
+<body>
+    <main>
+      <div class="wrapper">
+        <h1>Ticketshop</h1>
+        <div class="bestellformular">
+          <form action="#" method="POST" accept-charset="utf-8">
+            <fieldset>
+              <legend>Persönliche Daten</legend>
+              <label>Vorname
+                <input name="vorname" type="text" required></label>
+              <label>Name
+                <input name="name" type="text" required></label>
+              <label>Straße
+                <input name="street" type="text" required></label>
+              <label>Postleitzahl
+                <input name="postcode" type="text" required></label>
+              <label>Stadt
+                <input name="city" type="text" list="cities" required></label>
+              <label>E-Mail
+                <input name="mail" type="email" placeholder="foo@bar.de" required></label>
+            </fieldset>
+            <fieldset>
+              <legend>Veranstaltung</legend>
+              <select name="Veranstaltungen" size="1" required>
+                <option value="empty">--------bitte wählen--------</option>
+                <option value="Das Weltall entdecken">Das Weltall entdecken</option>
+                <option value="Vom Big Bang zum Big Crunch">Vom Big Bang zum Big Crunch</option>
+                <option value="Pink Floyd Universe">Pink Floyd Universe</option>
+                <option value="Weltall: Wer kennts?">Weltall: Wer kennts?</option>
+                <option value="UFOs">UFOs</option>
+                <option value="Hörten Aliens unsere Music?">Hörten Aliens unsere Music?</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <legend>Veranstaltungsdatum</legend>
+              <input name="date" type="datetime-local">
+            </fieldset>
+          </form><button type="submit" value="Bestellen">Vorbestellen</button>
+        </div>
+      </div>
+    </main>
+  </body>
+  {%endblock%}
