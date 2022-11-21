@@ -7,8 +7,7 @@ import * as ticketController from "./src/ticket-controller.js";
 
 nunjucks.configure("templates", { autoescape: true, noCache: true });
 
-/**
- * Fragen: 
+/** Fragen: 
  * Was soll konkret mit Backend umgesetzt werden?
  * Muss das CSS in das Template oder kann dies wie bisher verknüpft werden?
  * Können alle Doku Dateien zum Frontend gelöscht werden?
@@ -56,10 +55,7 @@ CREATE TABLE IF NOT EXISTS veranstaltungen (
  * @returns {Response}
  */
 export const handleRequest = async (request) => {
-  /**
-   * Data Objekt einfügen
-   * Datenbank einfügen
-   *  */  
+
   const ctx = {
       databank: db,
       nunjucks: nunjucks,
@@ -73,6 +69,7 @@ export const handleRequest = async (request) => {
     };
   
     // Anpassen je nach URL-Call
+    // TODO: Controller noch erstellen und je nach URL hinzufügen
     const router = await createRouter();
     router.get("/", controller.index);
     router.get("/about", controller.about);
@@ -88,7 +85,7 @@ export const handleRequest = async (request) => {
       return ctx.redirect;
     }
   
-    // Fallback
+    // Fallback falls URL nicht erreichbar
     result.response.status = result.response.status ?? 404;
     if (!result.response.body && result.response.status == 404) {
       result = await controller.error404(result);

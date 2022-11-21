@@ -5,7 +5,7 @@ import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
 const debug = Debug("app:controller");
 
 /**
- * Für alle Seiten Templates in /templates erstellen
+ * TODO: Für alle Seiten Templates in /templates erstellen
  */
 
 /**

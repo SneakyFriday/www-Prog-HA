@@ -1,4 +1,9 @@
-let searchButton = document.querySelector("#search")
+/**
+ * TODO: Script noch im Controller implementieren
+ * Das hier ist/war nur zum Testen der API
+ */
+
+const searchButton = document.querySelector("#search")
 
 searchButton.addEventListener("click", () => {
     console.log("Button pressed")
@@ -6,9 +11,9 @@ searchButton.addEventListener("click", () => {
 })
 
 async function fetchAPI(){
-    let API_KEY = "nVLMTnjDZivQDwoYW8P4RAM21hvLigt42HilbzLj";
-    let fetchedData = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
-    let data = await fetchedData.json();
+    const API_KEY = "nVLMTnjDZivQDwoYW8P4RAM21hvLigt42HilbzLj";
+    const fetchedData = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
+    const data = await fetchedData.json();
     usefetchedAPI(data);
 }
 
