@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="icon"
-      href="/svgs/hochschule-flensburg.svg"
-      sizes="any"
-      type="image/svg+xml"
-    />
-    <link href="styles.css" rel="stylesheet" />
-    <title>Planetarium Flensburg</title>
-  </head>
-
-  <body>
+{% extends 'layout.html' %}
+{%block content%}
     <header>
       <div class="logo">
         <a href="index.html"
@@ -201,7 +187,6 @@
           >
         </li>
       </ul>
-      <p>&#169; Fiona Nissen & Marc Freitag</p>
+      <p>&#169; Marc Freitag</p>
     </footer>
-  </body>
-</html>
+    {%endblock%}

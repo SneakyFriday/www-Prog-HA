@@ -51,6 +51,14 @@ export function errorHandler(data){
   return errorList;
 }
 
+export function add(ctx) {
+  debug("@add. ctx %O", ctx.request.url);
+  ctx.response.body = ctx.nunjucks.render("tickets.html", { });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
 /**
  * Übermittelt Nutzer Vorbestellung und speichert diese in DB
  * @param {Object} ctx 

@@ -1,7 +1,7 @@
 <!--TODO: Layout anpassen-->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,64 @@
     <title>Layout</title>
 </head>
 <body>
+    <header>
+        <div class="logo">
+          <a href="/index"
+            ><img
+              src="\svgs/logo-weiß.svg"
+              alt="Das Logo des Planetarium Flensburgs."
+              title="Planetarium Flensburg"
+          /></a>
+        </div>
+        <div class="title">
+          <h1>Planetarium Flensburg</h1>
+        </div>
+        <nav class="navbar">
+          <div class="icon">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </nav>
+        <ul class="navbar-links" id="topNavbar">
+          <li><a href="/" title="hier zur Startseite">Home</a></li>
+          <li>
+            <a
+              href="/veranstaltungsreihe"
+              title="hier zur Übersicht der Veranstaltungen"
+              >Veranstaltungsreihe</a
+            >
+          </li>
+          <li>
+            <a href="/tickets" title="hier Tickets kaufen">Tickets</a>
+          </li>
+          <li>
+            <a
+              href="/about"
+              title="weitere Informationen über das Planetarium"
+              >Über uns</a
+            >
+          </li>
+        </ul>
+      </header>
     {%block content%}
     {%endblock%}
+    <footer>
+      <ul>
+        <li>
+          <a href="/kolophon">Kolophon</a>
+        </li>
+        <li>
+          <a href="/dokumentation">Dokumentation</a>
+        </li>
+        <li class="impressum">
+          <a href="/impressum" title="Impressum">Impressum</a>
+        </li>
+        <li>
+          <a href="/dsgvo" title="Datenschutzerklärung">DSGVO</a>
+        </li>
+      </ul>
+      <p>&#169 Marc Freitag</p>
+    </footer>
 </body>
 </html>
