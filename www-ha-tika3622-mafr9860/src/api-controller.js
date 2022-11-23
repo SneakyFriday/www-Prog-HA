@@ -1,5 +1,5 @@
 /**
- * TODO: Script noch im Controller implementieren
+ * TODO: Script noch als Controller implementieren
  * Das hier ist/war nur zum Testen der API
  */
 
