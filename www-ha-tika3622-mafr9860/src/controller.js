@@ -47,6 +47,30 @@ export async function veranstaltungsreihe(ctx){
     return ctx;
   }
 
+  /**
+   * 
+   * @param {Object} ctx 
+   * @returns 
+   */
+  export function dsgvo(ctx){
+    ctx.response.body = ctx.nunjucks.render("dsgvo.html");
+    ctx.response.status = 200;
+    ctx.response.headers["content-type"] = "text/html";
+    return ctx;
+  }
+
+  /**
+   * 
+   * @param {Object} ctx 
+   * @returns 
+   */
+  export function impressum(ctx){
+    ctx.response.body = ctx.nunjucks.render("impressum.html");
+    ctx.response.status = 200;
+    ctx.response.headers["content-type"] = "text/html";
+    return ctx;
+  }
+
 /**
  * Controller des Templates für die 404-Error-Seite
  * @param {Object} ctx 

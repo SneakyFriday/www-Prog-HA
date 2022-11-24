@@ -4,8 +4,6 @@
 
 {%block content%}
     <h1>NASA Picture of the Day</h1>
-    <input id="searchTerm" type="text" placeholder="Enter search term">
-    <button id="search">Suchen</button>
-    <div id="content">
-    </div>
+    <div id="content"><img src= {{url}} alt="Aktuelles Nasa Picture of the Day"></div>
+    <div><p>{{explanation}}</p></div>
 {%endblock%}

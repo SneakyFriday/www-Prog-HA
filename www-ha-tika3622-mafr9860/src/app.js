@@ -2,6 +2,7 @@ import nunjucks from "https://deno.land/x/nunjucks@3.2.3/mod.js";
 import { debug } from "https://deno.land/x/debug@0.2.0/debug.ts";
 import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 
+import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 
@@ -75,7 +76,10 @@ export const handleRequest = async (request) => {
     const router = await createRouter();
     router.get("/", controller.index);
     router.get("/about", controller.about);
+    router.get("/dsgvo", controller.dsgvo);
+    router.get("/impressum", controller.impressum);
     router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
+    router.get("/apod", apiController.usefetchedAPI);
     router.get("/tickets", ticketController.add);
     router.post("/tickets", ticketController.submitPurchase);
   
