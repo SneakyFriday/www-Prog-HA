@@ -1,4 +1,4 @@
-<!--TODO: Layout anpassen-->
+<!--TODO: Layout anpassen, Style in CSS Datei schreiben-->
 
 <!DOCTYPE html>
 <html lang="de">
@@ -7,11 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: black;
+        color: whitesmoke;
+      }
+  
+      input,
+      textarea,
+      button {
+        font-size: inherit;
+      }
+  
+      .Form-error {
+        margin-top: 0;
+        margin-bottom: 0.5em;
+      }
+    </style>
 </head>
 <body>
     <header>
         <div class="logo">
-          <a href="/index"
+          <a href="/"
             ><img
               src="/frontend/svgs/logo-weiß.svg"
               alt="Das Logo des Planetarium Flensburgs."

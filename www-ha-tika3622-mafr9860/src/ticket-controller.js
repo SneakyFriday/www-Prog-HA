@@ -18,6 +18,8 @@ export const isValidDate = (date) => {
   
 export const isValidText = (text) => text.length >= 3;
 
+export const isValidPostcode = (postcode) => postcode.length == 5;
+
 /**
  * Prüft, ob die eingegebenen Daten valide sind und gibt ggf. ein Object mit den spezifischen Error-Messages.
  * TODO: Auf die jeweiligen Eingaben passen
@@ -28,25 +30,24 @@ export function errorHandler(data){
   // Errors Objekt erzeugen
   const errorList = { };
   // Checken, ob Daten valide sind, ansonsten in errorList schreiben
-  if (!isValidDate(data["date"])) {
-    console.log("Date Input invalide");
-    errorList.date = "Bitte geben Sie ein Datum an.";
+  if (!isValidText(data["vorname"])) {
+    errorList.vorname = "Bitte geben Sie einen Vornamen an.";
   }
-  if (!isValidText(data["title"])) {
-    console.log("Title Input invalide");
-    errorList.title = "Bitte geben Sie einen Titel an.";
+  if (!isValidText(data["name"])) {
+    errorList.name = "Bitte geben Sie einen Namen an.";
   }
-  if (!isValidText(data["textInput"])) {
-    console.log("Text Input invalide");
-    errorList.text = "Bitte geben Sie einen Text ein.";
+  if (!isValidPostcode(data["postcode"])) {
+    errorList.plz = "Bitte geben Sie eine Postleitzahl an.";
   }
-
-  // Debug-Ausgabe
-  console.log(`
-  Is valid Date: ${isValidDate(data["date"])}
-  Is valid Title: ${isValidText(data["title"])}
-  Is valid TextInput: ${isValidText(data["textInput"])}
-  `);
+  if (!isValidText(data["city"])) {
+    errorList.stadt = "Bitte geben Sie eine Stadt an.";
+  }
+  if (!isValidText(data["mail"])) {
+    errorList.mail = "Bitte geben Sie eine E-Mail Adresse an.";
+  }
+  // if (!isValidText(data["veranstaltungen"])) {
+  //   errorList.veranstaltung = "Bitte geben Sie eine Veranstaltung an.";
+  // }
 
   return errorList;
 }
@@ -69,23 +70,33 @@ export async function submitPurchase(ctx){
 
   // Form Data holen
   const formData = await ctx.request.formData();
-  const data = {
-    date: formData.get("date"),
-    title: formData.get("title"),
-    textInput: formData.get("text"),
-  };
-  
+
   // Debug-Ausgabe
-  for (const item of formData) {
-    console.log(`${item[0]}: ${item[1]}`);
-  }
+  //console.log(formData);
+
+  const data = {
+    vorname: formData.get("vorname"),
+    name: formData.get("name"),
+    street: formData.get("street"),
+    postcode: formData.get("postcode"),
+    city: formData.get("city"),
+    mail: formData.get("mail"),
+    veranstaltungen: 1
+    //veranstaltungen: formData.get("veranstaltungen"),
+  };
 
   // Error-Handling
   const errors = errorHandler(data);
 
+  // Daten der DB hinzufügen
+  await model.add(ctx.database, data);
+
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);
-    ctx.response.body = ctx.nunjucks.render(/*Template-Seite für Ticket-Bestellung einfügen*/);
+    ctx.response.body = ctx.nunjucks.render("tickets.html", { 
+      data: data,
+      errors: errors
+    });
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";
     return ctx;

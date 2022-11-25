@@ -1,6 +1,9 @@
 import * as model from "./model.js";
 import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
 
+// Deno Debug-Tool anstatt "Console.log()"
+const debug = Debug("app:controller");
+
 /**
  * TODO: Script noch als Controller implementieren
  * Das hier ist/war nur zum Testen der API
@@ -19,13 +22,8 @@ async function fetchAPI(){
  * @returns {Object}
  */
 export async function usefetchedAPI(ctx){
-    //debug("@usefetchedAPI. ctx %O", ctx.request.url);
+    debug("@usefetchedAPI. ctx %O", ctx.request.url);
     const {url, explanation} = await fetchAPI();
-
-    console.log(`
-        APOD URL: ${url}
-        APOD Expl: ${explanation}
-        `);
 
     ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
         url : url,

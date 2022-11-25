@@ -1,6 +1,11 @@
-<!--TODO: Abfragen der eingegebenen Form Daten-->
+<!--
+TODO: 
+- Abfragen der eingegebenen Form Daten
+- Form Error Object im Controller erstellen
+-->
 
 {% extends 'layout.html' %}
+
 {%block content%}
     <main>
       <div class="wrapper">
@@ -9,22 +14,28 @@
           <form action="#" method="POST" accept-charset="utf-8">
             <fieldset>
               <legend>Persönliche Daten</legend>
-              <label>Vorname
-                <input name="vorname" type="text" required></label>
+              <label for="vorname">Vorname
+                {% if errors.vorname %}<p class="Form-error">{{errors.vorname}}</p>{% endif %}
+                <input name="vorname" type="text" id="vorname" value="{{form.vorname}}" autofocus required></label>
               <label>Name
-                <input name="name" type="text" required></label>
+                {% if errors.name %}<p class="Form-error">{{errors.name}}</p>{% endif %}
+                <input name="name" type="text" value="{{form.name}}" required></label>
               <label>Straße
-                <input name="street" type="text" required></label>
+                {% if errors.strasse %}<p class="Form-error">{{errors.strasse}}</p>{% endif %}
+                <input name="street" type="text" value="{{form.strasse}}" required></label>
               <label>Postleitzahl
-                <input name="postcode" type="text" required></label>
+                {% if errors.plz %}<p class="Form-error">{{errors.plz}}</p>{% endif %}
+                <input name="postcode" type="text" value="{{form.plz}}" required></label>
               <label>Stadt
-                <input name="city" type="text" list="cities" required></label>
+                {% if errors.stadt %}<p class="Form-error">{{errors.stadt}}</p>{% endif %}
+                <input name="city" type="text" list="cities" value="{{form.stadt}}" required></label>
               <label>E-Mail
-                <input name="mail" type="email" placeholder="foo@bar.de" required></label>
+                {% if errors.mail%}<p class="Form-error">{{errors.mail}}</p>{% endif %}
+                <input name="mail" type="email" placeholder="foo@bar.de" value="{{form.mail}}" required></label>
             </fieldset>
             <fieldset>
               <legend>Veranstaltung</legend>
-              <select name="Veranstaltungen" size="1" required>
+              <select name="veranstaltungen" size="1" required>
                 <option value="empty">--------bitte wählen--------</option>
                 <option value="Das Weltall entdecken">Das Weltall entdecken</option>
                 <option value="Vom Big Bang zum Big Crunch">Vom Big Bang zum Big Crunch</option>
@@ -34,11 +45,8 @@
                 <option value="Hörten Aliens unsere Music?">Hörten Aliens unsere Music?</option>
               </select>
             </fieldset>
-            <fieldset>
-              <legend>Veranstaltungsdatum</legend>
-              <input name="date" type="datetime-local">
-            </fieldset>
-          </form><button type="submit" value="Bestellen">Vorbestellen</button>
+            <button type="submit" value="Bestellen">Vorbestellen</button>
+          </form>
         </div>
       </div>
     </main>
