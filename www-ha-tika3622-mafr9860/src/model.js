@@ -25,9 +25,10 @@ const debug = Debug("app:model");
  * @param {DB} db – All notes.
  * @param {number} db – Note to add.
  */
-export async function add (db, newNote) {
-    const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstlatungsID) VALUES (:vorname, :name, :strasse, :plz, :stadt, :mail, :veranstlatungsID)";
-    console.log(newNote);
-    const result = await db.query(sql, newNote);
+export async function add (db, newEntry) {
+    //const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+    const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+    console.log(newEntry);
+    const result = await db.query(sql, newEntry);
     return db.lastInsertRowId;
   }

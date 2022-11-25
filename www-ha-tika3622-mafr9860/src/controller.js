@@ -13,8 +13,8 @@ const debug = Debug("app:controller");
  * @param {Object} ctx 
  * @returns {Object}
  */
-export async function index(ctx) {
-    await debug("@index. ctx %O", ctx.request.url);
+export function index(ctx) {
+    debug("@index. ctx %O", ctx.request.url);
     ctx.response.body = ctx.nunjucks.render("index.html");
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";
@@ -26,8 +26,8 @@ export async function index(ctx) {
  * @param {Object} ctx 
  * @returns {Object}
  */
-export async function veranstaltungsreihe(ctx){
-    await debug("@veranstaltungsreihe. ctx %O", ctx.request.url);
+export function veranstaltungsreihe(ctx){
+    debug("@veranstaltungsreihe. ctx %O", ctx.request.url);
     ctx.response.body = ctx.nunjucks.render("veranstaltungsreihe.html");
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";

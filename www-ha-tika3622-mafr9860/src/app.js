@@ -6,6 +6,8 @@ import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 
+
+// Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
 
 /** Fragen: 
@@ -25,31 +27,37 @@ nunjucks.configure("templates", { autoescape: true, noCache: true });
  * -> Jede Erweiterung wird besser bewertet
  */
 
+
 /**
  * Open database
  * Anlegen des ticketInfos Table, wo die Daten der KäuferInnen gespeichert werden.
  * Anlegen des Veranstaltung-Tables, wo die Daten zur Veranstaltung gespeichert werden.
  */
 const db = new DB("data/ticketData.sqlite", {mode: "create"});
+
 db.execute(`
-  CREATE TABLE IF NOT EXISTS ticketInfos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    vorname TEXT,
-    name TEXT,
-    straße TEXT,
-    plz TEXT,
-    stadt TEXT,
-    mail TEXT,
-    veranstaltungsnummer TEXT
-  )
+  CREATE TABLE if not exists "ticketInfos" (
+    "id"	INTEGER,
+    "vorname"	TEXT NOT NULL,
+    "name"	TEXT NOT NULL,
+    "strasse"	INTEGER NOT NULL,
+    "plz"	TEXT NOT NULL,
+    "stadt"	TEXT NOT NULL,
+    "mail"	TEXT NOT NULL,
+    "veranstaltungsID"	INTEGER NOT NULL,
+    FOREIGN KEY("veranstaltungsID") REFERENCES "veranstaltungen"("id") ON UPDATE CASCADE ON DELETE SET NULL,
+    PRIMARY KEY("id" AUTOINCREMENT)
+  );
 `);
 db.execute(`
-CREATE TABLE IF NOT EXISTS veranstaltungen (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  datum TEXT,
-  preis TEXT
-)`);
+  CREATE TABLE if not exists "veranstaltungen" (
+    "id"	INTEGER,
+    "name"	TEXT NOT NULL,
+    "datum"	TEXT NOT NULL,
+    "preis"	TEXT NOT NULL,
+    PRIMARY KEY("id" AUTOINCREMENT)
+  );
+`);
 
 /**
  * Verarbeitet Requests mithilfe des ctx Objekts
@@ -60,7 +68,7 @@ export const handleRequest = async (request) => {
 
   const ctx = {
       data: {},  
-      databank: db,
+      database: db,
       nunjucks: nunjucks,
       request: request,
       params: {},
