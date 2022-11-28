@@ -8,14 +8,14 @@ const debug = Debug("app:ticketController");
 
 /**
  * Nutzereingaben validieren
- * @param {*} date 
- * @returns 
+ * @param {*} date
+ * @returns
  */
 export const isValidDate = (date) => {
-    const test = new Date(date);
-    return test != "Invalid Date" && date.length >= 10;
-  };
-  
+  const test = new Date(date);
+  return test != "Invalid Date" && date.length >= 10;
+};
+
 export const isValidText = (text) => text.length >= 3;
 
 export const isValidPostcode = (postcode) => postcode.length == 5;
@@ -23,12 +23,12 @@ export const isValidPostcode = (postcode) => postcode.length == 5;
 /**
  * Prüft, ob die eingegebenen Daten valide sind und gibt ggf. ein Object mit den spezifischen Error-Messages.
  * TODO: Auf die jeweiligen Eingaben passen
- * @param {Object} data 
+ * @param {Object} data
  * @returns {Object}
  */
-export function errorHandler(data){
+export function errorHandler(data) {
   // Errors Objekt erzeugen
-  const errorList = { };
+  const errorList = {};
   // Checken, ob Daten valide sind, ansonsten in errorList schreiben
   if (!isValidText(data["vorname"])) {
     errorList.vorname = "Bitte geben Sie einen Vornamen an.";
@@ -54,7 +54,7 @@ export function errorHandler(data){
 
 export function add(ctx) {
   debug("@add. ctx %O", ctx.request.url);
-  ctx.response.body = ctx.nunjucks.render("tickets.html", { });
+  ctx.response.body = ctx.nunjucks.render("tickets.html", {});
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
@@ -62,10 +62,10 @@ export function add(ctx) {
 
 /**
  * Übermittelt Nutzer Vorbestellung und speichert diese in DB
- * @param {Object} ctx 
+ * @param {Object} ctx
  * @returns {Object}
  */
-export async function submitPurchase(ctx){
+export async function submitPurchase(ctx) {
   debug("@submitPurchase. ctx %O", ctx.request.url);
 
   // Form Data holen
@@ -81,7 +81,7 @@ export async function submitPurchase(ctx){
     postcode: formData.get("postcode"),
     city: formData.get("city"),
     mail: formData.get("mail"),
-    veranstaltungen: 1
+    veranstaltungen: 1,
     //veranstaltungen: formData.get("veranstaltungen"),
   };
 
@@ -93,11 +93,11 @@ export async function submitPurchase(ctx){
 
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);
-    ctx.response.body = ctx.nunjucks.render("tickets.html", { 
-      data: data,
-      errors: errors
-    });
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
+  ctx.response.body = ctx.nunjucks.render("tickets.html", {
+    data: data,
+    errors: errors,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
 }

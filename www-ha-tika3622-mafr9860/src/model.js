@@ -12,23 +12,24 @@ const debug = Debug("app:model");
  * @param {DB} dbData – All notes.
  * @returns {Object[]} – All notes.
  */
- export async function getAll (db) {
-    const sql = `
+export async function getAll(db) {
+  const sql = `
       SELECT * FROM ticketInfos
     `;
-    const newItems = await db.queryEntries(sql);
-    return newItems;
-  }
+  const newItems = await db.queryEntries(sql);
+  return newItems;
+}
 
-  /**
+/**
  * Add a note.
  * @param {DB} db – All notes.
  * @param {number} db – Note to add.
  */
-export async function add (db, newEntry) {
-    //const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
-    const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
-    console.log(newEntry);
-    const result = await db.query(sql, newEntry);
-    return db.lastInsertRowId;
-  }
+export async function add(db, newEntry) {
+  //const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+  const sql =
+    "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+  console.log(newEntry);
+  const result = await db.query(sql, newEntry);
+  return db.lastInsertRowId;
+}

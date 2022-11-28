@@ -1,0 +1,29 @@
+<!--Template für Content Management System (Admin-Bereich)-->
+
+{% extends 'layout.html' %}
+
+{%block content%}
+<main>
+    <h1>CMS-Bereich</h1>
+    <form action="#" method="POST">
+        <fieldset>
+            <legend>Veranstaltung anlegen</legend>
+            <label for="title">Titel
+                <input type="text" name="title" id="title" value="" autofocus required>
+            </label>
+            <label for="description">Beschreibender Text
+                <input type="text" name="description" id="description" value="" autofocus required>
+            </label>
+            <label for="date">Datum
+                <input type="date" name="date" id="date" value="" autofocus required>
+            </label>
+            <label for="time">Uhrzeit
+                <input type="time" name="time" id="time" value="" autofocus required>
+            </label>
+            <label for="price">Preis
+                <input type="number" name="price" id="price" value="0,00" autofocus required>
+            </label>
+        </fieldset>
+    </form>
+</main>
+{%endblock%}

@@ -10,76 +10,85 @@ const debug = Debug("app:controller");
 
 /**
  * Controller des Templates für die Startseite
- * @param {Object} ctx 
+ * @param {Object} ctx
  * @returns {Object}
  */
 export function index(ctx) {
-    debug("@index. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("index.html");
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
-  }
+  debug("@index. ctx %O", ctx.request.url);
+  ctx.response.body = ctx.nunjucks.render("index.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
 
 /**
  * Controller des Templates für die Veranstaltungsreihe
- * @param {Object} ctx 
+ * @param {Object} ctx
  * @returns {Object}
  */
-export function veranstaltungsreihe(ctx){
-    debug("@veranstaltungsreihe. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("veranstaltungsreihe.html");
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
+export function veranstaltungsreihe(ctx) {
+  debug("@veranstaltungsreihe. ctx %O", ctx.request.url);
+  ctx.response.body = ctx.nunjucks.render("veranstaltungsreihe.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
 }
 
 /**
  * Controller des Templates für die About-Seite
- * @param {Object} ctx 
+ * @param {Object} ctx
  * @returns {Object}
  */
-  export function about(ctx) {
-    debug("@about. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("about.html");
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
-  }
+export function about(ctx) {
+  debug("@about. ctx %O", ctx.request.url);
+  ctx.response.body = ctx.nunjucks.render("about.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
 
-  /**
-   * 
-   * @param {Object} ctx 
-   * @returns 
-   */
-  export function dsgvo(ctx){
-    ctx.response.body = ctx.nunjucks.render("dsgvo.html");
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
-  }
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dsgvo(ctx) {
+  ctx.response.body = ctx.nunjucks.render("dsgvo.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
 
-  /**
-   * 
-   * @param {Object} ctx 
-   * @returns 
-   */
-  export function impressum(ctx){
-    ctx.response.body = ctx.nunjucks.render("impressum.html");
-    ctx.response.status = 200;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
-  }
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function impressum(ctx) {
+  ctx.response.body = ctx.nunjucks.render("impressum.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+ export function cms(ctx) {
+  ctx.response.body = ctx.nunjucks.render("cms.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
 
 /**
  * Controller des Templates für die 404-Error-Seite
- * @param {Object} ctx 
+ * @param {Object} ctx
  * @returns {Object}
  */
 export function error404(ctx) {
-    debug("@error404. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("error404.html");
-    ctx.response.status = 404;
-    ctx.response.headers["content-type"] = "text/html";
-    return ctx;
-  }
+  debug("@error404. ctx %O", ctx.request.url);
+  ctx.response.body = ctx.nunjucks.render("error404.html");
+  ctx.response.status = 404;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
