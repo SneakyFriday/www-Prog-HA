@@ -5,6 +5,7 @@ import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
+import * as cmsController from "./cms-controller.js";
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -54,6 +55,7 @@ db.execute(`
     "datum"	TEXT NOT NULL,
     "preis"	TEXT NOT NULL,
     "beschreibung"	TEXT NOT NULL DEFAULT 'Beschreibung',
+    "uhrzeit"	TEXT NOT NULL DEFAULT '0:00',
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);
@@ -82,7 +84,8 @@ export const handleRequest = async (request) => {
   const router = await createRouter();
   router.get("/", controller.index);
   router.get("/about", controller.about);
-  router.get("/cms", controller.cms);
+  router.get("/cms", cmsController.add);
+  router.post("/cms", cmsController.submitChangeToDB);
   router.get("/dsgvo", controller.dsgvo);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);

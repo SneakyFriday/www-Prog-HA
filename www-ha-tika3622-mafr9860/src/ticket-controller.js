@@ -85,7 +85,7 @@ export async function submitPurchase(ctx) {
   const errors = errorHandler(data);
 
   // Daten der DB hinzufügen
-  await model.add(ctx.database, data);
+  await model.addTicket(ctx.database, data);
 
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);

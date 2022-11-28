@@ -25,10 +25,22 @@ export async function getAll(db) {
  * @param {DB} db – All notes.
  * @param {number} db – Note to add.
  */
-export async function add(db, newEntry) {
-  //const sql = "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+export async function addTicket(db, newEntry) {
   const sql =
     "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+  console.log(newEntry);
+  const result = await db.query(sql, newEntry);
+  return db.lastInsertRowId;
+}
+
+/**
+ * Add a note.
+ * @param {DB} db – All notes.
+ * @param {number} db – Note to add.
+ */
+ export async function addEvent(db, newEntry) {
+  const sql =
+    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
   console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
