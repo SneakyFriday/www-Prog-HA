@@ -45,9 +45,6 @@ export function errorHandler(data) {
   if (!isValidText(data["mail"])) {
     errorList.mail = "Bitte geben Sie eine E-Mail Adresse an.";
   }
-  // if (!isValidText(data["veranstaltungen"])) {
-  //   errorList.veranstaltung = "Bitte geben Sie eine Veranstaltung an.";
-  // }
 
   return errorList;
 }
@@ -81,8 +78,7 @@ export async function submitPurchase(ctx) {
     postcode: formData.get("postcode"),
     city: formData.get("city"),
     mail: formData.get("mail"),
-    veranstaltungen: 1,
-    //veranstaltungen: formData.get("veranstaltungen"),
+    veranstaltungen: formData.get("veranstaltungen")
   };
 
   // Error-Handling

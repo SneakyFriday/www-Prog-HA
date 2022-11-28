@@ -1,9 +1,3 @@
-<!--
-TODO: 
-- Abfragen der eingegebenen Form Daten
-- Form Error Object im Controller erstellen
--->
-
 {% extends 'layout.html' %}
 
 {%block content%}
@@ -36,13 +30,12 @@ TODO:
             <fieldset>
               <legend>Veranstaltung</legend>
               <select name="veranstaltungen" size="1" required>
-                <option value="empty">--------bitte wählen--------</option>
-                <option value="Das Weltall entdecken">Das Weltall entdecken</option>
-                <option value="Vom Big Bang zum Big Crunch">Vom Big Bang zum Big Crunch</option>
-                <option value="Pink Floyd Universe">Pink Floyd Universe</option>
-                <option value="Weltall: Wer kennts?">Weltall: Wer kennts?</option>
-                <option value="UFOs">UFOs</option>
-                <option value="Hörten Aliens unsere Music?">Hörten Aliens unsere Music?</option>
+                <option value="1">Das Weltall entdecken</option>
+                <option value="2">Vom Big Bang zum Big Crunch</option>
+                <option value="3">Pink Floyd Universe</option>
+                <option value="4">Weltall: Wer kennts?</option>
+                <option value="5">UFOs</option>
+                <option value="6">Hörten Aliens unsere Music?</option>
               </select>
             </fieldset>
             <button type="submit" value="Bestellen">Vorbestellen</button>

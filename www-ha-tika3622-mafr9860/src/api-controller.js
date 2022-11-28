@@ -9,6 +9,10 @@ const debug = Debug("app:controller");
  * Das hier ist/war nur zum Testen der API
  */
 
+/**
+ * 
+ * @returns {Object}
+ */
 async function fetchAPI() {
   const API_KEY = "DEMO_KEY";
   const fetchedData = await fetch(

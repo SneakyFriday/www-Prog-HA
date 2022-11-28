@@ -53,6 +53,7 @@ db.execute(`
     "name"	TEXT NOT NULL,
     "datum"	TEXT NOT NULL,
     "preis"	TEXT NOT NULL,
+    "beschreibung"	TEXT NOT NULL DEFAULT 'Beschreibung',
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);

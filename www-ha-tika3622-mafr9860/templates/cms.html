@@ -1,26 +1,37 @@
 <!--Template für Content Management System (Admin-Bereich)-->
 
+<!--
+    TODO:
+    - Daten in DB speichern
+    - Errors-Element in Controller erstellen
+-->
+
 {% extends 'layout.html' %}
 
 {%block content%}
 <main>
     <h1>CMS-Bereich</h1>
-    <form action="#" method="POST">
+    <form action="#" method="POST" accept-charset="utf-8">
         <fieldset>
             <legend>Veranstaltung anlegen</legend>
             <label for="title">Titel
+                {% if errors.title %}<p class="Form-error">{{errors.title}}</p>{% endif %}
                 <input type="text" name="title" id="title" value="" autofocus required>
             </label>
             <label for="description">Beschreibender Text
+                {% if errors.description %}<p class="Form-error">{{errors.description}}</p>{% endif %}
                 <input type="text" name="description" id="description" value="" autofocus required>
             </label>
             <label for="date">Datum
+                {% if errors.date %}<p class="Form-error">{{errors.date}}</p>{% endif %}
                 <input type="date" name="date" id="date" value="" autofocus required>
             </label>
             <label for="time">Uhrzeit
+                {% if errors.time %}<p class="Form-error">{{errors.time}}</p>{% endif %}
                 <input type="time" name="time" id="time" value="" autofocus required>
             </label>
             <label for="price">Preis
+                {% if errors.price %}<p class="Form-error">{{errors.price}}</p>{% endif %}
                 <input type="number" name="price" id="price" value="0,00" autofocus required>
             </label>
         </fieldset>
