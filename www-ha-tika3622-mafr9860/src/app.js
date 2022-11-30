@@ -68,7 +68,7 @@ db.execute(`
  * @returns {Response}
  */
 export const handleRequest = async (request) => {
-  let ctx = {
+  const ctx = {
     data: {},
     database: db,
     nunjucks: nunjucks,
@@ -95,15 +95,37 @@ export const handleRequest = async (request) => {
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);
 
+  const serveStaticFile = (base) => async (ctx) => {
+    const url = new URL(ctx.request.url);
+    let file;
+    try {
+      file = await Deno.open(path.join(base, url.pathname), { read: true });
+    } catch (_error) {
+      return (ctx);
+    }
+    const { ext } = path.parse(url.pathname);
+    const contentType = mediaTypes.contentType(ext);
+    console.log("Content-Type: " + contentType);
+    if (contentType) {
+      ctx.response.body = file.readable; // Use readable stream 
+      ctx.response.headers["Content-type"] = contentType;
+      ctx.response.status = 200;
+    } else {
+      Deno.close(file.rid);
+    }
+    return (ctx);
+  };
+
   // ctx = logger.start(ctx);
   // ctx = xresponsetime.start(ctx);
   // ctx = getCookies(ctx);
   // ctx = getSession(ctx);
-  ctx = await serveStaticFile("./public")(ctx);
+  await serveStaticFile("./public")(ctx);
   // ctx = setSession(ctx);
   // ctx = setCookie(ctx);
   // ctx = xresponsetime.end(ctx);
   // let result = logger.end(ctx);
+
   // let, da result u.U. beim 404 verändert wird
   let result = await router.routes(ctx);
 
@@ -167,24 +189,4 @@ const createRouter = () => {
       console.log("%0", _routes);
     },
   };
-};
-
-const serveStaticFile = (base) => async (ctx) => {
-  const url = new URL(ctx.request.url);
-  let file;
-  try {
-    file = await Deno.open(path.join(base, url.pathname), { read: true });
-  } catch (_error) {
-    return (ctx);
-  }
-  const { ext } = path.parse(url.pathname);
-  const contentType = mediaTypes.contentType(ext);
-  if (contentType) {
-    ctx.response.body = file.readable; // Use readable stream 
-    ctx.response.headers["Content-type"] = contentType;
-    ctx.response.status = 200;
-  } else {
-    Deno.close(file.rid);
-  }
-  return (ctx);
 };
