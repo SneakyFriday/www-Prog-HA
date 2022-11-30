@@ -1,4 +1,6 @@
 import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
+import * as path from "https://deno.land/std@0.152.0/path/posix.ts";
+import * as mediaTypes from "https://deno.land/std@0.151.0/media_types/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:model");
@@ -38,7 +40,7 @@ export async function addTicket(db, newEntry) {
  * @param {DB} db – All notes.
  * @param {number} db – Note to add.
  */
- export async function addEvent(db, newEntry) {
+export async function addEvent(db, newEntry) {
   const sql =
     "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
   console.log(newEntry);

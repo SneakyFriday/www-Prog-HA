@@ -78,7 +78,7 @@ export async function submitPurchase(ctx) {
     postcode: formData.get("postcode"),
     city: formData.get("city"),
     mail: formData.get("mail"),
-    veranstaltungen: formData.get("veranstaltungen")
+    veranstaltungen: formData.get("veranstaltungen"),
   };
 
   // Error-Handling

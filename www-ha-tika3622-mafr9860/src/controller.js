@@ -1,5 +1,7 @@
 import * as model from "./model.js";
 import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
+import * as path from "https://deno.land/std@0.152.0/path/posix.ts";
+import * as mediaTypes from "https://deno.land/std@0.151.0/media_types/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:controller");
@@ -73,7 +75,7 @@ export function impressum(ctx) {
  * @param {Object} ctx
  * @returns {Object}
  */
- export function cms(ctx) {
+export function cms(ctx) {
   ctx.response.body = ctx.nunjucks.render("cms.html");
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";

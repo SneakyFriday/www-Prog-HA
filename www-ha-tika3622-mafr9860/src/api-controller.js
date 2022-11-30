@@ -10,7 +10,6 @@ const debug = Debug("app:controller");
  */
 
 /**
- * 
  * @returns {Object}
  */
 async function fetchAPI() {
