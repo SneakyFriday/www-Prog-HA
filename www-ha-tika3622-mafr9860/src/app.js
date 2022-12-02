@@ -107,7 +107,7 @@ export const handleRequest = async (request) => {
     const contentType = mediaTypes.contentType(ext);
     console.log("Content-Type: " + contentType);
     if (contentType) {
-      ctx.response.body = file.readable; // Use readable stream 
+      ctx.response.body = file.readable; // Use readable stream
       ctx.response.headers["Content-type"] = contentType;
       ctx.response.status = 200;
     } else {
@@ -166,7 +166,7 @@ const createRouter = () => {
       ctx.params = getParams(route, ctx.request.url);
       return route.controller(ctx);
     }
-    return ctx
+    return ctx;
   };
 
   return {
