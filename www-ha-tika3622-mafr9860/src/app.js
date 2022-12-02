@@ -8,6 +8,7 @@ import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 import * as cmsController from "./cms-controller.js";
+import * as logger from "./middleware/logging.js"
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -36,6 +37,7 @@ nunjucks.configure("templates", { autoescape: true, noCache: true });
  */
 const db = new DB("data/ticketData.sqlite", { mode: "create" });
 
+// Table für Ticketbestellungen anlegen
 db.execute(`
   CREATE TABLE if not exists "ticketInfos" (
     "id"	INTEGER,
@@ -50,6 +52,7 @@ db.execute(`
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);
+// Table für Veranstaltungen anlegen
 db.execute(`
   CREATE TABLE if not exists "veranstaltungen" (
     "id"	INTEGER,
@@ -68,7 +71,7 @@ db.execute(`
  * @returns {Response}
  */
 export const handleRequest = async (request) => {
-  const ctx = {
+  let ctx = {
     data: {},
     database: db,
     nunjucks: nunjucks,
@@ -95,6 +98,11 @@ export const handleRequest = async (request) => {
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);
 
+  /**
+   * Umgang mit statischen Dateien (z.B. CSS)
+   * @param {String} base 
+   * @returns {Object}
+   */
   const serveStaticFile = (base) => async (ctx) => {
     const url = new URL(ctx.request.url);
     let file;
@@ -105,7 +113,6 @@ export const handleRequest = async (request) => {
     }
     const { ext } = path.parse(url.pathname);
     const contentType = mediaTypes.contentType(ext);
-    console.log("Content-Type: " + contentType);
     if (contentType) {
       ctx.response.body = file.readable; // Use readable stream
       ctx.response.headers["Content-type"] = contentType;
@@ -116,7 +123,7 @@ export const handleRequest = async (request) => {
     return (ctx);
   };
 
-  // ctx = logger.start(ctx);
+  ctx = logger.start(ctx);
   // ctx = xresponsetime.start(ctx);
   // ctx = getCookies(ctx);
   // ctx = getSession(ctx);
@@ -124,7 +131,7 @@ export const handleRequest = async (request) => {
   // ctx = setSession(ctx);
   // ctx = setCookie(ctx);
   // ctx = xresponsetime.end(ctx);
-  // let result = logger.end(ctx);
+  ctx = logger.end(ctx);
 
   // let, da result u.U. beim 404 verändert wird
   let result = await router.routes(ctx);
