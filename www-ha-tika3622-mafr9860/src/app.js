@@ -8,6 +8,7 @@ import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 import * as cmsController from "./cms-controller.js";
+import * as login from "./middleware/login.js"
 import * as logger from "./middleware/logging.js"
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
@@ -92,6 +93,8 @@ export const handleRequest = async (request) => {
   router.get("/cms", cmsController.add);
   router.post("/cms", cmsController.submitChangeToDB);
   router.get("/dsgvo", controller.dsgvo);
+  router.get("/login", login.render);
+  router.post("/login", login.checkLoginCredentials);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
   router.get("/apod", apiController.usefetchedAPI);

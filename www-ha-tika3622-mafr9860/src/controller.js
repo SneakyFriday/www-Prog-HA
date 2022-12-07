@@ -83,6 +83,18 @@ export function cms(ctx) {
 }
 
 /**
+ * Login Controller zur Authentifikation
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+ export function login(ctx) {
+  ctx.response.body = ctx.nunjucks.render("login.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Controller des Templates für die 404-Error-Seite
  * @param {Object} ctx
  * @returns {Object}

@@ -13,6 +13,7 @@
     <div class="wrapper">
     <h1>CMS-Bereich</h1>
     <form action="#" method="POST" accept-charset="utf-8">
+        <!-- Veranstaltung anlegn -->
         <div>
         <fieldset>
             <legend>Veranstaltung anlegen</legend>
@@ -41,6 +42,9 @@
     </div>
 
         <!-- Veranstaltungen ändern -->
+        <!--
+            TODO: Liste mit DB synchronisieren und immer alle Veranstaltungen im Dropdown anzeigen
+        -->
         <div>
         <fieldset>
             <select name="veranstaltungen" size="1" required>
@@ -75,6 +79,12 @@
         </fieldset>
         <button type="submit" value="anlegen">Ändern</button>
     </div>
+    <!-- Veranstaltung löschen -->
+    <!-- 
+        TODO: 
+        - Ausgewählte Liste aus DB löschen
+        - Evtl. Toast nach dem Löschen bzw. Abfrage, ob wirklich gelöscht werden soll
+    -->
         <div>
         <fieldset>
             <legend>Veranstaltung löschen</legend>

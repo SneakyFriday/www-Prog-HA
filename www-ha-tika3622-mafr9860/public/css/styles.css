@@ -497,14 +497,18 @@ fieldset > div {
   padding: 0.5em 1em 0.5em 2em;
 }
 
+
 input[type="text"],
 textarea {
   flex: 1 1 24rem;
 }
 
 label {
-  flex: 0 0 12rem;
+  width: 200px;
+  display: inline-block;
+  text-align: left;
 }
+
 
 fieldset,
 form,
@@ -740,9 +744,9 @@ footer a {
 }
 
 .sliderElements img {
-  height: 400px;
-  object-fit: cover;
+  height: 20em;
   width: 100%;
+  object-fit: cover;
 }
 
 .cssSlider input {
@@ -1149,11 +1153,16 @@ td.es-contrast-grid__key-cell {
   }
 
   .wrapperAbout {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 0.5fr 1fr;
+    column-gap: 1em;
     padding-right: 2em;
     padding-left: 2em;
+  }
+
+  .wrapperAbout > div img {
+    max-width: 30em;
   }
 
   .aboutUstxt {
