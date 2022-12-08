@@ -14,23 +14,6 @@ import * as logger from "./middleware/logging.js"
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
 
-/** Fragen:
- * Was soll konkret mit Backend umgesetzt werden?
- * Muss das CSS in das Template oder kann dies wie bisher verknüpft werden? -> Als staitisch Datei
- * Können alle Doku Dateien zum Frontend gelöscht werden?
- * Sollen zur Prüfung jedes mal dummy Daten erzeugt werden oder wie übermitteln wir die DB-Daten nach der Abgabe der HA?
- *
- * Backend Bewertung:
- * kryptografischer Hashwert in der Datenbank? -> Vorlesung
- * Login? -> Vorlesung
- * ›prepared Statements‹ mit Platzhaltern für DB? -> Sind Platzhalterdaten in DB
- * administrative Routen? Rechte im Router prüfen? -> Vorlesung
- * Cookies? -> Vorlesung
- *
- * Wie viele "weitere Funktionen" sind nötig für den Punkt "Backend Erweiterungen"?
- * -> Jede Erweiterung wird besser bewertet
- */
-
 /**
  * Open database
  * Anlegen des ticketInfos Table, wo die Daten der KäuferInnen gespeichert werden.

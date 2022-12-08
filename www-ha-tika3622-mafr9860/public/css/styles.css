@@ -1155,14 +1155,19 @@ td.es-contrast-grid__key-cell {
   .wrapperAbout {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 1fr 1fr;
     column-gap: 1em;
     padding-right: 2em;
     padding-left: 2em;
   }
 
   .wrapperAbout > div img {
-    max-width: 30em;
+    max-width: fit-content;
+    float: right;
+  }
+
+  .wrapperAbout > div h2 {
+    margin-top: 0;
   }
 
   .aboutUstxt {
