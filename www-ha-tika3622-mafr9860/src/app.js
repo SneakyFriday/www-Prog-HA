@@ -8,8 +8,10 @@ import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 import * as cmsController from "./cms-controller.js";
-import * as login from "./middleware/login.js"
-import * as logger from "./middleware/logging.js"
+import * as login from "./middleware/login.js";
+import * as logger from "./middleware/logging.js";
+import * as cookies from "./middleware/cookies.js";
+import * as session from "./middleware/sessions.js";
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -111,11 +113,11 @@ export const handleRequest = async (request) => {
 
   ctx = logger.start(ctx);
   // ctx = xresponsetime.start(ctx);
-  // ctx = getCookies(ctx);
+  ctx = cookies.getCookies(ctx);
   // ctx = getSession(ctx);
   await serveStaticFile("./public")(ctx);
   // ctx = setSession(ctx);
-  // ctx = setCookie(ctx);
+  ctx = cookies.setCookie(ctx);
   // ctx = xresponsetime.end(ctx);
   ctx = logger.end(ctx);
 
