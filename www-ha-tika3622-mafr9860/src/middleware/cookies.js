@@ -2,7 +2,10 @@ import { CookieMap, mergeHeaders } from "https://deno.land/std@0.167.0/http/mod.
 
 export function setCookies(ctx){
     // Cookie Werte setzen
-    ctx.cookies.set();
+    ctx.cookies.set("CookieTest", 1, {
+        httpOnly: true,
+        overwrite: true,
+    });
     // Einbinden der Cookies im Header
     const allHeaders = mergeHeaders(ctx.response.headers, ctx.cookies);
     ctx.response.headers['set-cookie'] = allHeaders.get('set-cookie');

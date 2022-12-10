@@ -12,6 +12,7 @@ import * as login from "./middleware/login.js";
 import * as logger from "./middleware/logging.js";
 import * as cookies from "./middleware/cookies.js";
 import * as session from "./middleware/sessions.js";
+import * as serveStatic from "./middleware/serveStatic.js";
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -112,13 +113,12 @@ export const handleRequest = async (request) => {
   };
 
   ctx = logger.start(ctx);
-  // ctx = xresponsetime.start(ctx);
   ctx = cookies.getCookies(ctx);
-  // ctx = getSession(ctx);
-  await serveStaticFile("./public")(ctx);
-  // ctx = setSession(ctx);
-  ctx = cookies.setCookie(ctx);
-  // ctx = xresponsetime.end(ctx);
+  ctx = session.getSession(ctx);
+  // ctx = await serveStatic.serveStaticFile('../public')(ctx);
+  ctx = await serveStaticFile('./public')(ctx);
+  ctx = session.setSession(ctx);
+  ctx = cookies.setCookies(ctx);
   ctx = logger.end(ctx);
 
   // let, da result u.U. beim 404 verändert wird

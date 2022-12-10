@@ -3,7 +3,7 @@ import { contextOrFrameLookup } from "https://deno.land/x/nunjucks@3.2.3/src/run
 import { encode as base64Encode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
 
 // Session Konstanten
-const SESSION_KEY = '123';
+const SESSION_KEY = 'testKey';
 const MAX_AGE = 60 * 60 * 1000;
 
 export const createSessionStore = () => {
