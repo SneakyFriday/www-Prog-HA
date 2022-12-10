@@ -8,26 +8,14 @@ import * as apiController from "./api-controller.js";
 import * as controller from "./controller.js";
 import * as ticketController from "./ticket-controller.js";
 import * as cmsController from "./cms-controller.js";
+import * as login from "./middleware/login.js";
+import * as logger from "./middleware/logging.js";
+import * as cookies from "./middleware/cookies.js";
+import * as session from "./middleware/sessions.js";
+import * as serveStatic from "./middleware/serveStatic.js";
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
-
-/** Fragen:
- * Was soll konkret mit Backend umgesetzt werden?
- * Muss das CSS in das Template oder kann dies wie bisher verknüpft werden? -> Als staitisch Datei
- * Können alle Doku Dateien zum Frontend gelöscht werden?
- * Sollen zur Prüfung jedes mal dummy Daten erzeugt werden oder wie übermitteln wir die DB-Daten nach der Abgabe der HA?
- *
- * Backend Bewertung:
- * kryptografischer Hashwert in der Datenbank? -> Vorlesung
- * Login? -> Vorlesung
- * ›prepared Statements‹ mit Platzhaltern für DB? -> Sind Platzhalterdaten in DB
- * administrative Routen? Rechte im Router prüfen? -> Vorlesung
- * Cookies? -> Vorlesung
- *
- * Wie viele "weitere Funktionen" sind nötig für den Punkt "Backend Erweiterungen"?
- * -> Jede Erweiterung wird besser bewertet
- */
 
 /**
  * Open database
@@ -36,6 +24,7 @@ nunjucks.configure("templates", { autoescape: true, noCache: true });
  */
 const db = new DB("data/ticketData.sqlite", { mode: "create" });
 
+// Table für Ticketbestellungen anlegen
 db.execute(`
   CREATE TABLE if not exists "ticketInfos" (
     "id"	INTEGER,
@@ -50,6 +39,7 @@ db.execute(`
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);
+// Table für Veranstaltungen anlegen
 db.execute(`
   CREATE TABLE if not exists "veranstaltungen" (
     "id"	INTEGER,
@@ -68,7 +58,7 @@ db.execute(`
  * @returns {Response}
  */
 export const handleRequest = async (request) => {
-  const ctx = {
+  let ctx = {
     data: {},
     database: db,
     nunjucks: nunjucks,
@@ -89,12 +79,19 @@ export const handleRequest = async (request) => {
   router.get("/cms", cmsController.add);
   router.post("/cms", cmsController.submitChangeToDB);
   router.get("/dsgvo", controller.dsgvo);
+  router.get("/login", login.render);
+  router.post("/login", login.checkLoginCredentials);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
   router.get("/apod", apiController.usefetchedAPI);
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);
 
+  /**
+   * Umgang mit statischen Dateien (z.B. CSS)
+   * @param {String} base 
+   * @returns {Object}
+   */
   const serveStaticFile = (base) => async (ctx) => {
     const url = new URL(ctx.request.url);
     let file;
@@ -105,7 +102,6 @@ export const handleRequest = async (request) => {
     }
     const { ext } = path.parse(url.pathname);
     const contentType = mediaTypes.contentType(ext);
-    console.log("Content-Type: " + contentType);
     if (contentType) {
       ctx.response.body = file.readable; // Use readable stream
       ctx.response.headers["Content-type"] = contentType;
@@ -116,15 +112,14 @@ export const handleRequest = async (request) => {
     return (ctx);
   };
 
-  // ctx = logger.start(ctx);
-  // ctx = xresponsetime.start(ctx);
-  // ctx = getCookies(ctx);
-  // ctx = getSession(ctx);
-  await serveStaticFile("./public")(ctx);
-  // ctx = setSession(ctx);
-  // ctx = setCookie(ctx);
-  // ctx = xresponsetime.end(ctx);
-  // let result = logger.end(ctx);
+  ctx = logger.start(ctx);
+  ctx = cookies.getCookies(ctx);
+  ctx = session.getSession(ctx);
+  // ctx = await serveStatic.serveStaticFile('../public')(ctx);
+  ctx = await serveStaticFile('./public')(ctx);
+  ctx = session.setSession(ctx);
+  ctx = cookies.setCookies(ctx);
+  ctx = logger.end(ctx);
 
   // let, da result u.U. beim 404 verändert wird
   let result = await router.routes(ctx);

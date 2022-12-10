@@ -223,7 +223,7 @@
 }
 
 body {
-  background: url(Bilder/Hintergrund.png) #13336c;
+  background: url('../pictures/Hintergrund.png') #13336c;
   color: white;
   font-family: "Barlow Semi Condensed";
   font-style: normal;
@@ -250,7 +250,6 @@ ul {
   margin-left: -2em;
 }
 
-/* Änderung. Gilt nun für alle */
 p {
   hyphens: auto;
   line-break: auto;
@@ -335,8 +334,9 @@ button:active {
 }
 
 header {
-  background: url(Bilder/Hintergrund.png) #13336c;
-  display: block; /*Fallback*/
+  background: url('../pictures/Hintergrund.png') #13336c;
+  margin-top: 10px;
+  /*display: block; /*Fallback*/
   display: grid;
   grid-template-areas:
     "logo title"
@@ -346,7 +346,6 @@ header {
 header .logo {
   align-self: center;
   grid-area: logo;
-  margin-top: 10px;
   padding: 0 0.5em 0 1.5em;
   width: 80px;
 }
@@ -359,7 +358,19 @@ header .title {
 header .navbar-links {
   background-color: #e6e6e7;
   grid-area: navbar;
+  margin-right: 0;
   width: 100%;
+}
+
+.apod {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.apod > ul li img {
+  max-width: 50em;
+  width: auto;
+  
 }
 
 .navbar-links a {
@@ -386,6 +397,7 @@ header .navbar-links {
 
 /* Versteckt alle Items */
 @media screen and (max-width: 850px) {
+
   .navbar-links a {
     font-size: 1em;
     position: relative;
@@ -400,8 +412,16 @@ header .navbar-links {
   }
 }
 
+.apod {
+  grid-template-columns: 1fr;
+}
+
+.apod > ul li img {
+  max-width: 20em;
+  width: fit-content;
+}
+
 main {
-  fallback: block; /* Fallback */
   display: grid;
 }
 
@@ -421,6 +441,14 @@ main {
   overflow: hidden;
   overflow-x: auto;
   width: 50%;
+}
+
+.aboutUstxt {
+  margin: 0 1em 1em 1em;
+}
+
+.wrapperAbout > div h2 {
+  margin-left: 0.6em;
 }
 
 .inhaltsverzeichnis {
@@ -497,14 +525,18 @@ fieldset > div {
   padding: 0.5em 1em 0.5em 2em;
 }
 
+
 input[type="text"],
 textarea {
   flex: 1 1 24rem;
 }
 
 label {
-  flex: 0 0 12rem;
+  width: 200px;
+  display: inline-block;
+  text-align: left;
 }
+
 
 fieldset,
 form,
@@ -531,7 +563,7 @@ fieldset > div {
 }
 
 fieldset input {
-  width: 20em;
+  width: fit-content;
 }
 
 legend {
@@ -620,7 +652,7 @@ legend {
 
 footer {
   align-items: center;
-  background: url(Bilder/Hintergrund.png) #13336c;
+  background: url('../pictures/Hintergrund.png') #13336c;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -740,9 +772,9 @@ footer a {
 }
 
 .sliderElements img {
-  height: 400px;
-  object-fit: cover;
+  height: 20em;
   width: 100%;
+  object-fit: cover;
 }
 
 .cssSlider input {
@@ -1149,11 +1181,22 @@ td.es-contrast-grid__key-cell {
   }
 
   .wrapperAbout {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    padding-right: 2em;
-    padding-left: 2em;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    margin-right: 2em;
+    margin-left: 2em;
+  }
+
+  .wrapperAbout > div img {
+    max-width: fit-content;
+    float: right;
+  }
+
+  .wrapperAbout > div h2 {
+    margin-top: 0;
+    margin-left: 0;
   }
 
   .aboutUstxt {
@@ -1223,6 +1266,14 @@ td.es-contrast-grid__key-cell {
 
   a {
     font-size: 1em;
+  }
+
+  .apod {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .apod > ul li img {
+    max-width: 30em;
   }
 
   .navbar-links a {
