@@ -223,7 +223,7 @@
 }
 
 body {
-  background: url(Bilder/Hintergrund.png) #13336c;
+  background: url('../pictures/Hintergrund.png') #13336c;
   color: white;
   font-family: "Barlow Semi Condensed";
   font-style: normal;
@@ -335,7 +335,7 @@ button:active {
 }
 
 header {
-  background: url(Bilder/Hintergrund.png) #13336c;
+  background: url('../pictures/Hintergrund.png') #13336c;
   display: block; /*Fallback*/
   display: grid;
   grid-template-areas:
@@ -401,7 +401,6 @@ header .navbar-links {
 }
 
 main {
-  fallback: block; /* Fallback */
   display: grid;
 }
 
@@ -624,7 +623,7 @@ legend {
 
 footer {
   align-items: center;
-  background: url(Bilder/Hintergrund.png) #13336c;
+  background: url('../pictures/Hintergrund.png') #13336c;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
