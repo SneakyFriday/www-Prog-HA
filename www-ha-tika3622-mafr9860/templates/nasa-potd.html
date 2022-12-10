@@ -1,14 +1,16 @@
-<!--TODO: API-Script einbinden, damit Daten/Bild korrekt angezeigt wird-->
-
 {% extends 'layout.html' %}
 
 {%block content%}
 <div class="wrapper">   
-    <ul>
-        <li><h2>NASA Picture of the Day</h2></li>
-        <li><img src= {{url}} alt="Aktuelles Nasa Picture of the Day"></li>
-        <li><h2>Original Beschreibung</h2></li>
-        <li><p>{{explanation}}</p></li>
-    </ul>
+    <div class="apod">
+        <ul>
+            <li><h2>NASA Picture of the Day</h2></li>
+            <li><img src= {{url}} alt="Aktuelles Nasa Picture of the Day"></li>
+        </ul>
+        <ul>
+            <li><h2>Original Beschreibung</h2></li>
+            <li><p>{{explanation}}</p></li>
+        </ul>
+    </div>
 </div> 
 {%endblock%}
