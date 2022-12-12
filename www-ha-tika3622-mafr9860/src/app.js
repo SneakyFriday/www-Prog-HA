@@ -61,6 +61,16 @@ db.execute(`
   );
 `);
 
+// Table für Nutzer Kommentare
+db.execute(`
+  CREATE TABLE if not exists "userComments" (
+    "id"	INTEGER NOT NULL,
+    "username"	TEXT NOT NULL,
+    "comment"	TEXT NOT NULL,
+    PRIMARY KEY("id")
+  );
+`);
+
 /**
  * Verarbeitet Requests mithilfe des ctx Objekts
  * @param {Promise} request

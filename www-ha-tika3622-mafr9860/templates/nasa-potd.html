@@ -2,15 +2,30 @@
 
 {%block content%}
 <div class="wrapper">   
-    <div class="apod">
-        <ul>
-            <li><h2>NASA Picture of the Day</h2></li>
-            <li><img src= {{url}} alt="Aktuelles Nasa Picture of the Day"></li>
-        </ul>
-        <ul>
-            <li><h2>Original Beschreibung</h2></li>
-            <li><p>{{explanation}}</p></li>
-        </ul>
-    </div>
+    <section id="content">
+        <div class="apod">
+            <ul>
+                <li><h2>NASA Picture of the Day</h2></li>
+                <li><img src= {{url}} alt="Aktuelles Nasa Picture of the Day"></li>
+            </ul>
+            <ul>
+                <li><h2>Original Beschreibung</h2></li>
+                <li><p>{{explanation}}</p></li>
+            </ul>
+        </div>
+    </section>
+    <section id="comments">
+        <div id="commentRespond">
+            <h3>Kommentare</h3>
+            <form action="POST">
+                <label for="comment_author">Dein Name</label>
+                <input type="text" name="comment_author" id="comment_author" required tabindex="1">
+                <label for="comment">Deine Nachricht</label>
+                <textarea name="comment" id="comment" cols="30" rows="10" tabindex="3" required></textarea>
+                <input type="hidden" name="commentID" value="1" id="commentID">
+                <input name="submit" type="submit" value="Kommentar abschicken">
+            </form>
+        </div>
+    </section>
 </div> 
 {%endblock%}
