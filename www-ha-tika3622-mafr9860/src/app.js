@@ -67,7 +67,7 @@ db.execute(`
     "id"	INTEGER NOT NULL,
     "username"	TEXT NOT NULL,
     "comment"	TEXT NOT NULL,
-    PRIMARY KEY("id")
+    PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);
 
@@ -103,6 +103,7 @@ export const handleRequest = async (request) => {
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
   router.get("/apod", apiController.usefetchedAPI);
+  router.post("/apod", apiController.sendComment);
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);
 
