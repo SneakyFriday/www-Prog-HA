@@ -507,6 +507,12 @@ form {
   padding: 0 0 1.5em 0;
 }
 
+.Form-error {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color:#ee0000;
+}
+
 form > div,
 fieldset > div {
   display: flex;
