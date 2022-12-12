@@ -52,6 +52,15 @@ db.execute(`
   );
 `);
 
+// Table für Login-Daten anlegen
+db.execute(`
+  CREATE TABLE if not exists "userLoginData" (
+    "username"	TEXT NOT NULL,
+    "password"	TEXT NOT NULL,
+    PRIMARY KEY("username")
+  );
+`);
+
 /**
  * Verarbeitet Requests mithilfe des ctx Objekts
  * @param {Promise} request
