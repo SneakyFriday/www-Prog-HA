@@ -78,3 +78,11 @@ export async function addComment(db, newEntry) {
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
 }
+
+export async function compareCredentials(db, username) {
+  const sql =
+    "SELECT password FROM userLoginData WHERE username='marc'";
+  const result = await db.query(sql, username);
+  console.log("HashB: " + result);
+  return result;
+}
