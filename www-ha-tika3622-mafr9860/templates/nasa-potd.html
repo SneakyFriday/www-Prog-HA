@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {%block content%}
-<div class="wrapper">   
+
     <section id="content">
         <div class="apod">
             <ul>
@@ -16,14 +16,6 @@
     </section>
     <section id="comments">
         <div id="commentRespond">
-            <h3>Kommentare</h3>
-            {% for comment in comments %}
-            <ul>
-                <li><h4>{{comment.username}}</h4>
-                <p>{{comment.comment}}</p>
-                </li>
-            </ul>
-            {% endfor%}
             <h3>Kommentar verfassen</h3>
             <form action="#" method="POST" accept-charset="utf-8">
                 <label for="comment_author">Dein Name</label>
@@ -34,7 +26,15 @@
                 <input type="hidden" name="comment_ID" value="1" id="comment_ID" />
                 <button type="submit" value="Abschicken">Abschicken</button>
             </form>
+            <h3>Kommentare</h3>
+            {% for comment in comments %}
+            <ul>
+                <li><h4>{{comment.username}}</h4>
+                <p>{{comment.comment}}</p>
+                </li>
+            </ul>
+            {% endfor%}
         </div>
     </section>
-</div> 
+
 {%endblock%}

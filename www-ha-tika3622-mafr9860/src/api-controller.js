@@ -43,9 +43,7 @@ export async function usefetchedAPI(ctx) {
   return ctx;
 }
 
-/** 
- * Commentary Handling 
- * */
+/** Commentary Handling  **/
 
 export const isValidText = (text) => text.length >= 3;
 
@@ -69,8 +67,8 @@ export function errorHandler(data) {
 
 /**
  * 
- * @param {*} ctx 
- * @returns 
+ * @param {Object} ctx 
+ * @returns {Object}
  */
 export async function sendComment(ctx){
   debug("@sendCommentary. ctx %O", ctx.request.url);
@@ -89,15 +87,26 @@ export async function sendComment(ctx){
   // Error-Handling
   const errors = errorHandler(data);
 
-  // Daten der DB hinzufügen
-  await model.addComment(ctx.database, data);
-
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);
-  ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
-    data: data,
-    errors: errors,
-  });
+
+  // Prüft, ob Fehler vorhanten sind
+  if(Object.values(errors).length > 0) {
+    console.log("To many Errors");
+    ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
+      data: data,
+      errors: errors,
+    });
+  }
+  else {
+    // Daten der DB hinzufügen
+    await model.addComment(ctx.database, data);
+    ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
+      data: data
+    });
+    // Redirecting auf die apod Seite mit neuen Daten
+    ctx.redirect = Response.redirect('http://localhost:5000/apod', 303);
+  }
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;

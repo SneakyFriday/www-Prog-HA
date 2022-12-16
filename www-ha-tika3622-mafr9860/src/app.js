@@ -132,14 +132,14 @@ export const handleRequest = async (request) => {
     return (ctx);
   };
 
-  //ctx = logger.start(ctx);
-  //ctx = cookies.getCookies(ctx);
-  //ctx = session.getSession(ctx);
+  ctx = logger.start(ctx);
+  ctx = cookies.getCookies(ctx);
+  ctx = session.getSession(ctx);
   // ctx = await serveStatic.serveStaticFile('../public')(ctx);
   ctx = await serveStaticFile('./public')(ctx);
-  //ctx = session.setSession(ctx);
-  //ctx = cookies.setCookies(ctx);
-  //ctx = logger.end(ctx);
+  ctx = session.setSession(ctx);
+  ctx = cookies.setCookies(ctx);
+  ctx = logger.end(ctx);
 
   // let, da result u.U. beim 404 verändert wird
   let result = await router.routes(ctx);
@@ -151,6 +151,7 @@ export const handleRequest = async (request) => {
 
   // Fallback falls URL nicht erreichbar
   result.response.status = result.response.status ?? 404;
+  
   if (!result.response.body && result.response.status == 404) {
     result = await controller.error404(result);
   }
