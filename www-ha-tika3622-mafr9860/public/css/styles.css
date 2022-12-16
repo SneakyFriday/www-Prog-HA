@@ -359,7 +359,6 @@ header .navbar-links {
   background-color: #e6e6e7;
   grid-area: navbar;
   margin-right: 0;
-  width: 100%;
 }
 
 .apod {
@@ -507,6 +506,12 @@ form {
   padding: 0 0 1.5em 0;
 }
 
+.Form-error {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color:#ee0000;
+}
+
 form > div,
 fieldset > div {
   display: flex;
@@ -523,6 +528,11 @@ fieldset > div {
   margin-bottom: 2em;
   margin-top: 1em;
   padding: 0.5em 1em 0.5em 2em;
+}
+
+#comments {
+  max-width: 60em;
+  align-content: center;
 }
 
 /* Kommentarfunktion APOD Start */
@@ -1296,7 +1306,7 @@ td.es-contrast-grid__key-cell {
   }
 
   .apod > ul li img {
-    max-width: 30em;
+    max-width: 50em;
   }
 
   .navbar-links a {

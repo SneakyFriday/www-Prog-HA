@@ -1,15 +1,11 @@
 import * as model from "./model.js";
+import * as commentary from "./middleware/commentary-controller.js";
 import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:controller");
 
-/**
- * TODO: Script noch als Controller implementieren
- * Das hier ist/war nur zum Testen der API
- */
-
-/**
+/** Bezieht das APOD der NASA durch API Key
  * @returns {Object}
  */
 async function fetchAPI() {
@@ -22,6 +18,9 @@ async function fetchAPI() {
 }
 
 /**
+ * Rendert APOD Seite und übergibt
+ * Bild URL
+ * Bild-Erklärung (org. engl.)
  * @param {Object} ctx
  * @returns {Object}
  */
@@ -29,10 +28,85 @@ export async function usefetchedAPI(ctx) {
   debug("@usefetchedAPI. ctx %O", ctx.request.url);
   const { url, explanation } = await fetchAPI();
 
+  // Holt Kommentare aus DB
+  const data = await model.getAllComments(ctx.database);
+
+  console.log(data);
+
   ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
     url: url,
     explanation: explanation,
+    comments: data,
   });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/** Commentary Handling  **/
+
+export const isValidText = (text) => text.length >= 3;
+
+/**
+ * Prüft, ob die eingegebenen Daten valide sind und gibt ggf. ein Object mit den spezifischen Error-Messages.
+ * TODO: Auf die jeweiligen Eingaben passen
+ * @param {Object} data
+ * @returns {Object}
+ */
+export function errorHandler(data) {
+  // Errors Objekt erzeugen
+  const errorList = {};
+
+  // Checken, ob Daten valide sind, ansonsten in errorList schreiben
+  if (!isValidText(data["comment"])) {
+    errorList.commentText = "Bitte geben Sie einen längeren Text an.";
+  }
+
+  return errorList;
+}
+
+/**
+ * 
+ * @param {Object} ctx 
+ * @returns {Object}
+ */
+export async function sendComment(ctx){
+  debug("@sendCommentary. ctx %O", ctx.request.url);
+
+  // Form Data holen
+  const formData = await ctx.request.formData();
+
+  // Debug-Ausgabe
+  console.log(formData);
+
+  const data = {
+    username: formData.get("comment_author"),
+    comment: formData.get("comment"),
+  };
+
+  // Error-Handling
+  const errors = errorHandler(data);
+
+  // Debug-Ausgabe
+  console.log(`Errors: ${Object.values(errors).length}`);
+
+  // Prüft, ob Fehler vorhanten sind
+  if(Object.values(errors).length > 0) {
+    console.log("To many Errors");
+    ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
+      data: data,
+      errors: errors,
+    });
+  }
+  else {
+    // Daten der DB hinzufügen
+    await model.addComment(ctx.database, data);
+    ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
+      data: data
+    });
+    // Redirecting auf die apod Seite mit neuen Daten
+    ctx.redirect = Response.redirect('http://localhost:5000/apod', 303);
+  }
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
