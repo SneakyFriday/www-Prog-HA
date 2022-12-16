@@ -6,6 +6,7 @@
     <div class="wrapper">
         <form class="loginContainer" action="#" method="post">
             <fieldset>
+                {% if errors.login %}<p class="Form-error">{{errors.login}}</p>{% endif %}
                 <p><label for="username">Benutzername</label>
                 <input type="text" name="username" id="username" required>
             </p>

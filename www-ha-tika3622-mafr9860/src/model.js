@@ -1,6 +1,4 @@
-import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
-import * as path from "https://deno.land/std@0.152.0/path/posix.ts";
-import * as mediaTypes from "https://deno.land/std@0.151.0/media_types/mod.ts";
+import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:model");
@@ -67,9 +65,9 @@ export async function addEvent(db, newEntry) {
 
 /**
  * 
- * @param {*} db 
+ * @param {DB} db 
  * @param {*} newEntry 
- * @returns 
+ * @returns
  */
 export async function addComment(db, newEntry) {
   const sql =
@@ -79,10 +77,19 @@ export async function addComment(db, newEntry) {
   return db.lastInsertRowId;
 }
 
-export async function compareCredentials(db, username) {
+/**
+ * 
+ * @param {DB} db 
+ * @param {String} username 
+ * @returns {String} 
+ */
+export async function getCredentials(db, username) {
+  console.log("Username for DB: " + username);
   const sql =
-    "SELECT password FROM userLoginData WHERE username='marc'";
-  const result = await db.query(sql, username);
-  console.log("HashB: " + result);
-  return result;
+    `SELECT password FROM userLoginData WHERE username=:username`;
+  const result = await db.query(sql, {username: username});
+  console.log("Hash DB: " + JSON.stringify(result));
+  console.log("Hash DB String: " + result[0]);
+  console.log("Resulttype: " + typeof(result[0][0]));
+  return result[0][0];
 }

@@ -1,36 +1,49 @@
 import * as model from "../model.js";
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
-import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts"
+import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:login");
 
 
-// // PW aus Terminal
-// const password = prompt('Password:');
+// // // // PW aus Terminal
+// // // const password = prompt('Password:');
+// const password = "test";
 
-// // Hash erzeugen aus 
-// const hash = await bcrypt.hash(password);
-// console.log("Hash: " + hash);
+// // // // Hash erzeugen aus 
+// // // const hash = await bcrypt.hash(password);
+// // // console.log("Hash: " + hash);
 
-// Hash für Passwort: test
-// const dbHash = "$2a$10$bJ2OvoglSQCCHGEE2cRFgu2iSRm71b.6w1gFFeNQUoodpPxjYS3ae";
+// // Hash für Passwort: test
+// const dbHash = "$2a$10$bfcVc.lDJVfbE2YlVM3G3.jhkVEh/dAkKJg9Ic3JjvHgeAt81ybxO";
 // // PW und Hash aus DB vergleichen
 // const ok = await bcrypt.compare(password, dbHash);
-// console.log(ok);
+// console.log("Testing Hash: " + ok);
 
 export async function authUser(ctx, credentials){
-  const hashA = credentials.password;
-  const hashB = await model.compareCredentials(ctx.database, credentials.username);
-  console.log("HashA: " + hashA);
-  console.log("HashB: " + hashB);
-  const ok = await bcrypt.compare(hashA, hashB);
+  const user = {};
+  let isAuth = false;
+  const hashedPassword = credentials.password;
+  // console.log("Usernametype: " + typeof(credentials.username));
+  const hashPasswordDB = await model.getCredentials(ctx.database, credentials.username);
+  if(hashPasswordDB != null) {
+    user.username = credentials.username;
+    user.password_hash = hashedPassword;
+    console.log("PW DB: " + typeof(hashPasswordDB));
+    console.log("PW Input: " + typeof(hashedPassword));
+    console.log("DB Password: " + hashPasswordDB);
+    console.log("Input Password: " + credentials.password);
+    isAuth = bcrypt.compareSync(user.password_hash, hashPasswordDB);
+  }
+  console.log("Authed: " + isAuth);
+  if(isAuth === true) {
+    user.password_hash = undefined;
+  }
+  user.isAuth = isAuth;
+  console.log("Test A: " +  isAuth);
+  console.log(user);
 
-  console.log("Test A: " + ok);
-  // const testA = "$2a$10$bfcVc.lDJVfbE2YlVM3G3.jhkVEh/dAkKJg9Ic3JjvHgeAt81ybxO";
-  // const testB = hashB;
-  // const testOk = await bcrypt.compare(testA, testB);
-  // console.log("Test B: " + testOk)
+  return user;
 }
 
 export function errorHandler(data) {
@@ -58,37 +71,36 @@ export function render(ctx) {
   
     // Form Data holen
     const formData = await ctx.request.formData();
-  
-    // // Debug-Ausgabe
-    // console.log(formData);
-  
     const data = {
        username: formData.get("username"),
        password: formData.get("password"),
     };
-
-    // Auth-User
-    await authUser(ctx, data);
   
     // Error-Handling
     const errors = errorHandler(data);
-  
-    // PW mit PW aus der DB vergleichen
-    //await model.addTicket(ctx.database, data);
+
+    // Render Form with Errors
     if(Object.values(errors).length > 0) {
       ctx.response.body = ctx.nunjucks.render("login.html", {
-        data: data,
         errors: errors,
       });
+      ctx.response.status = 200;
+    } else {
+      const user = await authUser(ctx, data);
+      if(user.isAuth === true) {
+        user.password_hash = undefined;
+        ctx.session.user = user.username;
+        ctx.session.flash = `Du bist als ${user.username} eingeloggt.`;
+        ctx.redirect = Response.redirect('http://localhost:5000/cms', 303);
+      } else {
+        errors.login = 'Diese Kombination aus Benutzername und Passwort ist nicht gültig.'
+        ctx.response.body = ctx.nunjucks.render("login.html", {
+          errors: errors,
+        });
+        ctx.response.status = 200;
+      }
     }
-    else {
-      ctx.response.body = ctx.nunjucks.render("login.html", {
-        data: data
-      });
-      // Redirecting auf die apod Seite mit neuen Daten
-      ctx.redirect = Response.redirect('http://localhost:5000/cms', 303);
-    }
-    ctx.response.status = 200;
+    
     ctx.response.headers["content-type"] = "text/html";
     return ctx;
   }
