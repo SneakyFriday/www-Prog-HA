@@ -24,25 +24,17 @@ export async function authUser(ctx, credentials){
   const user = {};
   let isAuth = false;
   const hashedPassword = credentials.password;
-  // console.log("Usernametype: " + typeof(credentials.username));
   const hashPasswordDB = await model.getCredentials(ctx.database, credentials.username);
   if(hashPasswordDB != null) {
     user.username = credentials.username;
     user.password_hash = hashedPassword;
-    console.log("PW DB: " + typeof(hashPasswordDB));
-    console.log("PW Input: " + typeof(hashedPassword));
-    console.log("DB Password: " + hashPasswordDB);
-    console.log("Input Password: " + credentials.password);
-    isAuth = bcrypt.compareSync(user.password_hash, hashPasswordDB);
+    isAuth = await bcrypt.compare(user.password_hash, hashPasswordDB);
   }
   console.log("Authed: " + isAuth);
   if(isAuth === true) {
     user.password_hash = undefined;
   }
   user.isAuth = isAuth;
-  console.log("Test A: " +  isAuth);
-  console.log(user);
-
   return user;
 }
 

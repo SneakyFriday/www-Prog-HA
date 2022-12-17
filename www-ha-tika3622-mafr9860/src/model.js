@@ -86,10 +86,16 @@ export async function addComment(db, newEntry) {
 export async function getCredentials(db, username) {
   console.log("Username for DB: " + username);
   const sql =
-    `SELECT password FROM userLoginData WHERE username=:username`;
+    `
+    SELECT password FROM userLoginData WHERE
+    EXISTS (SELECT 1 FROM userLoginData WHERE username=:username);
+    `;
   const result = await db.query(sql, {username: username});
-  console.log("Hash DB: " + JSON.stringify(result));
-  console.log("Hash DB String: " + result[0]);
-  console.log("Resulttype: " + typeof(result[0][0]));
-  return result[0][0];
+  console.log("Result" + result + "Type: " + typeof(result));
+  if(result[0] == null) {
+    console.log(`Keinen Eintrag unter ${username} gefunden`);
+    
+  } else {
+    return result[0][0];
+  }
 }
