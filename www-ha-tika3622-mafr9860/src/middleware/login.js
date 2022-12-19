@@ -1,21 +1,42 @@
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts"
-import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
+import * as model from "../model.js";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts"
+import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:login");
 
 
-// // PW aus Terminal
-// const password = prompt('Password:');
+// // // // PW aus Terminal
+// // // const password = prompt('Password:');
+// const password = "test";
 
-// // Hash erzeugen aus 
-// const hash = await bcrypt.hash(password);
-// console.log("Hash: " + hash);
+// // // // Hash erzeugen aus 
+// // // const hash = await bcrypt.hash(password);
+// // // console.log("Hash: " + hash);
 
-// const dbHash = "$2a$10$bJ2OvoglSQCCHGEE2cRFgu2iSRm71b.6w1gFFeNQUoodpPxjYS3ae";
+// // Hash für Passwort: test
+// const dbHash = "$2a$10$bfcVc.lDJVfbE2YlVM3G3.jhkVEh/dAkKJg9Ic3JjvHgeAt81ybxO";
 // // PW und Hash aus DB vergleichen
 // const ok = await bcrypt.compare(password, dbHash);
-// console.log(ok);
+// console.log("Testing Hash: " + ok);
+
+export async function authUser(ctx, credentials){
+  const user = {};
+  let isAuth = false;
+  const hashedPassword = credentials.password;
+  const hashPasswordDB = await model.getCredentials(ctx.database, credentials.username);
+  if(hashPasswordDB != null) {
+    user.username = credentials.username;
+    user.password_hash = hashedPassword;
+    isAuth = await bcrypt.compare(user.password_hash, hashPasswordDB);
+  }
+  console.log("Authed: " + isAuth);
+  if(isAuth === true) {
+    user.password_hash = undefined;
+  }
+  user.isAuth = isAuth;
+  return user;
+}
 
 export function errorHandler(data) {
     // Errors Objekt erzeugen
@@ -42,10 +63,6 @@ export function render(ctx) {
   
     // Form Data holen
     const formData = await ctx.request.formData();
-  
-    // Debug-Ausgabe
-    console.log(formData);
-  
     const data = {
        username: formData.get("username"),
        password: formData.get("password"),
@@ -53,15 +70,29 @@ export function render(ctx) {
   
     // Error-Handling
     const errors = errorHandler(data);
-  
-    // PW mit PW aus der DB vergleichen
-    //await model.addTicket(ctx.database, data);
-  
-    ctx.response.body = ctx.nunjucks.render("login.html", {
-      data: data,
-      errors: errors,
-    });
-    ctx.response.status = 200;
+
+    // Render Form with Errors
+    if(Object.values(errors).length > 0) {
+      ctx.response.body = ctx.nunjucks.render("login.html", {
+        errors: errors,
+      });
+      ctx.response.status = 200;
+    } else {
+      const user = await authUser(ctx, data);
+      if(user.isAuth === true) {
+        user.password_hash = undefined;
+        ctx.session.user = user.username;
+        ctx.session.flash = `Du bist als ${user.username} eingeloggt.`;
+        ctx.redirect = Response.redirect('http://localhost:5000/cms', 303);
+      } else {
+        errors.login = 'Diese Kombination aus Benutzername und Passwort ist nicht gültig.'
+        ctx.response.body = ctx.nunjucks.render("login.html", {
+          errors: errors,
+        });
+        ctx.response.status = 200;
+      }
+    }
+    
     ctx.response.headers["content-type"] = "text/html";
     return ctx;
   }

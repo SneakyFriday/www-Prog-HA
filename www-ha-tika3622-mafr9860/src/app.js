@@ -13,6 +13,7 @@ import * as logger from "./middleware/logging.js";
 import * as cookies from "./middleware/cookies.js";
 import * as session from "./middleware/sessions.js";
 import * as serveStatic from "./middleware/serveStatic.js";
+import { isAuthenticated } from "./middleware/authentification.js";
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -115,6 +116,11 @@ export const handleRequest = async (request) => {
   const serveStaticFile = (base) => async (ctx) => {
     const url = new URL(ctx.request.url);
     let file;
+    // const fullPath = path.join(base, url.pathname);
+    // if(fullPath.indexOf(base) !== 0 || fullPath.indexOf('\0') !== -1) {
+    //   ctx.response.status = 403;
+    //   return ctx;
+    // }
     try {
       file = await Deno.open(path.join(base, url.pathname), { read: true });
     } catch (_error) {
@@ -131,15 +137,14 @@ export const handleRequest = async (request) => {
     }
     return (ctx);
   };
-
-  ctx = logger.start(ctx);
+  //ctx = logger.start(ctx);
   ctx = cookies.getCookies(ctx);
   ctx = session.getSession(ctx);
   // ctx = await serveStatic.serveStaticFile('../public')(ctx);
   ctx = await serveStaticFile('./public')(ctx);
   ctx = session.setSession(ctx);
   ctx = cookies.setCookies(ctx);
-  ctx = logger.end(ctx);
+  //ctx = logger.end(ctx);
 
   // let, da result u.U. beim 404 verändert wird
   let result = await router.routes(ctx);
