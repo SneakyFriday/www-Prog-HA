@@ -49,6 +49,11 @@ export function errorHandler(data) {
   return errorList;
 }
 
+/**
+ * TODO: Fügt die Veranstaltungen in Dropdown mit jeweiligen Datum
+ * @param {Object} ctx 
+ * @returns 
+ */
 export function add(ctx) {
   debug("@add. ctx %O", ctx.request.url);
   ctx.response.body = ctx.nunjucks.render("tickets.html", {});
@@ -69,7 +74,7 @@ export async function submitPurchase(ctx) {
   const formData = await ctx.request.formData();
 
   // Debug-Ausgabe
-  //console.log(formData);
+  console.log(formData);
 
   const data = {
     vorname: formData.get("vorname"),
@@ -83,6 +88,7 @@ export async function submitPurchase(ctx) {
 
   // Error-Handling
   const errors = errorHandler(data);
+  console.log(JSON.stringify(errors));
 
   // Daten der DB hinzufügen
   await model.addTicket(ctx.database, data);

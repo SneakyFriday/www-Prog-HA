@@ -4,45 +4,71 @@
     <main>
       <div class="wrapper">
         <div class="bestellformular">
-          <h2>Ticketshop</h2>
-          <form action="#" method="POST" accept-charset="utf-8">
-            <fieldset>
-              <legend>Persönliche Daten</legend>
-              <ul>
-              <li><label for="vorname">Vorname
-                {% if errors.vorname %}<p class="Form-error">{{errors.vorname}}</p>{% endif %}
-                <input name="vorname" type="text" id="vorname" value="{{form.vorname}}" autofocus required></label></li>
-                <li><label>Name
-                {% if errors.name %}<p class="Form-error">{{errors.name}}</p>{% endif %}
-                <input name="name" type="text" value="{{form.name}}" required></label></li>
-                <li><label>Straße
-                {% if errors.strasse %}<p class="Form-error">{{errors.strasse}}</p>{% endif %}
-                <input name="street" type="text" value="{{form.strasse}}" required></label></li>
-                <li><label>Postleitzahl
-                {% if errors.plz %}<p class="Form-error">{{errors.plz}}</p>{% endif %}
-                <input name="postcode" type="text" value="{{form.plz}}" required></label></li>
-                <li><label>Stadt
-                {% if errors.stadt %}<p class="Form-error">{{errors.stadt}}</p>{% endif %}
-                <input name="city" type="text" list="cities" value="{{form.stadt}}" required></label></li>
-                <li> <label>E-Mail
-                {% if errors.mail%}<p class="Form-error">{{errors.mail}}</p>{% endif %}
-                <input name="mail" type="email" placeholder="foo@bar.de" value="{{form.mail}}" required></label></li>
-              </ul>
-            </fieldset>
-            <fieldset>
-              <legend>Veranstaltung</legend>
-              <select name="veranstaltungen" size="1" required>
-                <option value="1">Das Weltall entdecken</option>
-                <option value="2">Vom Big Bang zum Big Crunch</option>
-                <option value="3">Pink Floyd Universe</option>
-                <option value="4">Weltall: Wer kennts?</option>
-                <option value="5">UFOs</option>
-                <option value="6">Hörten Aliens unsere Music?</option>
-              </select>
-            </fieldset>
-    
-          </form>
-          <button type="submit" value="Bestellen">Vorbestellen</button>
+          <section>
+            <h2>Ticketshop</h2>
+            <form action="#" method="POST" accept-charset="utf-8">
+              <fieldset>
+                <legend>Persönliche Daten</legend>
+                <ul>
+                <li><label for="vorname">Vorname
+                  {% if errors.vorname %}<p class="Form-error">{{errors.vorname}}</p>{% endif %}
+                  <input name="vorname" type="text" id="vorname" value="{{form.vorname}}" autofocus required></label></li>
+                  <li><label>Name
+                  {% if errors.name %}<p class="Form-error">{{errors.name}}</p>{% endif %}
+                  <input name="name" type="text" value="{{form.name}}" required></label></li>
+                  <li><label>Straße
+                  {% if errors.strasse %}<p class="Form-error">{{errors.strasse}}</p>{% endif %}
+                  <input name="street" type="text" value="{{form.strasse}}" required></label></li>
+                  <li><label>Hausnummer
+                  {% if errors.number %}<p class="Form-error">{{errors.number}}</p>{% endif %}
+                  <input name="number" type="text" value="{{form.number}}" required></label></li>
+                  <li><label>Postleitzahl
+                  {% if errors.plz %}<p class="Form-error">{{errors.plz}}</p>{% endif %}
+                  <input name="postcode" type="text" value="{{form.plz}}" required></label></li>
+                  <li><label>Stadt
+                  {% if errors.stadt %}<p class="Form-error">{{errors.stadt}}</p>{% endif %}
+                  <input name="city" type="text" list="cities" value="{{form.stadt}}" required></label></li>
+                  <li> <label>E-Mail
+                  {% if errors.mail%}<p class="Form-error">{{errors.mail}}</p>{% endif %}
+                  <input name="mail" type="email" placeholder="foo@bar.de" value="{{form.mail}}" required></label></li>
+                </ul>
+              </fieldset>
+              <fieldset>
+                <legend>Veranstaltung</legend>
+                <select name="veranstaltungen" size="1" required>
+                  <option value="1">Das Weltall entdecken</option>
+                  <option value="2">Vom Big Bang zum Big Crunch</option>
+                  <option value="3">Pink Floyd Universe</option>
+                  <option value="4">Weltall: Wer kennts?</option>
+                  <option value="5">UFOs</option>
+                  <option value="6">Hörten Aliens unsere Music?</option>
+                </select>
+              </fieldset>
+              <button type="submit" value="Bestellen">Vorbestellen</button>
+            </form>
+          </section>
+          <section class="contentDisplay">
+            <div>
+              <h5>Title</h5>
+              <p>Datum</p>
+              <p>Preis</p>
+            </div>
+            <div>
+              <h5>Title</h5>
+              <p>Datum</p>
+              <p>Preis</p>
+            </div>
+            <div>
+              <h5>Title</h5>
+              <p>Datum</p>
+              <p>Preis</p>
+            </div>
+            <div>
+              <h5>Title</h5>
+              <p>Datum</p>
+              <p>Preis</p>
+            </div>
+          </section> 
         </div>
       </div>
     </main>

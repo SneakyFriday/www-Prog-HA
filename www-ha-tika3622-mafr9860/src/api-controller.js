@@ -76,8 +76,8 @@ export async function sendComment(ctx){
   // Form Data holen
   const formData = await ctx.request.formData();
 
-  // Debug-Ausgabe
-  console.log(formData);
+  // // Debug-Ausgabe
+  // console.log(formData);
 
   const data = {
     username: formData.get("comment_author"),
@@ -87,8 +87,8 @@ export async function sendComment(ctx){
   // Error-Handling
   const errors = errorHandler(data);
 
-  // Debug-Ausgabe
-  console.log(`Errors: ${Object.values(errors).length}`);
+  // // Debug-Ausgabe
+  // console.log(`Errors: ${Object.values(errors).length}`);
 
   // Prüft, ob Fehler vorhanten sind
   if(Object.values(errors).length > 0) {

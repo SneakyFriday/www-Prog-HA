@@ -520,16 +520,6 @@ fieldset > div {
   margin-bottom: 0.5em;
 }
 
-.bestellformular > button {
-  border-top-right-radius: 2em;
-  border-bottom-right-radius: 2em;
-  font-weight: bold;
-  font-size: 2em;
-  margin-bottom: 2em;
-  margin-top: 1em;
-  padding: 0.5em 1em 0.5em 2em;
-}
-
 #comments {
   max-width: 60em;
   align-content: center;
@@ -558,6 +548,15 @@ fieldset > div {
 }
 
 /* Kommentarfunktion APOD Ende */
+
+.contentDisplay > div {
+  background-image: url('../pictures/teleskop-schild.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
+  height:20em;
+  max-width: 100%;
+
+}
 
 input[type="text"],
 textarea {
@@ -1203,9 +1202,29 @@ td.es-contrast-grid__key-cell {
     font-size: 3em;
   }
 
+  .bestellformular {
+    display: inline-grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 3px;
+  }
+
   .bestellformular > form {
-    display: flex;
+    display: grid;
     flex-direction: row;
+  }
+
+  .contentDisplay {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+  }
+
+  .contentDisplay > div {
+    background-image: url('../pictures/teleskop-schild.jpg');
+    background-repeat: no-repeat;
+    background-size:contain;
   }
 
   .wrapper {
