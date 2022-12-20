@@ -38,7 +38,7 @@ export const createSessionStore = () => {
 export const createId = () => {
     const array = new Uint32Array(64);
     crypto.getRandomValues(array);
-    //console.log("Createing Session ID");
+    //console.log("Createing Session ID" + array);
     return base64Encode(array);
 }
 
@@ -54,15 +54,16 @@ export function getSession(ctx) {
     // Session laden
     ctx.sessionId = ctx.cookies.get(SESSION_KEY);
     ctx.session = ctx.sessionStore.get(ctx.sessionId, MAX_AGE) ?? {};
-    //console.log("Trying to getSession()" + ctx.sessionId + " " + ctx.session);
+    //console.log(`Trying to getSession() --- ID:${ctx.sessionId}`);
     return ctx;
 }
 
 export function setSession(ctx) {
+    const counter = ctx.session.counter;
+    ctx.session.counter = counter + 1;
     //console.log("Trying to setSession()");
-    //console.log(Object.values(ctx.session).find(Boolean));
     if(Object.values(ctx.session).length > 0){
-        //console.log("Setting Session 'setSession()'")
+        //console.log("Setting Session")
         ctx.sessionId = ctx.sessionId ?? createId();
         ctx.sessionStore.set(ctx.sessionId, ctx.session, MAX_AGE);
         const maxAge = new Date(Date.now() + MAX_AGE);
@@ -77,7 +78,5 @@ export function setSession(ctx) {
         ctx.cookies.delete(SESSION_KEY);
         //console.log("Deleting SessionStore + Session Key");
     }
-    const counter = ctx.session.counter;
-    ctx.session.counter = counter + 1;
     return ctx;
 }
