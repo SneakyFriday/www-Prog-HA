@@ -550,13 +550,40 @@ fieldset > div {
 /* Kommentarfunktion APOD Ende */
 
 .contentDisplay > div {
-  background-image: url('../pictures/teleskop-schild.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-  height:20em;
-  max-width: 100%;
-
+  text-align: center;
 }
+
+.contentDisplay > div > ul > li {
+  font-size: 1.5em;
+  padding: .2em 0 .2em .2em;
+  text-align: left;
+}
+
+.contentDisplay > div > ul > li > h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.contentDisplay > div > ul > li > input[type=checkbox]{
+  transform: scale(3);
+  margin: 1em;
+  float: center;
+}
+
+.contentDisplay > div > ul > li:last-child {
+  font-size: 2em;
+}
+
+.contentInfoDisplay > ul {
+  top: 8px;
+}
+
+.contentInfoDisplay > ul > li {
+  text-align: left;
+  line-height: 1.5;
+  width: 100%;
+}
+
 
 input[type="text"],
 textarea {
@@ -595,7 +622,7 @@ fieldset > div {
 }
 
 fieldset input {
-  width: fit-content;
+  width: 100%;
 }
 
 legend {
@@ -1205,7 +1232,7 @@ td.es-contrast-grid__key-cell {
   .bestellformular {
     display: inline-grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 3px;
   }
 
@@ -1216,15 +1243,8 @@ td.es-contrast-grid__key-cell {
 
   .contentDisplay {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1em;
-  }
-
-  .contentDisplay > div {
-    background-image: url('../pictures/teleskop-schild.jpg');
-    background-repeat: no-repeat;
-    background-size:contain;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .wrapper {

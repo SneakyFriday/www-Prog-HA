@@ -43,7 +43,7 @@ export async function getAllComments(db) {
  */
 export async function addTicket(db, newEntry) {
   const sql =
-    "INSERT INTO ticketInfos (vorname, name, strasse, plz, stadt, mail, veranstaltungsID) VALUES (:vorname, :name, :street, :postcode, :city, :mail, :veranstaltungen)";
+    "INSERT INTO ticketInfos (salutation, vorname, name, strasse, nr, plz, stadt, mail, veranstaltungsID, newsletter) VALUES (:salutation, :vorname, :name, :street, :nr, :postcode, :city, :mail, :veranstaltungen, :newsletter)";
   console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;

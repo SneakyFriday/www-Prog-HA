@@ -77,14 +77,19 @@ export async function submitPurchase(ctx) {
   console.log(formData);
 
   const data = {
+    salutation: formData.get("salutation"),
     vorname: formData.get("vorname"),
     name: formData.get("name"),
     street: formData.get("street"),
+    nr: formData.get("number"),
     postcode: formData.get("postcode"),
     city: formData.get("city"),
     mail: formData.get("mail"),
     veranstaltungen: formData.get("veranstaltungen"),
+    newsletter: formData.get("newsletter"),
   };
+
+  console.log(JSON.stringify(data));
 
   // Error-Handling
   const errors = errorHandler(data);
