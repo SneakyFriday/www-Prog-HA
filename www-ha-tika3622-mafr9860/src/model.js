@@ -91,7 +91,7 @@ export async function getCredentials(db, username) {
     EXISTS (SELECT 1 FROM userLoginData WHERE username=:username);
     `;
   const result = await db.query(sql, {username: username});
-  console.log("Result" + result + "Type: " + typeof(result));
+  console.log("Result in Model: " + result + " Type: " + typeof(result));
   if(result[0] == null) {
     console.log(`Keinen Eintrag unter ${username} gefunden`);
     

@@ -1,5 +1,5 @@
 import nunjucks from "https://deno.land/x/nunjucks@3.2.3/mod.js";
-import { debug } from "https://deno.land/x/debug@0.2.0/debug.ts";
+import { debug as Debug } from "https://deno.land/x/debug@0.2.0/debug.ts";
 import { DB } from "https://deno.land/x/sqlite@v3.7.0/mod.ts";
 import * as path from "https://deno.land/std@0.152.0/path/posix.ts";
 import * as mediaTypes from "https://deno.land/std@0.151.0/media_types/mod.ts";
@@ -14,6 +14,9 @@ import * as cookies from "./middleware/cookies.js";
 import * as session from "./middleware/sessions.js";
 import * as serveStatic from "./middleware/serveStatic.js";
 import { isAuthenticated } from "./middleware/authentification.js";
+
+// Deno Debug-Tool anstatt "Console.log()"
+const debug = Debug("app:login");
 
 // Definition, wo Nunjucks auf die HTML Seiten zugreifen soll
 nunjucks.configure("templates", { autoescape: true, noCache: true });
@@ -83,6 +86,10 @@ export const handleRequest = async (request) => {
     database: db,
     nunjucks: nunjucks,
     request: request,
+    session: {
+      user: "",
+      flash: "",
+    },
     params: {},
     response: {
       body: undefined,
@@ -114,6 +121,7 @@ export const handleRequest = async (request) => {
    * @returns {Object}
    */
   const serveStaticFile = (base) => async (ctx) => {
+    debug("@serveStaticFile. ctx %O", ctx.request.url);
     const url = new URL(ctx.request.url);
     let file;
     // const fullPath = path.join(base, url.pathname);

@@ -47,7 +47,7 @@ export function errorHandler(data) {
 
 export function render(ctx) {
     debug("@add. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("login.html", {});
+    ctx.response.body = ctx.nunjucks.render("login.html", { });
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";
     return ctx;
