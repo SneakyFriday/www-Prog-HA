@@ -59,8 +59,6 @@ export function getSession(ctx) {
 }
 
 export function setSession(ctx) {
-    const counter = ctx.session.counter;
-    ctx.session.counter = counter + 1;
     //console.log("Trying to setSession()");
     if(Object.values(ctx.session).length > 0){
         //console.log("Setting Session")

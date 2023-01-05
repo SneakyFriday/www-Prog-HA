@@ -107,8 +107,8 @@ export const handleRequest = async (request) => {
   router.get("/", controller.index);
   router.get("/about", controller.about);
   router.get("/dsgvo", controller.dsgvo);
-  router.get("/login", isAuthenticated, login.render);
-  router.post("/login", isAuthenticated, login.checkLoginCredentials);
+  router.get("/login", login.render);
+  router.post("/login", login.checkLoginCredentials);
   router.get("/cms", cmsController.add);
   router.post("/cms", cmsController.submitChangeToDB);
   router.get("/impressum", controller.impressum);

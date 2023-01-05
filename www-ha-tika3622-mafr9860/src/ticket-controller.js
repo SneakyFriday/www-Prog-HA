@@ -60,7 +60,7 @@ export function add(ctx) {
   debug("@add. ctx %O", ctx.request.url);
 
   // CSRF Handling
-  //const token = await csrf.generateToken();
+  const token = csrf.generateToken();
   //ctx.session.token = token;
   ctx.response.body = ctx.nunjucks.render("tickets.html", {
     csrf: token,
