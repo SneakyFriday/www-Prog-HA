@@ -90,8 +90,8 @@ export const handleRequest = async (request) => {
     nunjucks: nunjucks,
     request: request,
     session: {
-      user: "",
-      flash: "",
+      user: {},
+      flash: '',
     },
     params: {},
     response: {
@@ -106,11 +106,11 @@ export const handleRequest = async (request) => {
   const router = await createRouter();
   router.get("/", controller.index);
   router.get("/about", controller.about);
+  router.get("/dsgvo", controller.dsgvo);
+  router.get("/login", isAuthenticated, login.render);
+  router.post("/login", isAuthenticated, login.checkLoginCredentials);
   router.get("/cms", cmsController.add);
   router.post("/cms", cmsController.submitChangeToDB);
-  router.get("/dsgvo", controller.dsgvo);
-  router.get("/login", login.render);
-  router.post("/login", login.checkLoginCredentials);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
   router.get("/apod", apiController.usefetchedAPI);

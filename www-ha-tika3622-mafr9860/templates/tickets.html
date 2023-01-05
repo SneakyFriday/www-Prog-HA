@@ -7,6 +7,9 @@
           <section>
             <h2>Tickets vorbestellen</h2>
             <form action="#" method="POST" accept-charset="utf-8">
+              {% for _csrf in csrf %}
+              <input type="hidden" name="_csrf" value="{{ _csrf }}">
+              {% endfor %}
               <fieldset>
                 <legend>Persönliche Daten</legend>
                 <ul>

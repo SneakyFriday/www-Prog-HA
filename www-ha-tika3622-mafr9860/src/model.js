@@ -44,7 +44,7 @@ export async function getAllComments(db) {
 export async function addTicket(db, newEntry) {
   const sql =
     "INSERT INTO ticketInfos (salutation, vorname, name, strasse, nr, plz, stadt, mail, veranstaltungsID, newsletter) VALUES (:salutation, :vorname, :name, :street, :nr, :postcode, :city, :mail, :veranstaltungen, :newsletter)";
-  console.log(newEntry);
+  //console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
 }
@@ -58,7 +58,7 @@ export async function addTicket(db, newEntry) {
 export async function addEvent(db, newEntry) {
   const sql =
     "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
-  console.log(newEntry);
+  //console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
 }
@@ -72,7 +72,7 @@ export async function addEvent(db, newEntry) {
 export async function addComment(db, newEntry) {
   const sql =
   "INSERT INTO userComments (username, comment) VALUES (:username, :comment)";
-  console.log(newEntry);
+  //console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
 }
@@ -84,14 +84,14 @@ export async function addComment(db, newEntry) {
  * @returns {String} 
  */
 export async function getCredentials(db, username) {
-  console.log("Username for DB: " + username);
+  //console.log("Username for DB: " + username);
   const sql =
     `
     SELECT password FROM userLoginData WHERE
     EXISTS (SELECT 1 FROM userLoginData WHERE username=:username);
     `;
   const result = await db.query(sql, {username: username});
-  console.log("Result in Model: " + result + " Type: " + typeof(result));
+  //console.log("Result in Model: " + result + " Type: " + typeof(result));
   if(result[0] == null) {
     console.log(`Keinen Eintrag unter ${username} gefunden`);
     

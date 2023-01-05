@@ -30,7 +30,6 @@ export async function authUser(ctx, credentials){
     user.password_hash = hashedPassword;
     isAuth = await bcrypt.compare(user.password_hash, hashPasswordDB);
   }
-  console.log("Authed: " + isAuth);
   if(isAuth === true) {
     user.password_hash = undefined;
   }
@@ -47,7 +46,9 @@ export function errorHandler(data) {
 
 export function render(ctx) {
     debug("@add. ctx %O", ctx.request.url);
-    ctx.response.body = ctx.nunjucks.render("login.html", { });
+    ctx.response.body = ctx.nunjucks.render("login.html", {
+      ...ctx.state,
+    });
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";
     return ctx;
@@ -73,6 +74,7 @@ export function render(ctx) {
 
     // Render Form with Errors
     if(Object.values(errors).length > 0) {
+      errors.login = 'Diese Kombination aus Benutzername und Passwort ist nicht gültig.';
       ctx.response.body = ctx.nunjucks.render("login.html", {
         errors: errors,
       });
@@ -80,19 +82,13 @@ export function render(ctx) {
     } else {
       const user = await authUser(ctx, data);
       if(user.isAuth === true) {
-        user.password_hash = undefined;
-        ctx.session.user = user.username;
+        ctx.session.user = user;
         ctx.session.flash = `Du bist als ${user.username} eingeloggt.`;
+        console.log(ctx.session.flash);
         ctx.redirect = Response.redirect('http://localhost:5000/cms', 303);
-      } else {
-        errors.login = 'Diese Kombination aus Benutzername und Passwort ist nicht gültig.'
-        ctx.response.body = ctx.nunjucks.render("login.html", {
-          errors: errors,
-        });
-        ctx.response.status = 200;
-      }
+        }
     }
-    
+    console.log('checkCredentials: ' + ctx.session.user.isAuth);
     ctx.response.headers["content-type"] = "text/html";
     return ctx;
   }
