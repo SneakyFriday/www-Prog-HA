@@ -44,13 +44,27 @@
               >Über uns</a
             >
           </li>
+          <!-- authenticated über ctx.state.authenticated beziehen, welches im nunjucks übergeben wird -->
+            {% if authenticated %}
+            <li>
+            <a
+              href="/logout"
+              title="Nutzer Logout">Logout</a>
+          </li>
+          {% else %}
           <li>
+            <a
+              href="/login"
+              title="Nutzer Login">Login</a>
+          </li>
+          {% endif %}
+          <!-- <li>
             <a
               href="/login"
               title="Nutzer Login"
               >Login</a
             >
-          </li>
+          </li> -->
         </ul>
       </header>
     {%block content%}

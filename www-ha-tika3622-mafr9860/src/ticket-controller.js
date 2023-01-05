@@ -1,10 +1,12 @@
 import * as model from "./model.js";
 import { debug as Debug } from "https://deno.land/x/debug/mod.ts";
+import * as csrf from "./middleware/handleCSRF.js";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:ticketController");
 
-/** TODO: Daten aus Form abrufen und in DB abspeichern */
+/** TODO: 
+ * - SubmitPurchase bei Errors mit neuem CSRF Token rendern */
 
 /**
  * Nutzereingaben validieren
@@ -56,7 +58,13 @@ export function errorHandler(data) {
  */
 export function add(ctx) {
   debug("@add. ctx %O", ctx.request.url);
-  ctx.response.body = ctx.nunjucks.render("tickets.html", {});
+
+  // CSRF Handling
+  const token = csrf.generateToken();
+  //ctx.session.token = token;
+  ctx.response.body = ctx.nunjucks.render("tickets.html", {
+    csrf: token,
+  });
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
@@ -77,14 +85,19 @@ export async function submitPurchase(ctx) {
   console.log(formData);
 
   const data = {
+    salutation: formData.get("salutation"),
     vorname: formData.get("vorname"),
     name: formData.get("name"),
     street: formData.get("street"),
+    nr: formData.get("number"),
     postcode: formData.get("postcode"),
     city: formData.get("city"),
     mail: formData.get("mail"),
     veranstaltungen: formData.get("veranstaltungen"),
+    newsletter: formData.get("newsletter"),
   };
+
+  console.log(JSON.stringify(data));
 
   // Error-Handling
   const errors = errorHandler(data);
@@ -95,6 +108,12 @@ export async function submitPurchase(ctx) {
 
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);
+
+  // Check CSRF Token
+  if(ctx.session.csrf !== form._csrf) {
+    ctx.throw(403);
+  }
+  ctx.session.csrf = undefined;
   ctx.response.body = ctx.nunjucks.render("tickets.html", {
     data: data,
     errors: errors,

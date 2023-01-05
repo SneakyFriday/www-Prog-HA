@@ -32,13 +32,16 @@ const db = new DB("data/ticketData.sqlite", { mode: "create" });
 db.execute(`
   CREATE TABLE if not exists "ticketInfos" (
     "id"	INTEGER,
+    "salutation"	TEXT,
     "vorname"	TEXT NOT NULL,
     "name"	TEXT NOT NULL,
     "strasse"	INTEGER NOT NULL,
+    "nr"	INTEGER,
     "plz"	TEXT NOT NULL,
     "stadt"	TEXT NOT NULL,
     "mail"	TEXT NOT NULL,
     "veranstaltungsID"	INTEGER NOT NULL,
+    "newsletter"	BLOB,
     FOREIGN KEY("veranstaltungsID") REFERENCES "veranstaltungen"("id") ON UPDATE CASCADE ON DELETE SET NULL,
     PRIMARY KEY("id" AUTOINCREMENT)
   );
@@ -87,8 +90,8 @@ export const handleRequest = async (request) => {
     nunjucks: nunjucks,
     request: request,
     session: {
-      user: "",
-      flash: "",
+      user: {},
+      flash: '',
     },
     params: {},
     response: {
@@ -103,11 +106,11 @@ export const handleRequest = async (request) => {
   const router = await createRouter();
   router.get("/", controller.index);
   router.get("/about", controller.about);
-  router.get("/cms", cmsController.add);
-  router.post("/cms", cmsController.submitChangeToDB);
   router.get("/dsgvo", controller.dsgvo);
   router.get("/login", login.render);
   router.post("/login", login.checkLoginCredentials);
+  router.get("/cms", cmsController.add);
+  router.post("/cms", cmsController.submitChangeToDB);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
   router.get("/apod", apiController.usefetchedAPI);

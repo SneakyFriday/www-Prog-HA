@@ -5,12 +5,24 @@
       <div class="wrapper">
         <div class="bestellformular">
           <section>
-            <h2>Ticketshop</h2>
+            <h2>Tickets vorbestellen</h2>
             <form action="#" method="POST" accept-charset="utf-8">
+              <input type="hidden" name="_csrf" value="{{ csrf }}">
               <fieldset>
                 <legend>Persönliche Daten</legend>
                 <ul>
-                <li><label for="vorname">Vorname
+                  <li class="form-box">
+                  <label for="salutation">Anrede</label>
+                  <div class="select">
+                    <select name="salutation" id="salutation" required>
+                      <option value="0">Bitte wählen Sie...</option>
+                      <option value="Herr">Herr</option>
+                      <option value="Frau">Frau</option>
+                      <option value="Divers">Divers</option>
+                    </select>
+                  </div>
+                  </li>
+                  <li><label for="vorname">Vorname
                   {% if errors.vorname %}<p class="Form-error">{{errors.vorname}}</p>{% endif %}
                   <input name="vorname" type="text" id="vorname" value="{{form.vorname}}" autofocus required></label></li>
                   <li><label>Name
@@ -44,31 +56,30 @@
                   <option value="6">Hörten Aliens unsere Music?</option>
                 </select>
               </fieldset>
+              <input type="checkbox" id="newsletter" name="newsletter">
+              <label for="newsletter">Newsletter abonnieren</label>
               <button type="submit" value="Bestellen">Vorbestellen</button>
             </form>
           </section>
           <section class="contentDisplay">
             <div>
-              <h5>Title</h5>
-              <p>Datum</p>
-              <p>Preis</p>
-            </div>
-            <div>
-              <h5>Title</h5>
-              <p>Datum</p>
-              <p>Preis</p>
-            </div>
-            <div>
-              <h5>Title</h5>
-              <p>Datum</p>
-              <p>Preis</p>
-            </div>
-            <div>
-              <h5>Title</h5>
-              <p>Datum</p>
-              <p>Preis</p>
+              <ul>
+                <li><h2>Vorstellungen</h2></li>
+                {% for date in dates %}
+                <li><input type="checkbox">{{date}}</li>
+                {% endfor %}
+                <li>Preis: {{price}}</li>
+              </ul>
             </div>
           </section> 
+          <section class="contentInfoDisplay">
+            <div>
+            <ul>
+              <li><h2>{{title}}</h2></li>
+              <li>{{description}}</li>
+            </ul>
+       
+          </section>
         </div>
       </div>
     </main>
