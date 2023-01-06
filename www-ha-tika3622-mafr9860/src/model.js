@@ -24,6 +24,58 @@ export async function getAllEvents(db) {
 
 /**
  * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function addEvent(db, newEntry) {
+  const sql =
+    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
+  //console.log(newEntry);
+  const result = await db.query(sql, newEntry);
+  return db.lastInsertRowId;
+}
+
+/**
+ * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function deleteEvent(db, name) {
+  const sql =
+    "DELETE FROM veranstaltungen WHERE name=:name";
+  console.log(name);
+  const result = await db.query(sql, {name: name});
+  return db.lastInsertRowId;
+}
+
+/**
+ * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function updateEvent(db, newEntry) {
+  const sql =
+    `
+    UPDATE veranstaltungen
+    SET 
+        datum = :date,
+        preis = :price,
+        beschreibung = :description
+        uhrzeit = :time
+    WHERE
+        name = :name
+    `;
+  //console.log(newEntry);
+  const result = await db.query(sql, newEntry);
+  return db.lastInsertRowId;
+}
+
+
+/**
+ * 
  * @param {DB} db 
  * @returns {Object[]} – All Comments.
  */
@@ -49,19 +101,6 @@ export async function addTicket(db, newEntry) {
   return db.lastInsertRowId;
 }
 
-/**
- * 
- * @param {*} db 
- * @param {*} newEntry 
- * @returns 
- */
-export async function addEvent(db, newEntry) {
-  const sql =
-    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
-  //console.log(newEntry);
-  const result = await db.query(sql, newEntry);
-  return db.lastInsertRowId;
-}
 
 /**
  * 

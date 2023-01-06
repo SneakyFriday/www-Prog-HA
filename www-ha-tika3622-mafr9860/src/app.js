@@ -106,6 +106,11 @@ export const handleRequest = async (request) => {
   const router = await createRouter();
   router.get("/", controller.index);
   router.get("/about", controller.about);
+  router.get("/kolophon", controller.kolophon);
+  router.get("/dokumentation", controller.dokumentation);
+  router.get("/module", controller.module);
+  router.get("/_farben", controller.farben);
+  router.get("/zeitleiste", controller.zeitleiste);
   router.get("/dsgvo", controller.dsgvo);
   router.get("/login", login.render);
   router.post("/login", login.checkLoginCredentials);

@@ -95,6 +95,66 @@ export function cms(ctx) {
 }
 
 /**
+ * Controller des Templates für die kolophon-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function kolophon(ctx) {
+  ctx.response.body = ctx.nunjucks.render("kolophon.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation(ctx) {
+  ctx.response.body = ctx.nunjucks.render("indexDocu.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die module-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function module(ctx) {
+  ctx.response.body = ctx.nunjucks.render("module.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die farben-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function farben(ctx) {
+  ctx.response.body = ctx.nunjucks.render("_farben.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die zeitleiste-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function zeitleiste(ctx) {
+  ctx.response.body = ctx.nunjucks.render("zeitleiste.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Controller des Templates für die 404-Error-Seite
  * @param {Object} ctx
  * @returns {Object}
@@ -106,3 +166,4 @@ export function error404(ctx) {
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
 }
+

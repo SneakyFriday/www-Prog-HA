@@ -1,89 +1,39 @@
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      href="/svgs/hochschule-flensburg.svg"
-      sizes="any"
-      type="image/svg+xml"
-    />
-    <link href="/styles.css" rel="stylesheet" />
-    <script src="/scripts.js"></script>
-    <title>Dokumentation</title>
-  </head>
+{% extends 'layout.html' %}
 
-  <body>
-    <header>
-      <div class="logo">
-        <a href="\index.html"
-          ><img
-            src="\svgs/logo-weiß.svg"
-            alt="Das Logo des Planetarium Flensburgs."
-            title="Planetarium Flensburg"
-        /></a>
-      </div>
-      <div class="title">
-        <h1>Planetarium Flensburg</h1>
-      </div>
-      <ul class="navbar-links">
-        <li><a href="\index.html" title="hier zur Startseite">Home</a></li>
-        <li>
-          <a
-            href="/html-pur/veranstaltungsreihe.html"
-            title="hier zur Übersicht der Veranstaltungen"
-            >Veranstaltungsreihe</a
-          >
-        </li>
-        <li>
-          <a href="/html-pur/bestellformular.html" title="hier Tickets kaufen"
-            >Tickets</a
-          >
-        </li>
-        <li>
-          <a
-            href="/html-pur/about.html"
-            title="weitere Informationen über das Planetarium"
-            >Über uns</a
-          >
-        </li>
-      </ul>
-    </header>
+{%block content%}
+
     <main>
       <div class="wrapper">
-        <h2>Frontend Design Sommersemester 2022</h2>
+        <h2>WWW-Programmierung auf Grundlage des Frontend Design SoSe 2022</h2>
+        <h3>Frontend Design Sommersemester 2022</h3>
         <p>
-          Im Folgenden werden die Arbeitsschritte und Design-Entscheidungen,
+          Im Folgenden werden die Arbeitsschritte, welche während der Projektarbeit für das Modul
+          WWW-Programmierung getroffen wurden, näher erläutert und begründet. Zunächst folgen jedoch
+          die Arbeitsschritte und Design-Entscheidungen,
           welche während der Projektarbeit für das Modul Frontend Design im
-          Sommersemester 2022 unter der Aufsicht von Tobias Hiep getroffen
-          wurden, näher erläutert und begründet.
+          Sommersemester 2022 unter der Aufsicht von Tobias Hiep getroffen wurden.
         </p>
         <dl>
           <dt>Module</dt>
           <dd>
-            <a href="/dokumentation/module.html"
+            <a href="/module"
               >--> Hier geht es weiter zu den Modulen</a
             >
           </dd>
           <dt>Farben</dt>
           <dd>
-            <a href="/dokumentation/_farben.html"
+            <a href="/_farben"
               >--> Hier geht es weiter zu den Farben</a
             >
           </dd>
           <dt>Zeitleiste</dt>
           <dd>
-            <a href="/dokumentation/zeitleiste.html"
+            <a href="/zeitleiste"
               >--> Hier geht es weiter zur Zeitleiste</a
             >
           </dd>
         </dl>
         <dl>
-          <dt>Fiona Nissen</dt>
-          <dd>690975</dd>
-          <dd>fini8203</dd>
           <dt>Marc Freitag</dt>
           <dd>690708</dd>
           <dd>mafr9860</dd>
@@ -402,22 +352,4 @@
         </div>
       </div>
     </main>
-    <footer>
-      <ul>
-        <li>
-          <a href="/kolophon.html">Kolophon</a>
-        </li>
-        <li>
-          <a href="index.html">Dokumentation</a>
-        </li>
-        <li class="impressum">
-          <a href="/html-pur/impressum.html" title="Impressum">Impressum</a>
-        </li>
-        <li>
-          <a href="/html-pur/dsgvo.html" title="Datenschutzerklärung">DSGVO</a>
-        </li>
-      </ul>
-      <p>&#169; Fiona Nissen & Marc Freitag</p>
-    </footer>
-  </body>
-</html>
+    {%endblock%}
