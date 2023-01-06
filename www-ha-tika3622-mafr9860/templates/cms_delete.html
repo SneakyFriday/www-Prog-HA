@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+<main>
+    <div class="wrapper">
+        <h1>Veranstaltung löschen</h1>
+        <form action="#" method="POST" accept-charset="utf-8">
+        <!-- Veranstaltung löschen -->
+        <!-- 
+            TODO: 
+            - Ausgewähltes Listenelement aus DB löschen
+            - Evtl. Toast nach dem Löschen bzw. Abfrage, ob wirklich gelöscht werden soll
+        -->
+            <fieldset>
+                <legend>Veranstaltungen</legend>
+                
+                <select name="veranstaltungen" size="1" required>
+                    {% for event in events %}
+                    <option value="{{event.name}}">{{event.name}}</option>
+                    {% endfor %}
+                </select>
+                
+            </fieldset>
+            <button type="submit" name="btn-delete" value="delete">Löschen</button>
+        </form>
+    </div>
+</main>
+{%endblock%}

@@ -112,14 +112,23 @@ export const handleRequest = async (request) => {
   router.get("/_farben", controller.farben);
   router.get("/zeitleiste", controller.zeitleiste);
   router.get("/dsgvo", controller.dsgvo);
-  router.get("/login", login.render);
-  router.post("/login", login.checkLoginCredentials);
-  router.get("/cms", cmsController.add);
-  router.post("/cms", cmsController.submitChangeToDB);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
+
+  router.get("/login", login.render);
+  router.post("/login", login.checkLoginCredentials);
+
+  router.get("/cms", controller.cms);
+  router.get("/cms_create", controller.cms_create);
+  router.get("/cms_edit", controller.cms_edit);
+  router.get("/cms_delete", controller.cms_delete);
+  router.post("/cms_create", cmsController.submitChangeToDB);
+  router.post("/cms_edit", cmsController.editEvent);
+  router.post("/cms_delete", cmsController.deleteEvent);
+
   router.get("/apod", apiController.usefetchedAPI);
   router.post("/apod", apiController.sendComment);
+
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);
 

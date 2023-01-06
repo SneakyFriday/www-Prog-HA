@@ -10,13 +10,26 @@ const debug = Debug("app:model");
 */
 
 /**
- * Loads all Events.
+ * Loads all Tickets.
  * @param {DB} dbData
- * @returns {Object[]} – All Events.
+ * @returns {Object[]}
+ */
+export async function getAllTickets(db) {
+  const sql = `
+      SELECT * FROM ticketInfos
+    `;
+  const allItems = await db.queryEntries(sql);
+  return allItems;
+}
+
+/**
+ * Loads all Events
+ * @param {DB} dbData
+ * @returns {Object[]}
  */
 export async function getAllEvents(db) {
   const sql = `
-      SELECT * FROM ticketInfos
+      SELECT * FROM veranstaltungen
     `;
   const allItems = await db.queryEntries(sql);
   return allItems;
@@ -42,11 +55,10 @@ export async function addEvent(db, newEntry) {
  * @param {*} newEntry 
  * @returns 
  */
-export async function deleteEvent(db, name) {
+export async function deleteEvent(db, data) {
   const sql =
     "DELETE FROM veranstaltungen WHERE name=:name";
-  console.log(name);
-  const result = await db.query(sql, {name: name});
+  const result = await db.query(sql, {name: data.title});
   return db.lastInsertRowId;
 }
 
@@ -63,13 +75,19 @@ export async function updateEvent(db, newEntry) {
     SET 
         datum = :date,
         preis = :price,
-        beschreibung = :description
+        beschreibung = :description,
         uhrzeit = :time
     WHERE
-        name = :name
+        name = :title
     `;
   //console.log(newEntry);
-  const result = await db.query(sql, newEntry);
+  const result = await db.query(sql, {
+    date: newEntry.date,
+    price: newEntry.price,
+    description: newEntry.description,
+    time: newEntry.time,
+    title: newEntry.title,
+  });
   return db.lastInsertRowId;
 }
 

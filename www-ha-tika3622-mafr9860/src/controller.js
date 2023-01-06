@@ -83,6 +83,45 @@ export function cms(ctx) {
 }
 
 /**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function cms_create(ctx) {
+  ctx.response.body = ctx.nunjucks.render("cms_create.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export async function cms_edit(ctx) {
+  const data = await model.getAllEvents(ctx.database);
+  ctx.response.body = ctx.nunjucks.render("cms_edit.html", {
+    events: data,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export async function cms_delete(ctx) {
+  const data = await model.getAllEvents(ctx.database);
+  ctx.response.body = ctx.nunjucks.render("cms_delete.html", {
+    events: data,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Login Controller zur Authentifikation
  * @param {Object} ctx
  * @returns {Object}
