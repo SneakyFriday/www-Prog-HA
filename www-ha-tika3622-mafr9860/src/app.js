@@ -107,13 +107,16 @@ export const handleRequest = async (request) => {
   router.get("/", controller.index);
   router.get("/about", controller.about);
   router.get("/kolophon", controller.kolophon);
-  router.get("/dokumentation", controller.dokumentation);
   router.get("/module", controller.module);
   router.get("/_farben", controller.farben);
   router.get("/zeitleiste", controller.zeitleiste);
   router.get("/dsgvo", controller.dsgvo);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
+
+  router.get("/dokumentation", controller.dokumentation);
+  router.get("/dokumentation/www", controller.dokumentation);
+  router.get("/dokumentation/fd", controller.dokumentation);
 
   router.get("/login", login.render);
   router.post("/login", login.checkLoginCredentials);
