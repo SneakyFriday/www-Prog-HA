@@ -63,6 +63,7 @@ export async function submitChangeToDB(ctx) {
     date: formData.get("date"),
     time: formData.get("time"),
     price: formData.get("price"),
+    img: formData.get("upload"),
   };
 
   // Error-Handling
