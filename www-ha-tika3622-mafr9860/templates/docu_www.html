@@ -2,317 +2,363 @@
 
 {%block content%}
 <main>
-    <div class="wrapper"></div>
+    <div class="wrapper">
         <div class="inhaltsverzeichnis">
             <h2>Inhaltsverzeichnis</h2>
             <ul>
-            <li>
-                <a href="#1-grundlegedes-designkonzept"
-                >1 Grundlegendes Designkonzept</a
-                >
-            </li>
-            <li>
-                <a href="#2-style-tile">2 Style Tiles</a>
-                <ul>
-                <li>2.1 Style-Tile Farbverlauf</li>
-                <li>2.2 Style-Tiles Farben</li>
-                <li>2.3 Style-Tile Weltraum clean</li>
-                <li>2.4 Style-Tile Dark Mode</li>
-                </ul>
-            </li>
-            <li>
-                <a href="#3-design-iterationen">3. Design-Iterationen</a>
-                <ul>
-                <li>3.1 Anpassungen des Designs</li>
-                <li>3.2 Umgestaltung des HTML &amp; CSS</li>
-                </ul>
-            </li>
-            <li>
-                <a href="#4-look-and-feel">4. Look and Feel</a>
-                <ul>
-                <li>4.1 Seitenaufbau</li>
-                <li>4.2 Bilder</li>
-                <li>4.3 Farbe</li>
-                <li>4.4 Typographie</li>
-                </ul>
-            </li>
-            <li>
-                <a href="#5-responsive-webdesign">5. Responsive Webdesign</a>
-            </li>
-            <li><a href="#6-accessibility">6. Accessibility</a></li>
-            <li>
-                <a href="#7-projektarbeit">7. Projektarbeit</a>
-                <ul>
-                <li>7.1 Arbeitsteilung</li>
-                <li>7.2 Herausforderungen</li>
-                </ul>
-            </li>
+                <li>
+                    <a href="#1-grundlegendesDesign">1. Grundlegendes Backend-Design</a>
+                    <!--
+                    die Person / Firma / Institution
+                    das Ziel und Aufgabe der Site
+                    Ziel und Funktionsumfang der Anwendung
+                    Überlegungen zum Threadmodelling: Welche Gefahr droht, z.B. wenn alle Daten veröffentlicht werden? Wie könnte das geschehen? Wie haben Sie die App davor geschützt?
+                    Aufbau der Anwendung
+                    Welchen vorhandenen Lösungen haben Sie als Vorlage oder Inspiration genutzt?
+                -->
+                </li>
+                <li>
+                    <!--
+                    Überlegungen zu den URIs
+                -->
+                    <a href="#2-URI">2. URI</a>
+                    <ul>
+                        <li>2.1 Einzelseiten</li>
+                        <li>2.2 Veranstaltungen</li>
+                        <li>2.3 Content Management System (CMS)</li>
+                        <li>2.4 Dokumentation</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#3-backend">3. Backend-Aufgaben</a>
+                </li>
+                <li>
+                    <a href="#4-datenbank">4. Datenbankanbindung</a>
+                </li>
+                <li>
+                    <a href="#5-besonderheiten">5. Besonderheiten / Externe API</a>
+                    <!--
+                    Besonderheiten
+                    Welche externen Komponenten, Scripte, CSS etc werden verwendet?
+                    Warum werden sie verwendet?
+                -->
+                </li>
+                <li>
+                    <a href="#6-ausbaumoeglichkeiten">6. Ausbaumöglichkeiten</a>
+                    <!--
+                    Nutzung von JS im Frontend
+                    Überlegungen zum Progressive Enhancement
+                -->
+                </li>
+                <li>
+                    <a href="#7-projektarbeit">7. Projektarbeit</a>
+                    <!--
+                    Projekttagebuch
+                    Aufgetretene Probleme und deren Lösungen
+                    Wer hat was umgesetzt?
+                -->
+                    <ul>
+                        <li>7.1 Arbeitsteilung</li>
+                        <li>7.2 Herausforderungen</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#8-nutzungsrechte">8. Nutzungrechte</a>
+                    <!--
+                   Erklärung zu den Nutzungsrechten (auch wenn Sie der Hochschule keine einräumen) 
+                -->
+                </li>
             </ul>
         </div>
         <div class="inhalt">
             <article>
-            <h2 id="1-grundlegedes-designkonzept">
-                1. Grundlegendes Designkonzept
-            </h2>
-            <p>
-                Da unser imaginäres Planetarium wie eine professionelle
-                Einrichtung wirken sollte, musste sie natürlich einem gewissen
-                Standart entsprechen. Nicht zu viele und bunte Farben, eher
-                ruhigere Fonts und ein für jung und alt ansprechender und
-                verständlicher Aufbau der Seite. Aus diesem Grund wurde auf
-                besondere Effekte und komplizierte Seitenaufbauten verzeichtet.
-                Das schlichte Design ein schnelles Auffinden von Informationen
-                begünstigen.
-            </p>
+                <h2 id="1-grundlegendesDesign">
+                    1. Grundlegendes Designkonzept
+                </h2>
+                <p>
+                    Da das grundlegende Frontend-Design bereits stand, wurde zunächst überlegt, welche konkreten
+                    Funktionalitäten die Website umfassen sollte. Dies wäre zum einen die Bereitstellung von
+                    Informationen zum Planetarium an sich und zusätzliche astronomiebezogene Informationen. Zudem sollte
+                    es möglich sein, über die Website Tickets für die angepriesenen Veranstaltungsreihen reservieren zu
+                    können.
+                    Hierfür musste es möglich sein über das bereits implementierte Formular ein Ticket für die
+                    angebotenen Veranstaltungen durch Eingabe der persönlichen Daten zu reservieren. Des Weiteren sollte
+                    die Website ein Ort der allgemein astronomiebezogenen Informationen sein, weshalb die von der NASA
+                    zur Verfügung gestellte "Astronomy Picture of the Day"-API genutzt wurde, welche im weiteren Verlauf
+                    noch näher beschrieben wird.
+                </p>
+                <p>
+                    Da sich die Veranstaltungen des Planetariums immer mal wieder ändern, müssen die Seitenbetreiber und
+                    Seitebetreiberinnen eine erleichterte Möglichkeit zum Anlegen eben dieser Veranstaltungen haben.
+                    Hiefür bedarf es einen Content Management Systems, welches hinter einem exklusiven Login für die
+                    Betreiber und Betreiberinnen liegen musste.
+                    Diese Daten mussten zudem persistent gespeichert werden, um stetig über die Website abrufbar zu
+                    sein. Um dies zu gewährleisten, wurde eine Datenbank an die Website angebunden. Diese und deren
+                    konkrete Funktioneren werden ebenfalls im weiteren Verlauf näher beschrieben.
+                </p>
             </article>
             <article>
-            <h2 id="2-style-tile">2. Style Tiles</h2>
-            <p>
-                Zu Beginn des Designprozesses haben wir verschiedene Style Tiles
-                erarbeitet und dabei verschiedenste Ideen ausprobiert. Diese
-                Aufgabe hat uns dabei geholfen, über unterschiedlichste Konzepte
-                nachzudenken und dadurch das für unser Projekt passendste Design
-                zu finden. Eine Auswahl von angestrebten Designs werden in den
-                folgenden Style-Tiles aufgezeigt und näher beschrieben.
-            </p>
-            <h3>2.1 Style-Tile Farbverlauf</h3>
-            <a href="/Bilder/Style-Tile-Farbverlauf.png"
-                ><img
-                src="/Bilder/Style-Tile-Farbverlauf.png"
-                alt="Bild des Style-Tiles Farbverlauf"
-            /></a>
-            <p>
-                Das erste Style Tile hat einen modernen Look erhalten. Ein
-                Farbverlauf von rosa zu lila mit einem Noise-Filter darüber
-                gelegt. Die Bilder haben abgerundete Ecken und geben dadurch einen
-                cleanen Look ab. Die Serifenschrift "Leap" wurde in einem unserer
-                Entwürfe als unsere Displaytypographie für die Überschrift h1
-                ausprobiert. Das allgemeine Konzepte gefiel uns zwar, passte aber
-                letztlich nicht zu unserer angestrebten Corporate Identity.
-            </p>
-
-            <h3>2.2 Style-Tiles Farben</h3>
-            <a href="/Bilder/Style-Tile-Farben-1.png"
-                ><img
-                src="/Bilder/Style-Tile-Farben-1.png"
-                alt="Bild des Style-Tiles Farben 1"
-            /></a>
-            <a href="/Bilder/Style-Tile-Farben-2.png"
-                ><img
-                src="/Bilder/Style-Tile-Farben-2.png"
-                alt="Bild des Style-Tiles Farben 2"
-            /></a>
-            <p>
-                Die nächsten, nicht ganz ausgereiften Entwürfe sollten mit zwei
-                starken, kontrastreichen Farben (wie bei
-                <a href="https://www.rwu.de/hochschule/ueber-uns/portrait"
-                >dieser</a
-                >
-                Website, die im Labor vorgestellt wurde) arbeiten. Leider haben
-                wir hierfür nicht die besten Kombinationen gefunden und diese Idee
-                dann schnell wieder verworfen.
-            </p>
-
-            <h3>2.3 Style-Tile Weltraum clean</h3>
-            <a href="/Bilder/Style-Tile-Logo-Marc.png"
-                ><img
-                src="/Bilder/Style-Tile-Logo-Marc.png"
-                alt="Bild des Style-Tiles Weltraum"
-            /></a>
-            <p>
-                Um ein Style-Tile zu haben, was ganz stark am Thema Weltall ist,
-                wurde beim dritten Style-Tile mit einem thematischen Hintergrund
-                gearbeitet und Formen sowie Farben ebenfalls thematisch angepasst.
-                Vor allem die runden Elemente sollten die Form eines Planetens
-                nachahmen und damit das Thema Weltraum/Planetarium unterstreichen.
-                Es wurde bei diesem Design zudem darauf geachtet, ein sehr flaches
-                und "cleanes" Design zu erschaffen, welches sich etwas von den
-                bisherigen Style-Tiles abhebt.
-            </p>
-
-            <h3>2.4 Style-Tile Dark Mode</h3>
-            <a href="/Bilder/Style-Tile-dark-mode.png"
-                ><img
-                src="/Bilder/Style-Tile-dark-mode.png"
-                alt="Bild des Style-Tiles Dark-Mode"
-            /></a>
-            <p>
-                Auch bei unserem letztendlichem Design haben wir mit einem
-                Noise-Filter über dem dunkleren Blauton gearbeitet, damit die
-                Website nicht zu langweilig anzuschauen ist. Die Bilder sollten
-                kreisförmig ausgeschnitten sein und damit ein Planeten-Feeling
-                vermitteln. Der Rest sollte relativ schlicht mit weißer Schrift
-                gehalten sein.
-            </p>
+                <h2 id="2-URI">2. URI</h2>
+                <p>
+                    URIs oder auch "Uniform Resource Identifier" werden zur Bezeichnung von Ressourcen wie
+                    Webservice-Aufrufe oder auch Website-Aufrufe genutzt. Der aktuelle Stand ist als RFC 3986
+                    veröffentlicht und stellt somit eine globale Norm dar.
+                    URLs und URNs sind spezielle Formen eines URIs. Als Zeichenfolge kodiert werden sie besonders im
+                    HTML-Format eingebunden und als Verweise auf eine andere Website auch Hyperlink genannt.
+                    Im Folgenden werden die auf dieser Homepage genutzten URIs aufgelistet und erläutert, welchen Zweck
+                    diese erfüllen. Da es sich hier um einen Developer-Build handelt, werden das "Scheme" und die
+                    "Authority" immer "http://localhost:5000/" sein.
+                </p>
+                <h3>2.1 Einzelseiten</h3>
+                <ul>
+                    <li>"/"</li>
+                    <li>"/kolophon"</li>
+                    <li>"/module"</li>
+                    <li>"/_farben"</li>
+                    <li>"/zeitleiste"</li>
+                    <li>"/dsgvo"</li>
+                    <li>"/impressum"</li>
+                    <li>"/veranstaltungsreihe"</li>
+                    <li>"/about"</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
+                <h3>2.2 Content Management System (CMS)</h3>
+                <ul>
+                    <li>/cms</li>
+                    <li>/cms_create</li>
+                    <li>/cms_edit</li>
+                    <li>/cms_delete</li>
+                    <li>/cms_create</li>
+                    <li>/cms_edit</li>
+                    <li>/cms_delete</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
+                <h3>2.3 Login</h3>
+                <ul>
+                    <li>/login</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
+                <h3>2.4 APOD</h3>
+                <ul>
+                    <li>/apod</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
+                <h3>2.5 Ticket-Erwerb</h3>
+                <ul>
+                    <li>/tickets</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
+                <h3>2.6 Dokumentation</h3>
+                <ul>
+                    <li>/dokumentation</li>
+                    <li>/dokumentation/www</li>
+                    <li>/dokumentation/fd</li>
+                </ul>
+                <p>
+                    GET
+                </p>
+                <p>
+                    POST
+                </p>
             </article>
             <article>
-            <h2 id="3-design-iterationen">3. Design-Iterationen</h2>
-            <p>
-                Wie die meisten Projekte durchlief auch dieses mehrere
-                Interationen, bis das finale Design und letztlich der Webauftritt
-                fertig gestaltet und umgesetzt war. Ein Ausschnitt der größten
-                Iterationen wird im Folgenden vorgestellt und näher beleuchtet.
-            </p>
-            <h3>3.1 Anpassungen des Designs</h3>
-            <p>
-                Während der Umsetzung unseren Style Tiles fiel uns auf, dass ein
-                zweifarbiges Design viel zu langweilig werden würde, weshalb wir
-                mit rot und beige kleine Akzenttöne gesetzt haben.
-            </p>
-            <p>
-                Das Logo wurde als schneller Platzhalter entworfen. Die genutzte
-                Font "Presque" stellte sich für diese Nutzung als nicht geeignet
-                heraus. Besonders das "P" war in so einem kleinen Logo nicht zu
-                erkennen.
-            </p>
-            <a href="/svgs/logo-entwurf-weiß.svg"
-                ><img src="/svgs/logo-entwurf-weiß.svg" alt="erster Logo Entwurf"
-            /></a>
+                <h2 id="3-backend">3. Backend-Aufgaben</h2>
+                <p>
+                    Wie die meisten Projekte durchlief auch dieses mehrere
+                    Interationen, bis das finale Design und letztlich der Webauftritt
+                    fertig gestaltet und umgesetzt war. Ein Ausschnitt der größten
+                    Iterationen wird im Folgenden vorgestellt und näher beleuchtet.
+                </p>
+                <h3>3.1 Anpassungen des Designs</h3>
+                <p>
+                    Während der Umsetzung unseren Style Tiles fiel uns auf, dass ein
+                    zweifarbiges Design viel zu langweilig werden würde, weshalb wir
+                    mit rot und beige kleine Akzenttöne gesetzt haben.
+                </p>
+                <p>
+                    Das Logo wurde als schneller Platzhalter entworfen. Die genutzte
+                    Font "Presque" stellte sich für diese Nutzung als nicht geeignet
+                    heraus. Besonders das "P" war in so einem kleinen Logo nicht zu
+                    erkennen.
+                </p>
+                <a href="/svgs/logo-entwurf-weiß.svg"><img src="/svgs/logo-entwurf-weiß.svg"
+                        alt="erster Logo Entwurf" /></a>
 
-            <p>
-                Wir ersetzten die Font deshalb durch die "Maragsa". Zudem
-                ersetzten wir die schnell erstellte Kontur des Ringes durch einen
-                verzogenen Kreis, wodurch die Darstellung realistischer wirkte.
-            </p>
-            <a href="/svgs/logo-weiß.svg"
-                ><img src="/svgs/logo-weiß.svg" alt="finales Logo"
-            /></a>
-            <h3>3.2 Umgestaltung des HTML &amp; CSS</h3>
-            <p>
-                HTML und CSS waren natürlich ein ständiger Work-In-Progress. Das
-                HTML hat während der CSS Umsetzung verschiedenste Klassen und
-                div's dazuerhalten. Zudem haben wir zwei im Exposee geplante
-                Unterseiten (Weltraummüll und Entwicklungsschritte der Weltraum
-                Observation) komplett gestrichen, da drei
-                Veranstaltungs-Unterseiten ausreichten, um unser Design zu
-                präsentieren. Dass die Veranstaltungs-Unterseiten wie die
-                Startseite und Veranstaltungsseite auch Kästen nutzt, war eine
-                spätere Idee. So konnten wir eine weitere Vereinheitlichung
-                schaffen und ein Design unterstützen, dass sich durch die ganze
-                Website zieht.
-            </p>
+                <p>
+                    Wir ersetzten die Font deshalb durch die "Maragsa". Zudem
+                    ersetzten wir die schnell erstellte Kontur des Ringes durch einen
+                    verzogenen Kreis, wodurch die Darstellung realistischer wirkte.
+                </p>
+                <a href="/svgs/logo-weiß.svg"><img src="/svgs/logo-weiß.svg" alt="finales Logo" /></a>
+                <h3>3.2 Umgestaltung des HTML &amp; CSS</h3>
+                <p>
+                    HTML und CSS waren natürlich ein ständiger Work-In-Progress. Das
+                    HTML hat während der CSS Umsetzung verschiedenste Klassen und
+                    div's dazuerhalten. Zudem haben wir zwei im Exposee geplante
+                    Unterseiten (Weltraummüll und Entwicklungsschritte der Weltraum
+                    Observation) komplett gestrichen, da drei
+                    Veranstaltungs-Unterseiten ausreichten, um unser Design zu
+                    präsentieren. Dass die Veranstaltungs-Unterseiten wie die
+                    Startseite und Veranstaltungsseite auch Kästen nutzt, war eine
+                    spätere Idee. So konnten wir eine weitere Vereinheitlichung
+                    schaffen und ein Design unterstützen, dass sich durch die ganze
+                    Website zieht.
+                </p>
             </article>
-            <h2 id="4-look-and-feel">4. Look and Feel</h2>
+            <h2 id="4-datenbank">4. Datenbankanbindung</h2>
             <article>
-            <p>
-                Beim Look and Feel für eine Website geht es darum, wie es sich
-                anfühlt, auf dieser Seite zu navigieren und nach Informationen zu
-                suchen beziehungsweise Neues zu entdecken; und wie der Eindruck
-                der Aufmachung der Sites ist. Da unser Fokus bei dieser Website
-                auf der Präsentation und speziell dem Angebot einer Veranstaltung
-                im Planetarium liegt, sind dies die Hauptelemente, nach denen die
-                User suchen und sich informieren.
-            </p>
-            <h3>4.1 Seitenaufbau</h3>
-            <p>
-                Auf der Startseite gibt es eine Slideshow mit Bildern zum
-                Universums-Thema, die direkt Interesse wecken. Darunter gibt es
-                Verlinkungen auf mögliche Unterseiten (in der Hausarbeit wurde nur
-                die erste ausgearbeitet und ist damit die einzig anklickbare).
-                Diese Themen sind in beige Kästen gepackt, um sie voneinander
-                abheben zu können und mit einer zweiten Farbe zu arbeiten. Die
-                Kästen sind auch auf den Unterseiten wiederzufinden und schaffen
-                damit einen einheitlichen Stil.
-            </p>
-            <h3>4.2 Bilder</h3>
-            <p>
-                Wir wollten nicht die gleichen drei Bilder von Galaxien benutzen,
-                die auf jeder Astronomie-Seite zu finden sind, sondern ein etwas
-                moderneres Erscheinungsbild hinbekommen. Die meisten Bilder haben
-                wir deshalb von unsplash heruntergeladen. Viele der Bilder haben
-                einen ähnlichen Look, helle Töne mit leichtem Filter oder ein
-                dunkleres blau.
-            </p>
+                <p>
+                    Beim Look and Feel für eine Website geht es darum, wie es sich
+                    anfühlt, auf dieser Seite zu navigieren und nach Informationen zu
+                    suchen beziehungsweise Neues zu entdecken; und wie der Eindruck
+                    der Aufmachung der Sites ist. Da unser Fokus bei dieser Website
+                    auf der Präsentation und speziell dem Angebot einer Veranstaltung
+                    im Planetarium liegt, sind dies die Hauptelemente, nach denen die
+                    User suchen und sich informieren.
+                </p>
+                <h3>4.1 Seitenaufbau</h3>
+                <p>
+                    Auf der Startseite gibt es eine Slideshow mit Bildern zum
+                    Universums-Thema, die direkt Interesse wecken. Darunter gibt es
+                    Verlinkungen auf mögliche Unterseiten (in der Hausarbeit wurde nur
+                    die erste ausgearbeitet und ist damit die einzig anklickbare).
+                    Diese Themen sind in beige Kästen gepackt, um sie voneinander
+                    abheben zu können und mit einer zweiten Farbe zu arbeiten. Die
+                    Kästen sind auch auf den Unterseiten wiederzufinden und schaffen
+                    damit einen einheitlichen Stil.
+                </p>
+                <h3>4.2 Bilder</h3>
+                <p>
+                    Wir wollten nicht die gleichen drei Bilder von Galaxien benutzen,
+                    die auf jeder Astronomie-Seite zu finden sind, sondern ein etwas
+                    moderneres Erscheinungsbild hinbekommen. Die meisten Bilder haben
+                    wir deshalb von unsplash heruntergeladen. Viele der Bilder haben
+                    einen ähnlichen Look, helle Töne mit leichtem Filter oder ein
+                    dunkleres blau.
+                </p>
 
-            <h3>4.3 Farbe</h3>
-            <p>
-                Da uns dunkelblau und weiß als Farben für die Website zu wenig
-                waren, entschieden wir uns, zusätzlich kleine Akzentfarben zu
-                verwenden. Mithilfe von
-                <a href="https://coolors.co/">coolors.co</a> setzten wir dann eine
-                kleine Farbpalette zusammen, bei der wir ein zu unserem Blauton
-                passendes beige und rot fanden.
-            </p>
-            <p>
-                Das blau mit dem Hexcode #13336C wird in der finalen Datei selbst
-                gar nicht so oft verwendet, da wir für den gleichfarbigen
-                Hintergrund eine Bilddatei mit einem blauen Rechteck verwenden,
-                das, wie im Style Tile vorgesehen, bei Affinity Photo einen
-                Noise-Filter draufgelegt bekommen hat. Dadurch ist die Website
-                weniger langweilig anzusehen, als bei einem einfarbigen
-                Hintergrund. Außerdem hat dieser Grainy-Look Ähnlichkeiten zu
-                einem Sternenhimmel, also passend zu einem Planetarium.
-            </p>
+                <h3>4.3 Farbe</h3>
+                <p>
+                    Da uns dunkelblau und weiß als Farben für die Website zu wenig
+                    waren, entschieden wir uns, zusätzlich kleine Akzentfarben zu
+                    verwenden. Mithilfe von
+                    <a href="https://coolors.co/">coolors.co</a> setzten wir dann eine
+                    kleine Farbpalette zusammen, bei der wir ein zu unserem Blauton
+                    passendes beige und rot fanden.
+                </p>
+                <p>
+                    Das blau mit dem Hexcode #13336C wird in der finalen Datei selbst
+                    gar nicht so oft verwendet, da wir für den gleichfarbigen
+                    Hintergrund eine Bilddatei mit einem blauen Rechteck verwenden,
+                    das, wie im Style Tile vorgesehen, bei Affinity Photo einen
+                    Noise-Filter draufgelegt bekommen hat. Dadurch ist die Website
+                    weniger langweilig anzusehen, als bei einem einfarbigen
+                    Hintergrund. Außerdem hat dieser Grainy-Look Ähnlichkeiten zu
+                    einem Sternenhimmel, also passend zu einem Planetarium.
+                </p>
 
-            <h3>4.4 Typographie</h3>
-            <p>
-                Unsere eigentlich ausgewählte Typo "Kabal" passte nicht zum
-                allgemeinen Look der Website, weshalb wir sie nach kurzer Zeit
-                durch die "Leap" von Style Tile 1 ersetzten. Auch diese konnte uns
-                letztendlich nicht zufrieden stellen, da sie nur Versalien
-                beinhaltet und zudem keine Sonderzeichen ermöglicht. Da es mit der
-                Typo aus dem Logo insgesamt drei verschiedene Schriften auf
-                unserer Website gab, entschieden wir uns dafür, die "Leap" als
-                Displayfont zu streichen und stattdessen die "Maragsa" aus unserem
-                Logo als h1 zu übernehmen.
-            </p>
-            <p>
-                In ersten Entwürfen benutzten wir für den restlichen Text die
-                "Aqua Grotesque", welche aber nicht leserlich genug,
-                beziehungsweise nicht fürs Web geeignet war. Deshalb ersetzten wir
-                sie durch die Google Font "Barlow", welche keine zu oft genutzte,
-                aber trotzdem wunderbar geeignete Font ist. Statt der normalen
-                "Barlow" entschieden wir uns aber für die "Barlow Semi Condensed",
-                welche am besten zu unserem angestrebten Look passte.
-            </p>
+                <h3>4.4 Typographie</h3>
+                <p>
+                    Unsere eigentlich ausgewählte Typo "Kabal" passte nicht zum
+                    allgemeinen Look der Website, weshalb wir sie nach kurzer Zeit
+                    durch die "Leap" von Style Tile 1 ersetzten. Auch diese konnte uns
+                    letztendlich nicht zufrieden stellen, da sie nur Versalien
+                    beinhaltet und zudem keine Sonderzeichen ermöglicht. Da es mit der
+                    Typo aus dem Logo insgesamt drei verschiedene Schriften auf
+                    unserer Website gab, entschieden wir uns dafür, die "Leap" als
+                    Displayfont zu streichen und stattdessen die "Maragsa" aus unserem
+                    Logo als h1 zu übernehmen.
+                </p>
+                <p>
+                    In ersten Entwürfen benutzten wir für den restlichen Text die
+                    "Aqua Grotesque", welche aber nicht leserlich genug,
+                    beziehungsweise nicht fürs Web geeignet war. Deshalb ersetzten wir
+                    sie durch die Google Font "Barlow", welche keine zu oft genutzte,
+                    aber trotzdem wunderbar geeignete Font ist. Statt der normalen
+                    "Barlow" entschieden wir uns aber für die "Barlow Semi Condensed",
+                    welche am besten zu unserem angestrebten Look passte.
+                </p>
             </article>
             <article>
-            <h2 id="5-responsive-webdesign">5. Responsive Webdesign</h2>
-            <p>
-                Um dem responsive Webdesign gerecht zu werden, wurde beim Projekt
-                im Sinne von "Mobile First" gearbeitet. Hierbei lag der Fokus auf
-                der Entwicklung einer mobilen Version der Website und dessen
-                Anpassung an unterschiedliche mobile Endgeräte. Hierfür müssen
-                Elemente mitskalieren oder über Media-Queries bei
-                unterschiedlichen Größen angepasst werden.
-            </p>
+                <h2 id="5-besonderheiten">5. Besonderheiten / Externe API</h2>
+                <p>
+                    Um dem responsive Webdesign gerecht zu werden, wurde beim Projekt
+                    im Sinne von "Mobile First" gearbeitet. Hierbei lag der Fokus auf
+                    der Entwicklung einer mobilen Version der Website und dessen
+                    Anpassung an unterschiedliche mobile Endgeräte. Hierfür müssen
+                    Elemente mitskalieren oder über Media-Queries bei
+                    unterschiedlichen Größen angepasst werden.
+                </p>
             </article>
             <article>
-            <h2 id="6-accessibility">6. Accessibility</h2>
-            <p>
-                Um der Accessibility gerecht zu werden, wurden zum einen alle
-                Bilder mit alternativen Texten ausgestattet und bei der
-                semantischen Umsetzung versucht, alles, was in Listen umgesetzt
-                werden kann, in (Data-)Listen umzusetzen. Somit haben es
-                ScreenReader einfacher, durch das HTML zu gelangen. Zum anderen
-                wurden Skip-Links (wie hier im Inhaltsverzeichnis) eingefügt, um
-                schnell zielführend zum gewünschten Content zu gelangen.
-            </p>
+                <h2 id="6-ausbaumoeglichkeiten">6. Ausbaumöglichkeiten</h2>
+                <p>
+                    Um der Accessibility gerecht zu werden, wurden zum einen alle
+                    Bilder mit alternativen Texten ausgestattet und bei der
+                    semantischen Umsetzung versucht, alles, was in Listen umgesetzt
+                    werden kann, in (Data-)Listen umzusetzen. Somit haben es
+                    ScreenReader einfacher, durch das HTML zu gelangen. Zum anderen
+                    wurden Skip-Links (wie hier im Inhaltsverzeichnis) eingefügt, um
+                    schnell zielführend zum gewünschten Content zu gelangen.
+                </p>
             </article>
             <article>
-            <h2 id="7-projektarbeit">7. Projektarbeit</h2>
-            <p>
-                Zum Abschluss dieser Projekt-Dokumentation soll noch ein Blick auf
-                dessen allgemeinen Ablauf und etwaige Schwierigkeiten, welche
-                während des Prozesses aufgetaucht sind, eingegangen werden.
-            </p>
-            <h3>7.1 Arbeitsteilung</h3>
-            <p>
-                Die Arbeitsteilung funktionierte bei diesem doch recht
-                umfangreichen Projekt sehr gut. Grundlegende Designentscheidungen
-                und HTML bzw. CSS Elemente wurden zusammen besprochen. Daraufhin
-                teilten wir die Seiten auf und entwickelten parallel Unterseiten.
-                Nachdem diese vermeintlich fertig waren, wurden sie noch einmal
-                besprochen und Änderungen fanden ihren Einzug, was letztlich zu
-                einigen Iterationen führte.
-            </p>
-            <h3>7.2 Herausforderungen</h3>
-            <p>
-                Die größten Herausforderungen bei diesem Projekt waren zum einen
-                die Gestaltung eines schönen Prototypen mit Wunschelementen und
-                zum anderen die Einschätzung, ob die gewünschten Designs mit
-                unseren Fähigkeiten überhaupt umsetzbar waren.
-            </p>
+                <h2 id="7-projektarbeit">7. Projektarbeit</h2>
+                <p>
+                    Zum Abschluss dieser Projekt-Dokumentation soll noch ein Blick auf
+                    dessen allgemeinen Ablauf und etwaige Schwierigkeiten, welche
+                    während des Prozesses aufgetaucht sind, eingegangen werden.
+                </p>
+                <h3>7.1 Arbeitsteilung</h3>
+                <p>
+                    Die Arbeitsteilung funktionierte bei diesem doch recht
+                    umfangreichen Projekt sehr gut. Grundlegende Designentscheidungen
+                    und HTML bzw. CSS Elemente wurden zusammen besprochen. Daraufhin
+                    teilten wir die Seiten auf und entwickelten parallel Unterseiten.
+                    Nachdem diese vermeintlich fertig waren, wurden sie noch einmal
+                    besprochen und Änderungen fanden ihren Einzug, was letztlich zu
+                    einigen Iterationen führte.
+                </p>
+                <h3>7.2 Herausforderungen</h3>
+                <p>
+                    Die größten Herausforderungen bei diesem Projekt waren zum einen
+                    die Gestaltung eines schönen Prototypen mit Wunschelementen und
+                    zum anderen die Einschätzung, ob die gewünschten Designs mit
+                    unseren Fähigkeiten überhaupt umsetzbar waren.
+                </p>
+            </article>
+            <article>
+                <h2 id="8-nutzungsrechte">8. Nutzungrechte</h2>
+                <p>
+                    Zum Abschluss dieser Projekt-Dokumentation soll noch ein Blick auf
+                    dessen allgemeinen Ablauf und etwaige Schwierigkeiten, welche
+                    während des Prozesses aufgetaucht sind, eingegangen werden.
+                </p>
             </article>
         </div>
     </div>

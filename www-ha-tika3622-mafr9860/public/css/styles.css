@@ -537,6 +537,10 @@ fieldset > div {
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: #802a33;
+}
+
 .cmsIndex {
   text-align: center;
 }

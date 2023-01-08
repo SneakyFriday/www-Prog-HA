@@ -158,6 +158,30 @@ export function dokumentation(ctx) {
 }
 
 /**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation_www(ctx) {
+  ctx.response.body = ctx.nunjucks.render("docu_www.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation_fd(ctx) {
+  ctx.response.body = ctx.nunjucks.render("docu_fd.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Controller des Templates für die module-Seite
  * @param {Object} ctx
  * @returns {Object}

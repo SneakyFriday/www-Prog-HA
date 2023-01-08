@@ -102,7 +102,6 @@ export const handleRequest = async (request) => {
   };
 
   // Anpassen je nach URL-Call
-  // TODO: Controller noch erstellen und je nach URL hinzufügen
   const router = await createRouter();
   router.get("/", controller.index);
   router.get("/about", controller.about);
@@ -115,8 +114,8 @@ export const handleRequest = async (request) => {
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
 
   router.get("/dokumentation", controller.dokumentation);
-  router.get("/dokumentation/www", controller.dokumentation);
-  router.get("/dokumentation/fd", controller.dokumentation);
+  router.get("/dokumentation/www", controller.dokumentation_www);
+  router.get("/dokumentation/fd", controller.dokumentation_fd);
 
   router.get("/login", login.render);
   router.post("/login", login.checkLoginCredentials);
@@ -168,7 +167,7 @@ export const handleRequest = async (request) => {
   //ctx = logger.start(ctx);
   ctx = cookies.getCookies(ctx);
   ctx = session.getSession(ctx);
-  // ctx = await serveStatic.serveStaticFile('../public')(ctx);
+  //ctx = await serveStatic.serveStaticFile('../public', ctx);
   ctx = await serveStaticFile('./public')(ctx);
   ctx = session.setSession(ctx);
   ctx = cookies.setCookies(ctx);
