@@ -41,12 +41,9 @@
           <li>Listen-Element</li>
         </ul>
         <!-- Button -->
-        <button type="submit" value="Bestellen">Ein normaler Button</button>
-        <div class="bestellFormular">
-          <button type="submit" value="Bestellen">
-            Ein stilisierter Button
-          </button>
-        </div>
+        <button type="submit" value="Bestellen">Ein Effekt-Button</button>
+        <a class="btn" type="submit">Ein normaler Button als Anchor-Tag</a>
+   
        <h2>Beispiel-Kachel</h2>
         <ul class="fun-facts-container">
           <li>
@@ -99,8 +96,13 @@
       <fieldset>
         <legend>Veranstaltungsdatum</legend>
         <input name="date" type="datetime-local">
-      </fieldset> 
-    </form><button type="submit" value="Bestellen">Vorbestellen</button>
+      </fieldset>
+      <section>
+        <label for="newsletter">Newsletter abonnieren</label>
+        <input type="checkbox" id="newsletter" name="newsletter">
+      </section>
+      <button type="submit" value="Bestellen">Vorbestellen</button> 
+    </form>
     </div>
   </div>
 </main>

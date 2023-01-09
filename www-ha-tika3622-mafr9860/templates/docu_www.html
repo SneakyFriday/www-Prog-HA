@@ -36,7 +36,7 @@
                     <a href="#4-datenbank">4. Datenbankanbindung</a>
                 </li>
                 <li>
-                    <a href="#5-besonderheiten">5. Besonderheiten / Externe API</a>
+                    <a href="#5-besonderheiten">5. Besonderheiten</a>
                     <!--
                     Besonderheiten
                     Welche externen Komponenten, Scripte, CSS etc werden verwendet?
@@ -122,10 +122,11 @@
                     <li>"/about"</li>
                 </ul>
                 <p>
-                    GET
-                </p>
-                <p>
-                    POST
+                    Über die HTTP GET-Methoden, welche im Form-Element gesendet und im Router überprüft werden,
+                    senden die jeweiligen Methoden in der "controller.js" einen Render-Aufruf mit der passenden
+                    html-Seite. Zudem werden benötigte Daten-Objekte dabei übergeben. Im Falle einer ungültigen Anfrage,
+                    wird auf eine "404"-Site umgeleitet, um den Besucher und Besucherinnen anzuzeigen, dass die gewählte
+                    Seite nicht vorhanden ist.
                 </p>
                 <h3>2.2 Content Management System (CMS)</h3>
                 <ul>
@@ -133,45 +134,92 @@
                     <li>/cms_create</li>
                     <li>/cms_edit</li>
                     <li>/cms_delete</li>
-                    <li>/cms_create</li>
-                    <li>/cms_edit</li>
-                    <li>/cms_delete</li>
                 </ul>
                 <p>
-                    GET
+                    Rendering der jeweiligen HTML-Seite. Es werden beim erstmaligen Aufrufen keine spezifischen
+                    Daten weiter an das Rendering übergeben. Sollten Fehler bei der Eingabe in die Form-Elemente
+                    passieren, werden die jeweiligen Error-Meldungen übergeben und im HTML gerendert.
                 </p>
                 <p>
-                    POST
+                    Unter diesen URIs können die Website-Betreiber und -Betreiberinnen, nach einem erfolgreichen
+                    Login, gewünschte Veranstaltungen anlegen (cms_create), ändern (cms_edit) und löschen (cms_delete).
+                    Die Informationen werden beim Pressen des Anlegen-, Ändern-, bzw. Löschen-Buttons per POST-Anfrage
+                    an die Datenbank übermittelt. Den spezifischen Ablauf übernimmt der "cms-controller". Konkret wird
+                    zunächst die "submitChangeToDB()"-Methode ausgeführt, wenn eine Veranstaltung angelegt werden soll.
+                    Hierbei werden die Daten aus der Form ausgelesen, auf Fehler überprüft und an die Datenbank
+                    übermittelt. Die nötige SQL-Anfragen handelt die "model.js" ab. Sollten Fehler bei der Eingabe
+                    passieren, werden die jeweiligen Error-Meldungen als Objekt an nunjucks übergeben und gerendert. Das
+                    Ändern und Löschen von Veranstaltungen läuft ähnlich ab. Für das Ändern ist die Methode
+                    "editEvent()" und für das Löschen die "deleteEvent()" im cms-controller zuständig. Wichtig ist
+                    hierbei, dass die Auswahl der Veranstaltungen im Dropdown-Menu stetig geupdated wird, wenn die
+                    Website neu gerendert wird. Dies ist vor allem beim Löschen wichtig, da sofort die neue Liste von
+                    Veranstaltungen im Dropdown angezeigt wird und ein vermeintlichen Löschen von nicht mehr vorhandenen
+                    Veranstaltungen somit umgangen wird.
                 </p>
                 <h3>2.3 Login</h3>
                 <ul>
                     <li>/login</li>
                 </ul>
                 <p>
-                    GET
+                    Beim Aufruf dieser URI wird die Login-Form aufgerufen. Über diese können sich die
+                    Homepage-Betreiber und -Betreiberinnen in das bereits erläuterte Content-Management-System
+                    einloggen. Ein Registrierungprozess ist nicht von nöten, da die jeweiligen Nutzer und Nutzerinnen
+                    zuvor von einem Admin in der Datenbank mit Nutzername und Passwort hinterlegt werden müssen. Über
+                    diese User-Credentials kann sich dann eingeloggt werden. Eine falsche Kombination von Nutzername und
+                    Passwort wird sofort nach dem Pressen des Login-Buttons in roter Schrift angezeigt. Hierbei handelt
+                    es sich wie auch beim CMS um ein Error-Objekt, welches das Rendering übergeben bekommt.
                 </p>
                 <p>
-                    POST
+                    Die Überprüfung übernimmt die "login.js" mit der Methode checkLoginCredentials(). Hierbei
+                    werden die Form-Daten ausgelesen, was konkret der Nutzername und das Passwort ist. Diese beiden
+                    Angaben werden zunächst auf Fehler in der Eingabe überprüft. Sollten keine Fehler vorhanden sein,
+                    werden die Daten an die Methode authUser() übergeben, welche auf die Datenbank zugreift und mittels
+                    Nutzernamen überprüft, ob es einen Eintrag dazu gibt. Ist dieser vorhanden, wird das hinterlegte
+                    Passwort bezogen und mit dem eingegeben Passwort verglichen. Dies passiert jedoch erst nachdem das
+                    eingegeben Passwort in einen Hash-Wert umgewandelt wurde, um Passworter in Klartext zu vermeiden.
+                    Diese beiden Hash-Passwörter werden dann miteinander verglichen und ein true oder false
+                    zurückgegeben. Mit dieser Information wird der Nutzer bzw. die Nutzerin als user im Context-Objekt
+                    hinterlegt und auf die Content-Management Seite weitergeleitet.
                 </p>
                 <h3>2.4 APOD</h3>
                 <ul>
                     <li>/apod</li>
                 </ul>
                 <p>
-                    GET
+                    Beim Aufruf dieser URI passiert die ganze Magie von APIs. Hierbei wird eine API der NASA genutzt,
+                    welche jeden Tag ein "Astronomy Picture of the Day" mit diversen Hintergrundinformationen zur
+                    Verfügung stellt. Den kompletten Ablauf übernimmt die "api-controller.js", welche mittels API-Key
+                    die täglichen Daten fetched und dieser Website zur Verfügung stellt. Für diesen Fall wird der
+                    "DEMO-KEY" genutzt, da er vollkommen ausreicht. Die Anzahl der täglichen Zugriffe ist begrenzt, was
+                    jedoch für diese Arbeit ausreichen sollte. Bei einer intensiveren Nutzung sollte sich ein
+                    persönlicher API-Key erstellt werden, welcher viel mehr Zugriffe erlaubt. Die bezogenen Daten werden
+                    in ein JSON-Objekt umgewandelt und in der Methode usefetchedAPI() ausgewertet. Für unseren
+                    Anwendungsfall wird nur die URL des Bildes sowie eine Erklärung auf Englisch übernommen und auf der
+                    Website angezeigt. Des Weiteren ist es möglich, zu diesem jeweiligen Bild einen Kommentar zu
+                    schreiben. Hierfür sind ein Nutzername und der jeweilige Kommentar nötig. Diese werden dann unter
+                    dem Bild und der Erklärung gerendert.
                 </p>
                 <p>
-                    POST
+                    Nachdem ein Nutzername und ein Kommentar in der Form eingegeben und der "Abschicken" Button gedrückt
+                    wurde, werden diese Daten in der Methode sendComment() im api-controller ausgelesen und verarbeitet.
+                    Sollte es keine Errors geben, wird das Datenobjekt an die addComment()-Methode im model.js
+                    übergeben. In dieser Methode wird der Kommentar als auch der Nutzername in der Datenbank
+                    gespeichert, damit dieser persitent auf der Website angezeigt wird.
                 </p>
                 <h3>2.5 Ticket-Erwerb</h3>
                 <ul>
                     <li>/tickets</li>
                 </ul>
                 <p>
-                    GET
+                    Bei diesem Aufruf kommen Besucher zur Ticketvorbestellung. Je nach Auswahl der Veranstaltung werden
+                    die verfügbaren Termine mit ihrem jeweiligen Preis angezeigt.
                 </p>
                 <p>
-                    POST
+                    Nachdem alle Daten zur Vorbestellung eingegeben wurden, die richtige Veranstaltung ausgewählt und
+                    ein Newsletter abonniert wurde oder nicht, kann per "Vorbestellen"-Button eine Vorbestellung an den
+                    Server gesendet werden. Dieser Vorgang wird in "ticket-controller.js" abgehandelt. Wieder werden
+                    zunächst alle Formdaten ausgelesen, auf Fehler überprüft und ggf. mit diesen gerendert und daraufhin
+                    über die Methode addTicket() in model.js in der Datenbank gespeichert.
                 </p>
                 <h3>2.6 Dokumentation</h3>
                 <ul>
@@ -180,151 +228,42 @@
                     <li>/dokumentation/fd</li>
                 </ul>
                 <p>
-                    GET
-                </p>
-                <p>
-                    POST
+                    Beim Aufruf der Dokumentation im Footer werden Besucher zunächst auf eine Übersichtsseite geleitet,
+                    wo auf Unterseiten eine Auswahl von Frontend-Modulen, die Farbauswahl sowie die komplette Zeitleiste
+                    gezeigt und erläutert werden. Um die spezifischeren Dokumentationen
+                    einzusehen, muss zunächst per Button ausgewählt werden, wo es hingehen soll.
                 </p>
             </article>
             <article>
                 <h2 id="3-backend">3. Backend-Aufgaben</h2>
                 <p>
-                    Wie die meisten Projekte durchlief auch dieses mehrere
-                    Interationen, bis das finale Design und letztlich der Webauftritt
-                    fertig gestaltet und umgesetzt war. Ein Ausschnitt der größten
-                    Iterationen wird im Folgenden vorgestellt und näher beleuchtet.
-                </p>
-                <h3>3.1 Anpassungen des Designs</h3>
-                <p>
-                    Während der Umsetzung unseren Style Tiles fiel uns auf, dass ein
-                    zweifarbiges Design viel zu langweilig werden würde, weshalb wir
-                    mit rot und beige kleine Akzenttöne gesetzt haben.
-                </p>
-                <p>
-                    Das Logo wurde als schneller Platzhalter entworfen. Die genutzte
-                    Font "Presque" stellte sich für diese Nutzung als nicht geeignet
-                    heraus. Besonders das "P" war in so einem kleinen Logo nicht zu
-                    erkennen.
-                </p>
-                <a href="/svgs/logo-entwurf-weiß.svg"><img src="/svgs/logo-entwurf-weiß.svg"
-                        alt="erster Logo Entwurf" /></a>
-
-                <p>
-                    Wir ersetzten die Font deshalb durch die "Maragsa". Zudem
-                    ersetzten wir die schnell erstellte Kontur des Ringes durch einen
-                    verzogenen Kreis, wodurch die Darstellung realistischer wirkte.
-                </p>
-                <a href="/svgs/logo-weiß.svg"><img src="/svgs/logo-weiß.svg" alt="finales Logo" /></a>
-                <h3>3.2 Umgestaltung des HTML &amp; CSS</h3>
-                <p>
-                    HTML und CSS waren natürlich ein ständiger Work-In-Progress. Das
-                    HTML hat während der CSS Umsetzung verschiedenste Klassen und
-                    div's dazuerhalten. Zudem haben wir zwei im Exposee geplante
-                    Unterseiten (Weltraummüll und Entwicklungsschritte der Weltraum
-                    Observation) komplett gestrichen, da drei
-                    Veranstaltungs-Unterseiten ausreichten, um unser Design zu
-                    präsentieren. Dass die Veranstaltungs-Unterseiten wie die
-                    Startseite und Veranstaltungsseite auch Kästen nutzt, war eine
-                    spätere Idee. So konnten wir eine weitere Vereinheitlichung
-                    schaffen und ein Design unterstützen, dass sich durch die ganze
-                    Website zieht.
+                   ...
                 </p>
             </article>
             <h2 id="4-datenbank">4. Datenbankanbindung</h2>
             <article>
                 <p>
-                    Beim Look and Feel für eine Website geht es darum, wie es sich
-                    anfühlt, auf dieser Seite zu navigieren und nach Informationen zu
-                    suchen beziehungsweise Neues zu entdecken; und wie der Eindruck
-                    der Aufmachung der Sites ist. Da unser Fokus bei dieser Website
-                    auf der Präsentation und speziell dem Angebot einer Veranstaltung
-                    im Planetarium liegt, sind dies die Hauptelemente, nach denen die
-                    User suchen und sich informieren.
+                    ...
                 </p>
-                <h3>4.1 Seitenaufbau</h3>
+                <h3>4.1 Aufbau und Struktur</h3>
                 <p>
-                    Auf der Startseite gibt es eine Slideshow mit Bildern zum
-                    Universums-Thema, die direkt Interesse wecken. Darunter gibt es
-                    Verlinkungen auf mögliche Unterseiten (in der Hausarbeit wurde nur
-                    die erste ausgearbeitet und ist damit die einzig anklickbare).
-                    Diese Themen sind in beige Kästen gepackt, um sie voneinander
-                    abheben zu können und mit einer zweiten Farbe zu arbeiten. Die
-                    Kästen sind auch auf den Unterseiten wiederzufinden und schaffen
-                    damit einen einheitlichen Stil.
+                   ...
                 </p>
-                <h3>4.2 Bilder</h3>
+                <h3>4.2 Anbindung</h3>
                 <p>
-                    Wir wollten nicht die gleichen drei Bilder von Galaxien benutzen,
-                    die auf jeder Astronomie-Seite zu finden sind, sondern ein etwas
-                    moderneres Erscheinungsbild hinbekommen. Die meisten Bilder haben
-                    wir deshalb von unsplash heruntergeladen. Viele der Bilder haben
-                    einen ähnlichen Look, helle Töne mit leichtem Filter oder ein
-                    dunkleres blau.
-                </p>
-
-                <h3>4.3 Farbe</h3>
-                <p>
-                    Da uns dunkelblau und weiß als Farben für die Website zu wenig
-                    waren, entschieden wir uns, zusätzlich kleine Akzentfarben zu
-                    verwenden. Mithilfe von
-                    <a href="https://coolors.co/">coolors.co</a> setzten wir dann eine
-                    kleine Farbpalette zusammen, bei der wir ein zu unserem Blauton
-                    passendes beige und rot fanden.
-                </p>
-                <p>
-                    Das blau mit dem Hexcode #13336C wird in der finalen Datei selbst
-                    gar nicht so oft verwendet, da wir für den gleichfarbigen
-                    Hintergrund eine Bilddatei mit einem blauen Rechteck verwenden,
-                    das, wie im Style Tile vorgesehen, bei Affinity Photo einen
-                    Noise-Filter draufgelegt bekommen hat. Dadurch ist die Website
-                    weniger langweilig anzusehen, als bei einem einfarbigen
-                    Hintergrund. Außerdem hat dieser Grainy-Look Ähnlichkeiten zu
-                    einem Sternenhimmel, also passend zu einem Planetarium.
-                </p>
-
-                <h3>4.4 Typographie</h3>
-                <p>
-                    Unsere eigentlich ausgewählte Typo "Kabal" passte nicht zum
-                    allgemeinen Look der Website, weshalb wir sie nach kurzer Zeit
-                    durch die "Leap" von Style Tile 1 ersetzten. Auch diese konnte uns
-                    letztendlich nicht zufrieden stellen, da sie nur Versalien
-                    beinhaltet und zudem keine Sonderzeichen ermöglicht. Da es mit der
-                    Typo aus dem Logo insgesamt drei verschiedene Schriften auf
-                    unserer Website gab, entschieden wir uns dafür, die "Leap" als
-                    Displayfont zu streichen und stattdessen die "Maragsa" aus unserem
-                    Logo als h1 zu übernehmen.
-                </p>
-                <p>
-                    In ersten Entwürfen benutzten wir für den restlichen Text die
-                    "Aqua Grotesque", welche aber nicht leserlich genug,
-                    beziehungsweise nicht fürs Web geeignet war. Deshalb ersetzten wir
-                    sie durch die Google Font "Barlow", welche keine zu oft genutzte,
-                    aber trotzdem wunderbar geeignete Font ist. Statt der normalen
-                    "Barlow" entschieden wir uns aber für die "Barlow Semi Condensed",
-                    welche am besten zu unserem angestrebten Look passte.
+                    ...
                 </p>
             </article>
             <article>
-                <h2 id="5-besonderheiten">5. Besonderheiten / Externe API</h2>
+                <h2 id="5-besonderheiten">5. Besonderheiten</h2>
                 <p>
-                    Um dem responsive Webdesign gerecht zu werden, wurde beim Projekt
-                    im Sinne von "Mobile First" gearbeitet. Hierbei lag der Fokus auf
-                    der Entwicklung einer mobilen Version der Website und dessen
-                    Anpassung an unterschiedliche mobile Endgeräte. Hierfür müssen
-                    Elemente mitskalieren oder über Media-Queries bei
-                    unterschiedlichen Größen angepasst werden.
+                    ...
                 </p>
             </article>
             <article>
                 <h2 id="6-ausbaumoeglichkeiten">6. Ausbaumöglichkeiten</h2>
                 <p>
-                    Um der Accessibility gerecht zu werden, wurden zum einen alle
-                    Bilder mit alternativen Texten ausgestattet und bei der
-                    semantischen Umsetzung versucht, alles, was in Listen umgesetzt
-                    werden kann, in (Data-)Listen umzusetzen. Somit haben es
-                    ScreenReader einfacher, durch das HTML zu gelangen. Zum anderen
-                    wurden Skip-Links (wie hier im Inhaltsverzeichnis) eingefügt, um
-                    schnell zielführend zum gewünschten Content zu gelangen.
+                    ...
                 </p>
             </article>
             <article>
@@ -336,28 +275,23 @@
                 </p>
                 <h3>7.1 Arbeitsteilung</h3>
                 <p>
-                    Die Arbeitsteilung funktionierte bei diesem doch recht
-                    umfangreichen Projekt sehr gut. Grundlegende Designentscheidungen
-                    und HTML bzw. CSS Elemente wurden zusammen besprochen. Daraufhin
-                    teilten wir die Seiten auf und entwickelten parallel Unterseiten.
-                    Nachdem diese vermeintlich fertig waren, wurden sie noch einmal
-                    besprochen und Änderungen fanden ihren Einzug, was letztlich zu
-                    einigen Iterationen führte.
+                    Die Arbeitsteilung funktionierte leider nicht so gut, wie im Frontend-Design. Die gebildete Gruppe
+                    war gekennzeichnet von einseitiger und fehlender Kommunikation. Eine Arbeitsteilung wurde angeregt,
+                    jedoch auch nach mehrmaligen Nachfragen nicht umgesetzt. Und somit blieben alle Umsetzungen an mir
+                    alleine hängen, weshalb einige Features teiweilse rudimentär ausgeprägt sind.
                 </p>
                 <h3>7.2 Herausforderungen</h3>
                 <p>
-                    Die größten Herausforderungen bei diesem Projekt waren zum einen
-                    die Gestaltung eines schönen Prototypen mit Wunschelementen und
-                    zum anderen die Einschätzung, ob die gewünschten Designs mit
-                    unseren Fähigkeiten überhaupt umsetzbar waren.
+                    Die größten Herausforderungen waren zum einen der Scope, also die Frage, wie groß das Projekt werden
+                    soll. Zum anderen der Arbeitsumfang, welcher ohne Gruppenunterstützung immens zunahm. Des Weiteren
+                    musste die Frontend-Struktur teilweise neugedacht und dann umgesetzt werden. Dies warf teilweise
+                    starke Frontend Probleme auf, welche wiederum Zeit in Anspruch nahmen.
                 </p>
             </article>
             <article>
                 <h2 id="8-nutzungsrechte">8. Nutzungrechte</h2>
                 <p>
-                    Zum Abschluss dieser Projekt-Dokumentation soll noch ein Blick auf
-                    dessen allgemeinen Ablauf und etwaige Schwierigkeiten, welche
-                    während des Prozesses aufgetaucht sind, eingegangen werden.
+                    CC0 1.0 Universell (CC0 1.0) Public Domain Dedication
                 </p>
             </article>
         </div>
