@@ -43,14 +43,6 @@ export function errorHandler(data) {
   return errorList;
 }
 
-export function add(ctx) {
-  debug("@add. ctx %O", ctx.request.url);
-  ctx.response.body = ctx.nunjucks.render("cms.html", {});
-  ctx.response.status = 200;
-  ctx.response.headers["content-type"] = "text/html";
-  return ctx;
-}
-
 /**
  * Übermittelt Nutzer Vorbestellung und speichert diese in DB
  * @param {Object} ctx
@@ -71,6 +63,7 @@ export async function submitChangeToDB(ctx) {
     date: formData.get("date"),
     time: formData.get("time"),
     price: formData.get("price"),
+    img: formData.get("upload"),
   };
 
   // Error-Handling
@@ -78,12 +71,86 @@ export async function submitChangeToDB(ctx) {
 
   // Daten der DB hinzufügen
   await model.addEvent(ctx.database, data);
+  const eventData = await model.getAllEvents(ctx.database);
 
   // Debug-Ausgabe
   console.log(`Errors: ${Object.values(errors).length}`);
-  ctx.response.body = ctx.nunjucks.render("cms.html", {
+  ctx.response.body = ctx.nunjucks.render("cms_create.html", {
     data: data,
     errors: errors,
+    events: eventData,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * 
+ * @param {*} ctx 
+ * @returns 
+ */
+export async function deleteEvent(ctx) {
+  debug("@deleteEvent. ctx %O", ctx.request.url);
+  //const checkDelete = confirm("Wirklich löschen?");
+  const checkDelete = true;
+  if(checkDelete){
+    // Form Data holen
+    const formData = await ctx.request.formData();
+  
+    // Debug-Ausgabe
+    //console.log(formData);
+  
+    const data = {
+      title: formData.get("veranstaltungen"),
+    };
+  
+    // Daten der DB hinzufügen
+    await model.deleteEvent(ctx.database, data);
+  }
+  const eventData = await model.getAllEvents(ctx.database);
+  ctx.response.body = ctx.nunjucks.render("cms_delete.html", {
+    events: eventData,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+
+/**
+ * 
+ * @param {*} ctx 
+ * @returns 
+ */
+export async function editEvent(ctx) {
+  debug("@editEvent. ctx %O", ctx.request.url);
+
+  // Form Data holen
+  const formData = await ctx.request.formData();
+
+  // Debug-Ausgabe
+  //console.log(formData);
+
+  const data = {
+    title: formData.get("veranstaltungen"),
+    description: formData.get("description"),
+    date: formData.get("date"),
+    time: formData.get("time"),
+    price: formData.get("price"),
+  };
+
+  // Error-Handling
+  const errors = errorHandler(data);
+
+  // Daten der DB hinzufügen
+  await model.updateEvent(ctx.database, data);
+  const eventData = await model.getAllEvents(ctx.database);
+
+  ctx.response.body = ctx.nunjucks.render("cms_edit.html", {
+    data: data,
+    errors: errors,
+    events: eventData,
   });
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";

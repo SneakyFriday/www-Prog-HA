@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+
+    <main>
+      <div class="wrapper">
+        <h2>Projekt-Dokumentation</h2>
+        <p>
+          Im Folgenden kann ausgewählt werden, welche Dokumentation angesehen werden soll. Da sich beim WWW-Programmierung-Projekt
+          auf die Arbeit aus dem Modul Frontend-Design bezogen wird, kann auch noch diese Dokumentation eingesehen werden. 
+          Im Weiteren folgen Informationen zu angefertigten Modulen (bspw. Buttons, Kacheln, ...) sowie der Farbauswahl und eine chronologische Anordnung der Arbeitschritte vom Frontend-Design-Projekt bis zum WWW-Programmierung-Projekt.
+        </p>
+        <div>
+          <h3>Dokumentationen</h3>
+          <a href="/dokumentation/www" class="btn">WWW-Programmierung-Projekt</a>
+          <a href="/dokumentation/fd" class="btn">Frontend-Design-Projekt</a>
+        </div>
+        <dl>
+          <dt>Module</dt>
+          <dd>
+            <a href="/module"
+              >--> Hier geht es weiter zu den Modulen</a
+            >
+          </dd>
+          <dt>Farben</dt>
+          <dd>
+            <a href="/_farben"
+              >--> Hier geht es weiter zu den Farben</a
+            >
+          </dd>
+          <dt>Zeitleiste</dt>
+          <dd>
+            <a href="/zeitleiste"
+              >--> Hier geht es weiter zur Zeitleiste</a
+            >
+          </dd>
+        </dl>
+        <dl>
+          <dt>Marc Freitag</dt>
+          <dd>690708</dd>
+          <dd>mafr9860</dd>
+        </dl>
+      </div>
+    </main>
+    {%endblock%}

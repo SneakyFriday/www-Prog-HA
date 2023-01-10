@@ -10,17 +10,87 @@ const debug = Debug("app:model");
 */
 
 /**
- * Loads all Events.
+ * Loads all Tickets.
  * @param {DB} dbData
- * @returns {Object[]} – All Events.
+ * @returns {Object[]}
  */
-export async function getAllEvents(db) {
+export async function getAllTickets(db) {
   const sql = `
       SELECT * FROM ticketInfos
     `;
   const allItems = await db.queryEntries(sql);
   return allItems;
 }
+
+/**
+ * Loads all Events
+ * @param {DB} dbData
+ * @returns {Object[]}
+ */
+export async function getAllEvents(db) {
+  const sql = `
+      SELECT * FROM veranstaltungen
+    `;
+  const allItems = await db.queryEntries(sql);
+  return allItems;
+}
+
+/**
+ * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function addEvent(db, newEntry) {
+  const sql =
+    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
+  //console.log(newEntry);
+  const result = await db.query(sql, newEntry);
+  return db.lastInsertRowId;
+}
+
+/**
+ * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function deleteEvent(db, data) {
+  const sql =
+    "DELETE FROM veranstaltungen WHERE name=:name";
+  const result = await db.query(sql, {name: data.title});
+  return db.lastInsertRowId;
+}
+
+/**
+ * 
+ * @param {*} db 
+ * @param {*} newEntry 
+ * @returns 
+ */
+export async function updateEvent(db, newEntry) {
+  const sql =
+    `
+    UPDATE veranstaltungen
+    SET 
+        datum = :date,
+        preis = :price,
+        beschreibung = :description,
+        uhrzeit = :time
+    WHERE
+        name = :title
+    `;
+  //console.log(newEntry);
+  const result = await db.query(sql, {
+    date: newEntry.date,
+    price: newEntry.price,
+    description: newEntry.description,
+    time: newEntry.time,
+    title: newEntry.title,
+  });
+  return db.lastInsertRowId;
+}
+
 
 /**
  * 
@@ -49,19 +119,6 @@ export async function addTicket(db, newEntry) {
   return db.lastInsertRowId;
 }
 
-/**
- * 
- * @param {*} db 
- * @param {*} newEntry 
- * @returns 
- */
-export async function addEvent(db, newEntry) {
-  const sql =
-    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
-  //console.log(newEntry);
-  const result = await db.query(sql, newEntry);
-  return db.lastInsertRowId;
-}
 
 /**
  * 

@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+<main>
+    <div class="wrapper">
+        <h1>Veranstaltung anlegen</h1>
+        <form action="#" method="POST" accept-charset="utf-8">
+            <!-- Veranstaltung anlegen -->
+            <fieldset>
+                <legend>Veranstaltung</legend>
+                <label for="title">Titel
+                    {% if errors.title %}<p class="Form-error">{{errors.title}}</p>{% endif %}
+                    <input type="text" name="title" id="title" value="" autofocus required>
+                </label>
+                <label for="description">Beschreibender Text
+                    {% if errors.description %}<p class="Form-error">{{errors.description}}</p>{% endif %}
+                    <input type="text" name="description" id="description" value="" autofocus required>
+                </label>
+                <label for="date">Datum
+                    {% if errors.date %}<p class="Form-error">{{errors.date}}</p>{% endif %}
+                    <input type="date" name="date" id="date" value="" autofocus required>
+                </label>
+                <label for="time">Uhrzeit
+                    {% if errors.time %}<p class="Form-error">{{errors.time}}</p>{% endif %}
+                    <input type="time" name="time" id="time" value="" autofocus required>
+                </label>
+                <label for="price">Preis
+                    {% if errors.price %}<p class="Form-error">{{errors.price}}</p>{% endif %}
+                    <input type="number" step="0.01" name="price" id="price" value="0,00" autofocus required>
+                </label>
+                <label for="form_file">Bild Upload
+                    <input type="file" name="upload" id="form_file" value="">
+                </label>
+            </fieldset>
+        <button type="submit" name="btn-submit" value="anlegen">Anlegen</button>
+        </form>
+    </div>
+</main>
+{%endblock%}

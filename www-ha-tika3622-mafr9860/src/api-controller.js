@@ -31,8 +31,6 @@ export async function usefetchedAPI(ctx) {
   // Holt Kommentare aus DB
   const data = await model.getAllComments(ctx.database);
 
-  console.log(data);
-
   ctx.response.body = ctx.nunjucks.render("nasa-potd.html", {
     url: url,
     explanation: explanation,

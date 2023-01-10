@@ -97,11 +97,8 @@ export async function submitPurchase(ctx) {
     newsletter: formData.get("newsletter"),
   };
 
-  console.log(JSON.stringify(data));
-
   // Error-Handling
   const errors = errorHandler(data);
-  console.log(JSON.stringify(errors));
 
   // Daten der DB hinzufügen
   await model.addTicket(ctx.database, data);

@@ -83,12 +83,135 @@ export function cms(ctx) {
 }
 
 /**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function cms_create(ctx) {
+  ctx.response.body = ctx.nunjucks.render("cms_create.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export async function cms_edit(ctx) {
+  const data = await model.getAllEvents(ctx.database);
+  ctx.response.body = ctx.nunjucks.render("cms_edit.html", {
+    events: data,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export async function cms_delete(ctx) {
+  const data = await model.getAllEvents(ctx.database);
+  ctx.response.body = ctx.nunjucks.render("cms_delete.html", {
+    events: data,
+  });
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Login Controller zur Authentifikation
  * @param {Object} ctx
  * @returns {Object}
  */
  export function login(ctx) {
   ctx.response.body = ctx.nunjucks.render("login.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die kolophon-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function kolophon(ctx) {
+  ctx.response.body = ctx.nunjucks.render("kolophon.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation(ctx) {
+  ctx.response.body = ctx.nunjucks.render("indexDocu.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation_www(ctx) {
+  ctx.response.body = ctx.nunjucks.render("docu_www.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die dokumentation-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function dokumentation_fd(ctx) {
+  ctx.response.body = ctx.nunjucks.render("docu_fd.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die module-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function module(ctx) {
+  ctx.response.body = ctx.nunjucks.render("module.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die farben-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function farben(ctx) {
+  ctx.response.body = ctx.nunjucks.render("_farben.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die zeitleiste-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function zeitleiste(ctx) {
+  ctx.response.body = ctx.nunjucks.render("zeitleiste.html");
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
@@ -106,3 +229,4 @@ export function error404(ctx) {
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
 }
+

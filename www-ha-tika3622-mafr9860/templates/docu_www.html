@@ -1,0 +1,415 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+<main>
+    <div class="wrapper">
+        <div class="inhaltsverzeichnis">
+            <h2>Inhaltsverzeichnis</h2>
+            <ul>
+                <li>
+                    <a href="#1-grundlegendesDesign">1. Grundlegendes Backend-Design</a>
+                </li>
+                <li>
+                    <a href="#2-URI">2. URI</a>
+                    <ul>
+                        <li>2.1 Einzelseiten</li>
+                        <li>2.2 Veranstaltungen</li>
+                        <li>2.3 Content Management System (CMS)</li>
+                        <li>2.4 Dokumentation</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#3-backend">3. Backend-Aufgaben</a>
+                </li>
+                <li>
+                    <a href="#4-datenbank">4. Datenbankanbindung</a>
+                </li>
+                <li>
+                    <a href="#5-besonderheiten">5. Besonderheiten</a>
+                </li>
+                <li>
+                    <a href="#6-accessibility">6. Accessibility</a>
+                    <!--
+                    Nutzung von JS im Frontend
+                    Überlegungen zum Progressive Enhancement
+                -->
+                </li>
+                <li>
+                    <a href="#7-ausbaumoeglichkeiten">7. Ausbaumöglichkeiten</a>
+                </li>
+                <li>
+                    <a href="#8-projektarbeit">8. Projektarbeit</a>
+                    <ul>
+                        <li>7.1 Arbeitsteilung</li>
+                        <li>7.2 Herausforderungen</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#9-nutzungsrechte">9. Nutzungrechte</a>
+                </li>
+            </ul>
+        </div>
+        <div class="inhalt">
+            <article>
+                <h2 id="1-grundlegendesDesign">
+                    1. Grundlegendes Designkonzept
+                </h2>
+                <p>In diesem Projekt wurde das Projekt aus Frontend-Design genommen und ein Backend für dieses
+                    entwickelt. Es handelt sich darum immer noch um ein fiktives Planetarium in Flensburg, auf dessen
+                    Homepage sich Besucher und Besucherinnen zum einen über das Planetarium an sich und
+                    astronomiebezogene Themen informieren können und sich zum anderen Tickets für die im Planetarium
+                    gehaltenen Veranstaltungen reservieren können. Als Inspiration wurde der grundlegende Aufbau der
+                    Internetpräsenz des <a href="https://planetarium-hamburg.de/de/startseite">Planetarium Hamburg</a>
+                    hinzugezogen </p>
+                <p>
+                    Da das grundlegende Frontend-Design bereits stand, wurde zunächst überlegt, welche konkreten
+                    Funktionalitäten die Website umfassen sollte. Dies wäre zum einen die Bereitstellung von
+                    Informationen zum Planetarium an sich und zusätzliche astronomiebezogene Informationen. Zudem sollte
+                    es möglich sein, über die Website Tickets für die angepriesenen Veranstaltungsreihen reservieren zu
+                    können.
+                    Hierfür musste es möglich sein über das bereits implementierte Formular ein Ticket für die
+                    angebotenen Veranstaltungen durch Eingabe der persönlichen Daten zu reservieren. Des Weiteren sollte
+                    die Website ein Ort der allgemein astronomiebezogenen Informationen sein, weshalb die von der NASA
+                    zur Verfügung gestellte "Astronomy Picture of the Day"-API genutzt wurde, welche im weiteren Verlauf
+                    noch näher beschrieben wird.
+                </p>
+                <p>
+                    Da sich die Veranstaltungen des Planetariums immer mal wieder ändern, müssen die Seitenbetreiber und
+                    Seitebetreiberinnen eine erleichterte Möglichkeit zum Anlegen eben dieser Veranstaltungen haben.
+                    Hiefür bedarf es einen Content Management Systems, welches hinter einem exklusiven Login für die
+                    Betreiber und Betreiberinnen liegen musste.
+                    Diese Daten mussten zudem persistent gespeichert werden, um stetig über die Website abrufbar zu
+                    sein. Um dies zu gewährleisten, wurde eine Datenbank an die Website angebunden. Diese und deren
+                    konkrete Funktioneren werden ebenfalls im weiteren Verlauf näher beschrieben.
+                </p>
+            </article>
+            <article>
+                <h2 id="2-URI">2. URI</h2>
+                <p>
+                    URIs oder auch "Uniform Resource Identifier" werden zur Bezeichnung von Ressourcen wie
+                    Webservice-Aufrufe oder auch Website-Aufrufe genutzt. Der aktuelle Stand ist als RFC 3986
+                    veröffentlicht und stellt somit eine globale Norm dar.
+                    URLs und URNs sind spezielle Formen eines URIs. Als Zeichenfolge kodiert werden sie besonders im
+                    HTML-Format eingebunden und als Verweise auf eine andere Website auch Hyperlink genannt.
+                    Im Folgenden werden die auf dieser Homepage genutzten URIs aufgelistet und erläutert, welchen Zweck
+                    diese erfüllen. Da es sich hier um einen Developer-Build handelt, werden das "Scheme" und die
+                    "Authority" immer "http://localhost:5000/" sein.
+                </p>
+                <h3>2.1 Einzelseiten</h3>
+                <ul>
+                    <li>"/"</li>
+                    <li>"/kolophon"</li>
+                    <li>"/module"</li>
+                    <li>"/_farben"</li>
+                    <li>"/zeitleiste"</li>
+                    <li>"/dsgvo"</li>
+                    <li>"/impressum"</li>
+                    <li>"/veranstaltungsreihe"</li>
+                    <li>"/about"</li>
+                </ul>
+                <p>
+                    Über die HTTP GET-Methoden, welche im Form-Element gesendet und im Router überprüft werden,
+                    senden die jeweiligen Methoden in der "controller.js" einen Render-Aufruf mit der passenden
+                    html-Seite. Zudem werden benötigte Daten-Objekte dabei übergeben. Im Falle einer ungültigen Anfrage,
+                    wird auf eine "404"-Site umgeleitet, um den Besucher und Besucherinnen anzuzeigen, dass die gewählte
+                    Seite nicht vorhanden ist.
+                </p>
+                <h3>2.2 Content Management System (CMS)</h3>
+                <ul>
+                    <li>/cms</li>
+                    <li>/cms_create</li>
+                    <li>/cms_edit</li>
+                    <li>/cms_delete</li>
+                </ul>
+                <p>
+                    Rendering der jeweiligen HTML-Seite. Es werden beim erstmaligen Aufrufen keine spezifischen
+                    Daten weiter an das Rendering übergeben. Sollten Fehler bei der Eingabe in die Form-Elemente
+                    passieren, werden die jeweiligen Error-Meldungen übergeben und im HTML gerendert.
+                </p>
+                <p>
+                    Unter diesen URIs können die Website-Betreiber und -Betreiberinnen, nach einem erfolgreichen
+                    Login, gewünschte Veranstaltungen anlegen (cms_create), ändern (cms_edit) und löschen (cms_delete).
+                    Die Informationen werden beim Pressen des Anlegen-, Ändern-, bzw. Löschen-Buttons per POST-Anfrage
+                    an die Datenbank übermittelt. Den spezifischen Ablauf übernimmt der "cms-controller". Konkret wird
+                    zunächst die "submitChangeToDB()"-Methode ausgeführt, wenn eine Veranstaltung angelegt werden soll.
+                    Hierbei werden die Daten aus der Form ausgelesen, auf Fehler überprüft und an die Datenbank
+                    übermittelt. Die nötige SQL-Anfragen handelt die "model.js" ab. Sollten Fehler bei der Eingabe
+                    passieren, werden die jeweiligen Error-Meldungen als Objekt an nunjucks übergeben und gerendert. Das
+                    Ändern und Löschen von Veranstaltungen läuft ähnlich ab. Für das Ändern ist die Methode
+                    "editEvent()" und für das Löschen die "deleteEvent()" im cms-controller zuständig. Wichtig ist
+                    hierbei, dass die Auswahl der Veranstaltungen im Dropdown-Menu stetig geupdated wird, wenn die
+                    Website neu gerendert wird. Dies ist vor allem beim Löschen wichtig, da sofort die neue Liste von
+                    Veranstaltungen im Dropdown angezeigt wird und ein vermeintlichen Löschen von nicht mehr vorhandenen
+                    Veranstaltungen somit umgangen wird.
+                </p>
+                <h3>2.3 Login</h3>
+                <ul>
+                    <li>/login</li>
+                </ul>
+                <p>
+                    Beim Aufruf dieser URI wird die Login-Form aufgerufen. Über diese können sich die
+                    Homepage-Betreiber und -Betreiberinnen in das bereits erläuterte Content-Management-System
+                    einloggen. Ein Registrierungprozess ist nicht von nöten, da die jeweiligen Nutzer und Nutzerinnen
+                    zuvor von einem Admin in der Datenbank mit Nutzername und Passwort hinterlegt werden müssen. Über
+                    diese User-Credentials kann sich dann eingeloggt werden. Eine falsche Kombination von Nutzername und
+                    Passwort wird sofort nach dem Pressen des Login-Buttons in roter Schrift angezeigt. Hierbei handelt
+                    es sich wie auch beim CMS um ein Error-Objekt, welches das Rendering übergeben bekommt.
+                </p>
+                <p>
+                    Die Überprüfung übernimmt die "login.js" mit der Methode checkLoginCredentials(). Hierbei
+                    werden die Form-Daten ausgelesen, was konkret der Nutzername und das Passwort ist. Diese beiden
+                    Angaben werden zunächst auf Fehler in der Eingabe überprüft. Sollten keine Fehler vorhanden sein,
+                    werden die Daten an die Methode authUser() übergeben, welche auf die Datenbank zugreift und mittels
+                    Nutzernamen überprüft, ob es einen Eintrag dazu gibt. Ist dieser vorhanden, wird das hinterlegte
+                    Passwort bezogen und mit dem eingegeben Passwort verglichen. Dies passiert jedoch erst nachdem das
+                    eingegeben Passwort in einen Hash-Wert umgewandelt wurde, um Passworter in Klartext zu vermeiden.
+                    Diese beiden Hash-Passwörter werden dann miteinander verglichen und ein true oder false
+                    zurückgegeben. Mit dieser Information wird der Nutzer bzw. die Nutzerin als user im Context-Objekt
+                    hinterlegt und auf die Content-Management Seite weitergeleitet.
+                </p>
+                <h3>2.4 APOD</h3>
+                <ul>
+                    <li>/apod</li>
+                </ul>
+                <p>
+                    Beim Aufruf dieser URI passiert die ganze Magie von APIs. Hierbei wird eine API der NASA genutzt,
+                    welche jeden Tag ein "Astronomy Picture of the Day" mit diversen Hintergrundinformationen zur
+                    Verfügung stellt. Den kompletten Ablauf übernimmt die "api-controller.js", welche mittels API-Key
+                    die täglichen Daten fetched und dieser Website zur Verfügung stellt. Für diesen Fall wird der
+                    "DEMO-KEY" genutzt, da er vollkommen ausreicht. Die Anzahl der täglichen Zugriffe ist begrenzt, was
+                    jedoch für diese Arbeit ausreichen sollte. Bei einer intensiveren Nutzung sollte sich ein
+                    persönlicher API-Key erstellt werden, welcher viel mehr Zugriffe erlaubt. Die bezogenen Daten werden
+                    in ein JSON-Objekt umgewandelt und in der Methode usefetchedAPI() ausgewertet. Für unseren
+                    Anwendungsfall wird nur die URL des Bildes sowie eine Erklärung auf Englisch übernommen und auf der
+                    Website angezeigt. Des Weiteren ist es möglich, zu diesem jeweiligen Bild einen Kommentar zu
+                    schreiben. Hierfür sind ein Nutzername und der jeweilige Kommentar nötig. Diese werden dann unter
+                    dem Bild und der Erklärung gerendert.
+                </p>
+                <p>
+                    Nachdem ein Nutzername und ein Kommentar in der Form eingegeben und der "Abschicken" Button gedrückt
+                    wurde, werden diese Daten in der Methode sendComment() im api-controller ausgelesen und verarbeitet.
+                    Sollte es keine Errors geben, wird das Datenobjekt an die addComment()-Methode im model.js
+                    übergeben. In dieser Methode wird der Kommentar als auch der Nutzername in der Datenbank
+                    gespeichert, damit dieser persitent auf der Website angezeigt wird.
+                </p>
+                <h3>2.5 Ticket-Erwerb</h3>
+                <ul>
+                    <li>/tickets</li>
+                </ul>
+                <p>
+                    Bei diesem Aufruf kommen Besucher zur Ticketvorbestellung. Je nach Auswahl der Veranstaltung werden
+                    die verfügbaren Termine mit ihrem jeweiligen Preis angezeigt.
+                </p>
+                <p>
+                    Nachdem alle Daten zur Vorbestellung eingegeben wurden, die richtige Veranstaltung ausgewählt und
+                    ein Newsletter abonniert wurde oder nicht, kann per "Vorbestellen"-Button eine Vorbestellung an den
+                    Server gesendet werden. Dieser Vorgang wird in "ticket-controller.js" abgehandelt. Wieder werden
+                    zunächst alle Formdaten ausgelesen, auf Fehler überprüft und ggf. mit diesen gerendert und daraufhin
+                    über die Methode addTicket() in model.js in der Datenbank gespeichert.
+                </p>
+                <h3>2.6 Dokumentation</h3>
+                <ul>
+                    <li>/dokumentation</li>
+                    <li>/dokumentation/www</li>
+                    <li>/dokumentation/fd</li>
+                </ul>
+                <p>
+                    Beim Aufruf der Dokumentation im Footer werden Besucher zunächst auf eine Übersichtsseite geleitet,
+                    wo auf Unterseiten eine Auswahl von Frontend-Modulen, die Farbauswahl sowie die komplette Zeitleiste
+                    gezeigt und erläutert werden. Um die spezifischeren Dokumentationen
+                    einzusehen, muss zunächst per Button ausgewählt werden, wo es hingehen soll.
+                </p>
+            </article>
+            <article>
+                <h2 id="3-backend">3. Backend-Aufgaben</h2>
+                <h3>3.1 Deno</h3>
+                <p>
+                    Das komplette Backend dieses Internetauftritts wird mit der Deno-Runtime umgesetzt. Als Nachfolger
+                    von Node.js gewinnt Deno stetig an Präsenz und Stabilität. Alle genutzten Module in diesem Backend
+                    werden über Deno abgerufen und in unterschiedlichen JavaScript Dateien angewandt. Auf konkrete
+                    Methoden wird im Unterpunkt "Middleware" eingegangen.
+                </p>
+                <h3>3.2 Nunjucks</h3>
+                <p>
+                    Eines am häufigsten genutzten Deno-Module in diesem Backend ist Nunjucks. Über Nunjucks werden
+                    mittels HTML-Template Seiten per Baukastensystem die später angezeigten HTML-Seiten zusammengebaut
+                    und gerendert. Hierbei ist es möglich, dem Render-Aufruf Objekte mitzugeben, auf die im HTML
+                    wiederum zugegriffen werden kann (<a href="/pictures/wwwProg/nunjucks_objects.PNG">Beispielanwendung
+                        im HTML</a>).
+                </p>
+                <h3>3.3 Middleware</h3>
+                <p>
+                    Im Folgenden soll einmal die genutzte Middleware vorgestellt und erläutert werden. Im Prinzip könnte
+                    jede JS-Datei als Middleware verstanden werden. Im weiteren Verlauf wird sich jedoch auf die
+                    maßgebliche Middleware bezogen und ggf. Scripte zusammenfassend erläutert.
+                </p>
+                <h4>app.js / server.js</h4>
+                <p>
+                    Die app.js ist das Herzstück des Backends. In ihr werden über einen Router alle URIs in einem Router
+                    überprüft und die entsprechenden Methoden aufgerufen. Ein wichtiger Faktor hierbei ist das Context
+                    Object, welches als der aktuelle Besucher bzw. die aktuelle Besucherin angesehen werden kann. Es
+                    wird mit den entsprechenden Daten gefüttert und an weiterführende Methoden übergeben, damit diese
+                    mit den neuen Objekt-Elementen weiterarbeiten können. Dieses Objekt wird in der
+                    handleRequest()-Methode erzeugt. Des Weiteren ist es bisher noch so, dass die Erstellung der
+                    einzelnen Datenbank-Tables in der app.js gehandelt werden. Welche Funktionen diese erfüllen, wird im
+                    Unterpunkt "Datenbankanbindung" erklärt.
+                </p>
+                <p>
+                    Die server.js hat die alleinige Aufgabe mittels Deno-Server-Modul die in der app.js angelegte
+                    handleRequest()-Methode aufzurufen und den Port festzulegen, über den die gesamte Kommunikation
+                    ablaufen soll.
+                </p>
+                <h4>controller.js</h4>
+                <p>
+                    Die controller.js hat die Aufgabe, das grundlegende Rendering der Seiten zu übernehmen. Jede Seite
+                    hat hier eine Methode, welche mittels nunjucks das passende Template anzeigen lässt. Dieser
+                    Controller ist nötig, um nicht für jede URI eine eigene Middleware zu schreiben. Nur wenn mit
+                    Informationen weitergearbeitet wird bzw. neue Informationen hinzugefügt werden, hat eine URI in
+                    diesem Fall eine eigene Middleware.
+                </p>
+                <h4>model.js</h4>
+                <p>Um Methoden, welche in mehreren Middleware Dateien genutzt werden, zentralisiert zu halten, gibt es
+                    die model.js. Hier werden aktuell die meisten SQL-Anfragen umgesetzt. Dies geht vom einfachen
+                    Abrufen aller Tickets, bis hin zum Abrufen des Passwortes für einen spezifischen Nutzernamen,
+                    welcher in der Login-Form eingegeben wurde.</p>
+                <h4>ticket-controller.js</h4>
+                <p>
+                    Der ticket-controller ist eine der umfangreicheren Middlewares, da hier viele Informationen aus der
+                    Form der Seite bezogen, überprüft und weiterverarbeitet werden. Die Middleware hat die Funktion,
+                    mittels der ausgelesen Daten eine Veranstaltung zu reservieren und diese in der Datenbank zu
+                    hinterlegen.
+                </p>
+                <h4>cms-controller.js</h4>
+                <p>
+                    Der cms-controller hat drei wichtige Aufgaben. Zunächst ist er dafür da, dass die Seitenbetreiber
+                    und Seitenbetreiberinnen die Veranstaltungen für das Planetarium einfacher managen können. Darum
+                    übernimmt der cms-controller das Anlegen, Editieren sowie Löschen der Veranstaltungen. All dies mit
+                    Zugriffen auf die Datenbank, um diese Eingriffe persistent zu speichern. Die model.js wird darum
+                    sehr intensiv über diesen cms-controller angesprochen, da diese das SQL übernimmt und die
+                    übergebenen Form-Daten weiter verarbeitet und ggf. zurückgibt, damit Auswirkungen direkt im HTML
+                    gerendert werden können. Dies ist bspw. der Fall, wenn Veranstaltungen gelöscht werden, nachdem die
+                    über ein Dropdown-Menu ausgewählt wurden. Nach dem Löschen wird das Dropdown-Menu sofort
+                    aktualisiert und es können weitere Veranstaltungen gelöscht werden.
+                </p>
+                <h4>api-controller.js</h4>
+                <p>
+                    Der api-controller hat bisher noch zwei Aufgaben. Zum einen soll hier mittels NASA-API das
+                    NASA-Astronomie Picture of the Day Link bezogen und die originale Beschreibung bezogen werden. Zum
+                    anderen werden hier die Kommentare und deren Anlegung auf der Seite verwaltet bzw. in der Datenbank
+                    gespeichert.
+                </p>
+                <h4>cookies.js / sessions.js</h4>
+                <p>
+                    Mittels cookies.js und sessions.js wird sichergestellt, dass das Backend weiß, wenn ein Besucher
+                    bzw. eine Besucherin die Seite besucht, zwischen den Unterseiten hin und her klickt und sich evlt.
+                    eingeloggt hat. Dies wird umgesetzt, indem den Nutzern eine Session-ID gegeben und als als Cookie
+                    gespeichert wird. Hierbei wird mit einer CookieMap gearbeitet, die im ctx Objekt gespeichert wird.
+                    Ebenfalls werden hier der Session-Key und die Session-ID gespeichert, um eine Identifizierung des
+                    Nutzers beim wechseln der Unterseiten zu gewährleisten. Die Session-ID ist hierbei ein base64-Hash,
+                    welcher randomisiert für die Besucher erstellt wird.
+                </p>
+
+            </article>
+            <article>
+                <h2 id="4-datenbank">4. Datenbankanbindung</h2>
+                <p>
+                    ...
+                </p>
+                <h3>4.1 Aufbau und Struktur</h3>
+                <p>
+                    ...
+                </p>
+                <h3>4.2 Anbindung</h3>
+                <p>
+                    ...
+                </p>
+            </article>
+            <article>
+                <h2 id="5-besonderheiten">5. Besonderheiten</h2>
+                <p>
+                    Die in meinen Augen größte Besonderheit ist die Anbindung der NASA-API. Aus dem Grund, dass für die
+                    Homepage täglich neuer Content zur Verfügung gestellt wird, obwohl "nur" eine Nutzung der NASA-API
+                    implementiert wurde, ist für mich beeindruckend und hat mich dazu gebracht, weiter nach ähnlichen
+                    APIs zu suchen und mich tiefer mit diesem Thema zu befassen. Denn allein von der NASA gibt es eine
+                    Fülle von weiteren API, welche perfekt zum Thema "Planetarium" passen könnten und die Homepage mit
+                    weiteren Informationen bereichen würden.
+                </p>
+            </article>
+            <article>
+                <h2 id="6-accessibility">6. Accessibility</h2>
+                <p>
+                    Wie auch im Frontend-Design wurde versucht, auf die Accessibility zu achten. Dies ist hilfreich, den
+                    Content auf dieser Website so vielen Nutzern und Nutzerinnen anbieten zu können, wie es nur geht.
+                    Der Aufbau und die Anwendung der einzelnen Feautures wurde so umgesetzt, dass jede Unterseite eine
+                    eigene Funktion hat und einzelne Websites nicht zu überladen sind. Auf der Ticket Seite können bspw.
+                    nur Tickets reserviert werden. Für spezifischere Informationen zu den jeweiligen Veranstaltungen
+                    muss deren Unterseite besucht werden. Eine weitere Möglichkeit für mehr Accessibility wäre die
+                    Nutzung von Progressive Web Apps, auf die leider aus Zeitgründen nicht umgestellt werden konnte und
+                    somit zum Bereiche "Ausbaumöglichkeiten" gehören.
+                </p>
+            </article>
+            <article>
+                <h2 id="7-ausbaumoeglichkeiten">7. Ausbaumöglichkeiten</h2>
+                <p>
+                    Da diese Homepage weit ab von perfekt ist, gibt es natürlich einiges, was noch hinzugefügt werden
+                    könnte. Eine Auswahl dieser Implementationen soll hier einmal aufgelistet werden. Diese beziehen
+                    sich in diesem Fall nur auf Erweiterungen des Backends:
+                </p>
+                <h4>Registrierungprozess</h4>
+                <p>Damit Homepage-Admins nicht jeden Nutzer oder jede Nutzerin händisch hinzufügen müssen,
+                    sollte es einen Registrierungprozess geben. Eine Authentifizierung über eine gültige E-Mail
+                    wäre hierbei ein Ansatz, bevor die User-Credentials dann verschlüsselt in die Datenbank
+                    übertragen werden.</p>
+                <h4>Ticketshop-Warenkorb</h4>
+                <p>Bisher ist es nur möglich, sich über die persönlichen Daten Tickets vorzubestellen. Die
+                    eigentliche Bezahlung wird dann im Planetarium vollzogen. Es wäre jedoch schön, wenn Tickets
+                    für Veranstaltungen direkt über die Homepage gekauft werden könnten. Hierfür wäre ein
+                    persistenter Warenkorb sowie eine Bezahlfunktion notwendig.</p>
+                <h4>NASA-APOD Suchfunktion</h4>
+                <p>Zurzeit wird beim Aufruf der NASA-APOD URI das aktuelle NASA Astronomy Picture of the Day angezeigt.
+                    Kommen Besucher am nächsten Tag wieder auf die Homepage, wird ein neues Bild angezeigt. Es wäre
+                    schön, wenn zwar jeden Tag das aktuelle Tagesbild angezeigt wird, Besucher und Besucherinnen jedoch
+                    in den vergangenen Bilder suchen und sich diese anzeigen lassen könnten.</p>
+                <h4>Progressive Web Apps</h4>
+                <p>Wie bereits im Punkt Accessibility erwähnt, wäre die Anwendung von Progressive Web Apps (PWA) in
+                    Schritt näher zu mehr Zugänglichkeit. Diese PWA wurden so entwickelt, dass sie für alle Nutzer
+                    funktionieren, unabhängig von ihrem genutzten Browser.
+                </p>
+                <h4>Modularisierung</h4>
+                <p>Ein weiterer Punkt wäre die Architektur des Backends. Viele Abläufe sind bereits ausgelagert und
+                    könnten als eigene Module auch in anderen Projekten eingesetzt werden. Jedoch ist vor allem die
+                    app.js noch sehr voll von Methoden und Anwendungen, die in eigene Module ausgelagert werden könnten.
+                </p>
+            </article>
+            <article>
+                <h2 id="8-projektarbeit">8. Projektarbeit</h2>
+                <p>
+                    Zum Abschluss dieser Projekt-Dokumentation soll noch ein Blick auf
+                    dessen allgemeinen Ablauf und etwaige Schwierigkeiten, welche
+                    während des Prozesses aufgetaucht sind, eingegangen werden.
+                </p>
+                <h3>7.1 Arbeitsteilung</h3>
+                <p>
+                    Die Arbeitsteilung funktionierte leider nicht so gut, wie im Frontend-Design. Die gebildete Gruppe
+                    war gekennzeichnet von einseitiger und fehlender Kommunikation. Eine Arbeitsteilung wurde angeregt,
+                    jedoch auch nach mehrmaligen Nachfragen nicht umgesetzt. Und somit blieben alle Umsetzungen an mir
+                    alleine hängen, weshalb einige Features teiweilse rudimentär ausgeprägt sind.
+                </p>
+                <h3>7.2 Herausforderungen</h3>
+                <p>
+                    Die größten Herausforderungen waren zum einen der Scope, also die Frage, wie groß das Projekt werden
+                    soll. Zum anderen der Arbeitsumfang, welcher ohne Gruppenunterstützung immens zunahm. Des Weiteren
+                    musste die Frontend-Struktur teilweise neugedacht und dann umgesetzt werden. Dies warf teilweise
+                    starke Frontend Probleme auf, welche wiederum Zeit in Anspruch nahmen.
+                </p>
+            </article>
+            <article>
+                <h2 id="9-nutzungsrechte">9. Nutzungrechte</h2>
+                <p>
+                    CC0 1.0 Universell (CC0 1.0) Public Domain Dedication
+                </p>
+            </article>
+        </div>
+    </div>
+</main>
+{%endblock%}

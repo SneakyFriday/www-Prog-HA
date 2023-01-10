@@ -1,55 +1,6 @@
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles.css" />
-    <link
-      rel="icon"
-      href="/svgs/hochschule-flensburg.svg"
-      sizes="any"
-      type="image/svg+xml"
-    />
-    <title>Module</title>
-  </head>
+{% extends 'layout.html' %}
 
-  <body>
-    <header>
-      <div class="logo">
-        <a href="\index.html"
-          ><img
-            src="\svgs/logo-weiß.svg"
-            alt="Das Logo des Planetarium Flensburgs."
-            title="Planetarium Flensburg"
-        /></a>
-      </div>
-      <div class="title">
-        <h1>Planetarium Flensburg</h1>
-      </div>
-      <ul class="navbar-links">
-        <li><a href="\index.html" title="hier zur Startseite">Home</a></li>
-        <li>
-          <a
-            href="/html-pur/veranstaltungsreihe.html"
-            title="hier zur Übersicht der Veranstaltungen"
-            >Veranstaltungsreihe</a
-          >
-        </li>
-        <li>
-          <a href="/html-pur/bestellformular.html" title="hier Tickets kaufen"
-            >Tickets</a
-          >
-        </li>
-        <li>
-          <a
-            href="/html-pur/about.html"
-            title="weitere Informationen über das Planetarium"
-            >Über uns</a
-          >
-        </li>
-      </ul>
-    </header>
+{%block content%}
     <main>
       <div class="wrapper">
         <h1>Überschrift H1</h1>
@@ -90,12 +41,9 @@
           <li>Listen-Element</li>
         </ul>
         <!-- Button -->
-        <button type="submit" value="Bestellen">Ein normaler Button</button>
-        <div class="bestellFormular">
-          <button type="submit" value="Bestellen">
-            Ein stilisierter Button
-          </button>
-        </div>
+        <button type="submit" value="Bestellen">Ein Effekt-Button</button>
+        <a class="btn" type="submit">Ein normaler Button als Anchor-Tag</a>
+   
        <h2>Beispiel-Kachel</h2>
         <ul class="fun-facts-container">
           <li>
@@ -148,27 +96,14 @@
       <fieldset>
         <legend>Veranstaltungsdatum</legend>
         <input name="date" type="datetime-local">
-      </fieldset> 
-    </form><button type="submit" value="Bestellen">Vorbestellen</button>
-</div>
-</div>
-    </main>
-    <footer>
-      <ul>
-        <li>
-          <a href="/kolophon.html">Kolophon</a>
-        </li>
-        <li>
-          <a href="index.html">Dokumentation</a>
-        </li>
-        <li class="impressum">
-          <a href="/html-pur/impressum.html" title="Impressum">Impressum</a>
-        </li>
-        <li>
-          <a href="/html-pur/dsgvo.html" title="Datenschutzerklärung">DSGVO</a>
-        </li>
-      </ul>
-      <p>&#169; Fiona Nissen & Marc Freitag</p>
-    </footer>
-  </body>
-</html>
+      </fieldset>
+      <section>
+        <label for="newsletter">Newsletter abonnieren</label>
+        <input type="checkbox" id="newsletter" name="newsletter">
+      </section>
+      <button type="submit" value="Bestellen">Vorbestellen</button> 
+    </form>
+    </div>
+  </div>
+</main>
+{%endblock%}
