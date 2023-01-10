@@ -112,6 +112,9 @@ export const handleRequest = async (request) => {
   router.get("/dsgvo", controller.dsgvo);
   router.get("/impressum", controller.impressum);
   router.get("/veranstaltungsreihe", controller.veranstaltungsreihe);
+  router.get("/fun_facts", controller.fun_facts);
+  router.get("/meteorschauer", controller.fun_facts);
+  router.get("/nasa_missionen", controller.nasa_missionen);
 
   router.get("/dokumentation", controller.dokumentation);
   router.get("/dokumentation/www", controller.dokumentation_www);

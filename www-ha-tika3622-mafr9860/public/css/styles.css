@@ -257,6 +257,10 @@ p {
   -ms-hyphens: auto;
 }
 
+.underConstruction {
+  text-align: center;
+}
+
 .liste li::before {
   content: url("/svgs/star.svg");
   display: inline-block;

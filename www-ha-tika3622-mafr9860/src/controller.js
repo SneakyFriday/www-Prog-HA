@@ -146,6 +146,42 @@ export function kolophon(ctx) {
 }
 
 /**
+ * Controller des Templates für die fun_facts-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function fun_facts(ctx) {
+  ctx.response.body = ctx.nunjucks.render("fun_facts.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die meteorschauer-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function meteorschauer(ctx) {
+  ctx.response.body = ctx.nunjucks.render("meteorschauer.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
+ * Controller des Templates für die nasa_missionen-Seite
+ * @param {Object} ctx
+ * @returns {Object}
+ */
+export function nasa_missionen(ctx) {
+  ctx.response.body = ctx.nunjucks.render("nasa_missionen.html");
+  ctx.response.status = 200;
+  ctx.response.headers["content-type"] = "text/html";
+  return ctx;
+}
+
+/**
  * Controller des Templates für die dokumentation-Seite
  * @param {Object} ctx
  * @returns {Object}

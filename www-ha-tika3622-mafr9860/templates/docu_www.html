@@ -313,15 +313,24 @@
             <article>
                 <h2 id="4-datenbank">4. Datenbankanbindung</h2>
                 <p>
-                    ...
+                    Damit Daten der Website persistent gespeichert werden können und bei jedem Seiten-Aufruf zur
+                    Verfügung stehen, bedarf es einer Datenbank. In diesem Fall handelt es sich um eine
+                    SQLite-Datenbank. Die Datenbank selbst sowie ihre jeweiligen Tables werden in der app.js erstellt,
+                    sollten sie nicht bereits vorhanden sein. Wie bereits erläutert, handhabt überwiegend die model.js
+                    die Datenbankaufrufe mit SQL-Anfragen. Die mittels Deno-Modul initialisierte Datenbank wird dem
+                    Context-Objekt übergeben, damit die Middleware auf sie zugreifen kann.
                 </p>
                 <h3>4.1 Aufbau und Struktur</h3>
                 <p>
-                    ...
+                    Aktuell hat die Datenbank vier Tables, über die Daten verarbeitet werden. Dies wäre zum einen die
+                    Veranstaltung, die über einen Namen, ein Datum, einen Preis, eine Beschreibung sowie eine Uhrzeit
+                    verfügt. Die ID dient im nächsten Table "ticketInfos" als Fremdschlüssel für "veranstaltungsID",
+                    damit bei einer Reservierung direkt eine Verbindung zur jeweiligen Veranstaltung und dessen
+                    Informationen besteht.
                 </p>
                 <h3>4.2 Anbindung</h3>
                 <p>
-                    ...
+                    ..
                 </p>
             </article>
             <article>
