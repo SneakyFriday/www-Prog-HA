@@ -1,6 +1,7 @@
 import * as model from "../model.js";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts"
 import { debug as Debug } from "https://deno.land/x/debug@0.2.0/mod.ts";
+import * as csrf from "../middleware/handleCSRF.js";
 
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:login");
@@ -46,8 +47,13 @@ export function errorHandler(data) {
 
 export function render(ctx) {
     debug("@add. ctx %O", ctx.request.url);
+    // CSRF Handling
+    const token = csrf.generateToken();
+    ctx.session.csrf = token;
+
     ctx.response.body = ctx.nunjucks.render("login.html", {
       ...ctx.state,
+      csrf: token,
     });
     ctx.response.status = 200;
     ctx.response.headers["content-type"] = "text/html";
@@ -72,11 +78,22 @@ export function render(ctx) {
     // Error-Handling
     const errors = errorHandler(data);
 
+    // Check CSRF Token
+    if(ctx.session.csrf !== formData._csrf) {
+      ctx.throw(403);
+    }
+    ctx.session.csrf = undefined;
+
     // Render Form with Errors
     if(Object.values(errors).length > 0) {
+      // CSRF Handling
+      const token = csrf.generateToken();
+      ctx.session.csrf = token;
+
       errors.login = 'Diese Kombination aus Benutzername und Passwort ist nicht gültig.';
       ctx.response.body = ctx.nunjucks.render("login.html", {
         errors: errors,
+        csrf: token,
       });
       ctx.response.status = 200;
     } else {

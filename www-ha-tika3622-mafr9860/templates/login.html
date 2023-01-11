@@ -5,6 +5,7 @@
   <main>
     <div class="wrapper">
         <form class="loginContainer" action="#" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrf }}">
             <fieldset>
                 {% if errors.login %}<p class="Form-error">{{errors.login}}</p>{% endif %}
                 <p><label for="username">Benutzername</label>

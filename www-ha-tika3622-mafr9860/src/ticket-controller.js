@@ -61,7 +61,7 @@ export function add(ctx) {
 
   // CSRF Handling
   const token = csrf.generateToken();
-  //ctx.session.token = token;
+  ctx.session.csrf = token;
   ctx.response.body = ctx.nunjucks.render("tickets.html", {
     csrf: token,
   });
@@ -107,15 +107,29 @@ export async function submitPurchase(ctx) {
   console.log(`Errors: ${Object.values(errors).length}`);
 
   // Check CSRF Token
-  if(ctx.session.csrf !== form._csrf) {
+  if(ctx.session.csrf !== formData._csrf) {
     ctx.throw(403);
   }
   ctx.session.csrf = undefined;
-  ctx.response.body = ctx.nunjucks.render("tickets.html", {
-    data: data,
-    errors: errors,
-  });
-  ctx.response.status = 200;
-  ctx.response.headers["content-type"] = "text/html";
-  return ctx;
+  if(Object.values(errors).length > 0) {
+    // CSRF Handling
+    const token = csrf.generateToken();
+    ctx.session.csrf = token;
+
+    ctx.response.body = ctx.nunjucks.render("tickets.html", {
+      data: data,
+      errors: errors,
+      csrf: token,
+    });
+    ctx.response.status = 200;
+    ctx.response.headers["content-type"] = "text/html";
+    return ctx;
+  } else {
+    ctx.response.body = ctx.nunjucks.render("tickets.html", {
+      data: data,
+    });
+    ctx.response.status = 200;
+    ctx.response.headers["content-type"] = "text/html";
+    return ctx;
+  }
 }

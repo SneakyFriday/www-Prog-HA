@@ -313,15 +313,24 @@
             <article>
                 <h2 id="4-datenbank">4. Datenbankanbindung</h2>
                 <p>
-                    ...
+                    Damit Daten der Website persistent gespeichert werden können und bei jedem Seiten-Aufruf zur
+                    Verfügung stehen, bedarf es einer Datenbank. In diesem Fall handelt es sich um eine
+                    SQLite-Datenbank. Die Datenbank selbst sowie ihre jeweiligen Tables werden in der app.js erstellt,
+                    sollten sie nicht bereits vorhanden sein. Wie bereits erläutert, handhabt überwiegend die model.js
+                    die Datenbankaufrufe mit SQL-Anfragen. Die mittels Deno-Modul initialisierte Datenbank wird dem
+                    Context-Objekt übergeben, damit die Middleware auf sie zugreifen kann.
                 </p>
                 <h3>4.1 Aufbau und Struktur</h3>
                 <p>
-                    ...
+                    Aktuell hat die Datenbank vier Tables, über die Daten verarbeitet werden. Dies wäre zum einen die
+                    Veranstaltung, die über einen Namen, ein Datum, einen Preis, eine Beschreibung sowie eine Uhrzeit
+                    verfügt. Die ID dient im nächsten Table "ticketInfos" als Fremdschlüssel für "veranstaltungsID",
+                    damit bei einer Reservierung direkt eine Verbindung zur jeweiligen Veranstaltung und dessen
+                    Informationen besteht.
                 </p>
                 <h3>4.2 Anbindung</h3>
                 <p>
-                    ...
+                    ..
                 </p>
             </article>
             <article>
@@ -390,17 +399,11 @@
                 </p>
                 <h3>7.1 Arbeitsteilung</h3>
                 <p>
-                    Die Arbeitsteilung funktionierte leider nicht so gut, wie im Frontend-Design. Die gebildete Gruppe
-                    war gekennzeichnet von einseitiger und fehlender Kommunikation. Eine Arbeitsteilung wurde angeregt,
-                    jedoch auch nach mehrmaligen Nachfragen nicht umgesetzt. Und somit blieben alle Umsetzungen an mir
-                    alleine hängen, weshalb einige Features teiweilse rudimentär ausgeprägt sind.
+
                 </p>
                 <h3>7.2 Herausforderungen</h3>
                 <p>
-                    Die größten Herausforderungen waren zum einen der Scope, also die Frage, wie groß das Projekt werden
-                    soll. Zum anderen der Arbeitsumfang, welcher ohne Gruppenunterstützung immens zunahm. Des Weiteren
-                    musste die Frontend-Struktur teilweise neugedacht und dann umgesetzt werden. Dies warf teilweise
-                    starke Frontend Probleme auf, welche wiederum Zeit in Anspruch nahmen.
+                    
                 </p>
             </article>
             <article>

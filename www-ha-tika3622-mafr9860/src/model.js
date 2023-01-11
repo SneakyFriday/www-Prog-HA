@@ -156,3 +156,16 @@ export async function getCredentials(db, username) {
     return result[0][0];
   }
 }
+
+export async function getUserById(db, id) {
+  const sql = `
+  SELECT username FROM sessions
+  WHERE id=:id
+  `;
+  const result = await db.query(sql, {id: id});
+  console.log(`
+  Session ID: ${id}
+  Session Username: ${result}
+  `);
+  return user;
+}
