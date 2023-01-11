@@ -15,6 +15,22 @@ import * as session from "./middleware/sessions.js";
 import * as serveStatic from "./middleware/serveStatic.js";
 import { isAuthenticated } from "./middleware/authentification.js";
 
+/**
+ * TODO:
+ * - Login persistent
+ * - Logout / Login Anzeige in HTML je nach Status
+ * - CSRF Token in DB speichern und bei jeder Abfrage überprüfen
+ * - Bild Upload entfernen. Veranstaltungen mit Bildern als "Featured Veranstaltungen" deklarieren
+ * - Veranstaltungsdaten je nach Dropdown Menu Auswahl anzeigen lassen
+ * -- Veranstaltungsname - Zeiten als checkbox mit Uhrzeit Text und Value
+ *            <input type="checkbox" id="time" name="time" value={data.time}>
+              <label for="time">{data.time}</label>
+  - Bei Bestellung mit übermitteln und in DB speichern
+              
+ */
+
+
+
 // Deno Debug-Tool anstatt "Console.log()"
 const debug = Debug("app:login");
 
@@ -76,6 +92,14 @@ db.execute(`
     "comment"	TEXT NOT NULL,
     PRIMARY KEY("id" AUTOINCREMENT)
   );
+`);
+
+// Table für Nutzer Sessions
+db.execute(`
+CREATE TABLE if not exists "userSession" (
+	"username"	TEXT,
+	"sessionId"	INTEGER
+);
 `);
 
 /**
