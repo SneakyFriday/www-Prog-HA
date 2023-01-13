@@ -7,41 +7,33 @@
 
     <p>In unserer neuesten Veranstaltungsreihe bekommst du allerlei spannende
       Informationen zu Themen des Weltalls</p>
-
-    <ul class="contentCardContainer">
-      <li>
-        <a href="/fun_facts"><img src="/pictures/satellit.jpg" alt="Veranstaltungen" /></a>
-        <div>
-          <h4><b>Fun-Facts</b></h4>
-          <p>
-            Bei der NASA gibt es nicht nur schwer verständliche Wissenschaft,
-            sondern auch lustige Geschichten. Neugierig? Dann lies hier
-            weiter.
-          </p>
-        </div>
-      </li>
-      <li>
-        <a href="/meteorschauer"><img src="/pictures/meteorschauer2.jpg" alt="Veranstaltungen" /></a>
-        <div>
-          <h4><b>Meteorschauer</b></h4>
-          <p>
-            Tolle Hintergrund-Informationen zu vergangenen und bevorstehenden
-            Meteorströmen. So entgeht dir keine Sternschnuppennacht mehr.
-          </p>
-        </div>
-      </li>
-
-      <li>
-        <a href="/nasa_missionen"><img src="/pictures/jet-plane.jpg" alt="Veranstaltungen" /></a>
-        <div>
-          <h4><b>NASA-Missionen</b></h4>
-          <p>
-            Erfahre hier alles über die wichtigsten NASA-Missionen. Reise mit
-            uns zum Mond oder Mars!
-          </p>
-        </div>
-      </li>
-    </ul>
-  </div>
-  </main>
+      <!-- <img src="/upload/e8062f70-551f-402b-9974-7408e48ee50d.jpeg" alt="Girl in a jacket" width="100" height="100"> -->
+      {% for elements in veranstaltungen %}
+      <ul class="contentCardContainer">
+        <li>          
+          <div>
+            {%if elements.bild != null %}
+            <img src="{{elements.bild}}" alt="{{elements.name}}">
+            {%endif%}
+           
+            <h4><b>{{elements.name}}</b></h4>
+            <p>
+              {{elements.beschreibung}}
+            </p>
+            <div class="rechtsbuendig">
+              <p>
+                Preis: {{elements.preis}} €
+              </p>
+              <p>
+                Datum: {{elements.datum}}
+              </p>
+              <p>
+                Um: {{elements.uhrzeit}} Uhr
+              </p>
+            </div>
+          </div>
+        </li>
+      {% endfor%}
+      </div>
+    </main>
 {%endblock%}

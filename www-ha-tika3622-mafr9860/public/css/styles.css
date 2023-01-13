@@ -662,6 +662,12 @@ legend {
   font-weight: bold;
 }
 
+.rechtsbuendig{
+  margin-left: auto;
+  margin-right: 0;
+  float: right;
+}
+
 .contentCardContainer,
 .fun-facts-container {
   display: block; /* Fallback */

@@ -71,6 +71,7 @@ db.execute(`
     "preis"	TEXT NOT NULL,
     "beschreibung"	TEXT NOT NULL DEFAULT 'Beschreibung',
     "uhrzeit"	TEXT NOT NULL DEFAULT '0:00',
+    "bild" TEXT,
     PRIMARY KEY("id" AUTOINCREMENT)
   );
 `);
@@ -113,10 +114,10 @@ export const handleRequest = async (request) => {
     database: db,
     nunjucks: nunjucks,
     request: request,
-    session: {
+    /* session: {
       user: {},
       flash: '',
-    },
+    }, */
     params: {},
     response: {
       body: undefined,
@@ -156,7 +157,7 @@ export const handleRequest = async (request) => {
   router.post("/cms_delete", cmsController.deleteEvent);
 
   router.get("/apod", apiController.usefetchedAPI);
-  router.post("/apod", apiController.sendComment);
+  router.post("/apod", isAuthenticated, apiController.sendComment);
 
   router.get("/tickets", ticketController.add);
   router.post("/tickets", ticketController.submitPurchase);

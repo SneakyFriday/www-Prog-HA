@@ -29,7 +29,8 @@
                     <input type="number" step="0.01" name="price" id="price" value="0,00" autofocus required>
                 </label>
                 <label for="form_file">Bild Upload
-                    <input type="file" name="upload" id="form_file" value="">
+                    {% if errors.img %}<p class="Form-error">{{errors.img}}</p>{% endif %}
+                    <input type="file" name="upload" id="form_file" value="" accept="image/jpeg, image/png, image/jpg, image/tif, image/gif">
                 </label>
             </fieldset>
         <button type="submit" name="btn-submit" value="anlegen">Anlegen</button>

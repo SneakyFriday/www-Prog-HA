@@ -43,8 +43,8 @@ export async function getAllEvents(db) {
  */
 export async function addEvent(db, newEntry) {
   const sql =
-    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit) VALUES (:title, :date, :price, :description, :time)";
-  //console.log(newEntry);
+    "INSERT INTO veranstaltungen (name, datum, preis, beschreibung, uhrzeit, bild) VALUES (:title, :date, :price, :description, :time, :img)";
+  console.log(newEntry);
   const result = await db.query(sql, newEntry);
   return db.lastInsertRowId;
 }
@@ -76,7 +76,8 @@ export async function updateEvent(db, newEntry) {
         datum = :date,
         preis = :price,
         beschreibung = :description,
-        uhrzeit = :time
+        uhrzeit = :time,
+        bild = :img
     WHERE
         name = :title
     `;
@@ -87,6 +88,7 @@ export async function updateEvent(db, newEntry) {
     description: newEntry.description,
     time: newEntry.time,
     title: newEntry.title,
+    img: newEntry.img
   });
   return db.lastInsertRowId;
 }
@@ -129,9 +131,21 @@ export async function addTicket(db, newEntry) {
 export async function addComment(db, newEntry) {
   const sql =
   "INSERT INTO userComments (username, comment) VALUES (:username, :comment)";
-  //console.log(newEntry);
-  const result = await db.query(sql, newEntry);
+  console.log(newEntry.comment);
+  const profanity = profanityFilter(newEntry.comment);
+  console.log(profanity);
+  if(!profanity){
+    const result = await db.query(sql, newEntry);    
+  }
   return db.lastInsertRowId;
+}
+
+export function profanityFilter(input) {
+  const inputData = input.toLowerCase();
+  const inputDataSplitted = inputData.split(' ');
+  console.log(inputDataSplitted);
+  const profanityArray = ['penis', 'scheiße', 'profanity'];
+  return profanityArray.some((element) => inputDataSplitted.includes(element));
 }
 
 /**
@@ -159,13 +173,13 @@ export async function getCredentials(db, username) {
 
 export async function getUserById(db, id) {
   const sql = `
-  SELECT username FROM sessions
-  WHERE id=:id
+  SELECT username FROM userSession
+  WHERE sessionId=:id
   `;
   const result = await db.query(sql, {id: id});
   console.log(`
   Session ID: ${id}
   Session Username: ${result}
   `);
-  return user;
+  return result;
 }

@@ -28,9 +28,12 @@ export function index(ctx) {
  * @param {Object} ctx
  * @returns {Object}
  */
-export function veranstaltungsreihe(ctx) {
+export async function veranstaltungsreihe(ctx) {
   debug("@veranstaltungsreihe. ctx %O", ctx.request.url);
-  ctx.response.body = ctx.nunjucks.render("veranstaltungsreihe.html");
+  const data = await model.getAllEvents(ctx.database)
+  ctx.response.body = ctx.nunjucks.render("veranstaltungsreihe.html", {
+    veranstaltungen: data,
+  });
   ctx.response.status = 200;
   ctx.response.headers["content-type"] = "text/html";
   return ctx;
